@@ -1,0 +1,50 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "WebApi.Controller/1.0.0": {
+        "dependencies": {
+          "WebApi.Business": "1.0.0",
+          "WebApi.Domain": "1.0.0"
+        },
+        "runtime": {
+          "WebApi.Controller.dll": {}
+        }
+      },
+      "WebApi.Business/1.0.0": {
+        "dependencies": {
+          "WebApi.Domain": "1.0.0"
+        },
+        "runtime": {
+          "WebApi.Business.dll": {}
+        }
+      },
+      "WebApi.Domain/1.0.0": {
+        "runtime": {
+          "WebApi.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WebApi.Controller/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WebApi.Business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WebApi.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

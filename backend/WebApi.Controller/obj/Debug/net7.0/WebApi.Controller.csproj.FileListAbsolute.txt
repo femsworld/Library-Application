@@ -1,0 +1,17 @@
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\bin\Debug\net7.0\WebApi.Controller.deps.json
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\bin\Debug\net7.0\WebApi.Controller.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\bin\Debug\net7.0\WebApi.Controller.pdb
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\bin\Debug\net7.0\WebApi.Business.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\bin\Debug\net7.0\WebApi.Domain.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\bin\Debug\net7.0\WebApi.Business.pdb
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\bin\Debug\net7.0\WebApi.Domain.pdb
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.csproj.AssemblyReference.cache
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.AssemblyInfoInputs.cache
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.AssemblyInfo.cs
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.csproj.CoreCompileInputs.cache
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.csproj.CopyComplete
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\refint\WebApi.Controller.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.pdb
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\ref\WebApi.Controller.dll
