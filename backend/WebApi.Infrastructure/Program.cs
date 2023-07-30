@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddScoped<IMiddleware, LoggingMiddleware>();
+builder.Services.AddScoped<LoggingMiddleware>();
+builder.Services.AddScoped<ErrorHandlerMiddware>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBookService, BookService>();
 
@@ -26,10 +27,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<LoggingMiddleware>();
+
+app.UseMiddleware<ErrorHandlerMiddware>();
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<LoggingMiddleware>();
 
 app.UseAuthorization();
 

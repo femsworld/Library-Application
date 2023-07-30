@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using WebApi.Business.Dto;
@@ -23,6 +24,8 @@ namespace WebApi.Business.Services.Implementations
         }
         public UserDto CreateUser(UserDto userDto)
         {
+            var user = _mapper.Map<User>(userDto);
+            user.Password = Encoding.UTF8.GetBytes(userDto.Password);
             // var createdUser = new User { Name = userDto.Name, Email = userDto.Email, Password = userDto.Password};
             var createdUser = _mapper.Map<User>(userDto);
             _users.Add(createdUser);
@@ -37,7 +40,10 @@ namespace WebApi.Business.Services.Implementations
         public UserDto GetUserById(Guid id)
         {
             var foundUser = _users.Find(x => x.Id == id);
-            // var userDto = new UserDto { Name = foundUser.Name, Email = foundUser.Email, Password = foundUser.Password };
+            if (foundUser is null)
+            {
+                throw new Exception("Error not found");
+            }
             var userDto = _mapper.Map<UserDto>(foundUser);
             return userDto;
         }

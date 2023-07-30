@@ -10,8 +10,8 @@ namespace WebApi.Business.Middlewares
     {
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            await context.Response.WriteAsync("request failed");
-            // await next(context);
+            // await context.Response.WriteAsync("request failed");
+            await next(context);
         }
     }
 }

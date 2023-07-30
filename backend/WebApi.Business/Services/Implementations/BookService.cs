@@ -34,7 +34,7 @@ namespace WebApi.Business.Services.Implementations
 
         public BookDto GetBookById(Guid id)
         {
-            var foundBook = _books.FirstOrDefault(x => x.Id == id);
+            var foundBook = _books.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Error not found");
             var bookDto = _mapper.Map<BookDto>(foundBook);
             return bookDto;
         }

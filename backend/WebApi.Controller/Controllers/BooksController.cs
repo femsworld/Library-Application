@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Business.Dto;
+using WebApi.Business.Services.Abstractions;
 using WebApi.Domain.Entities;
 
 namespace WebApi.Controller.Controllers
@@ -11,6 +13,13 @@ namespace WebApi.Controller.Controllers
     [Route("api/v1/[controller]")]
     public class BooksController : ControllerBase
     {
+        private readonly IBookService _bookService;
+
+        public BooksController(IBookService bookService)
+        {
+            _bookService = bookService;
+        }
+
         private readonly List<string> _books = new() {"Ake", "Ibadan", "Horses", "Orile", "Ijoko"};
 
         [HttpGet]
@@ -32,6 +41,16 @@ namespace WebApi.Controller.Controllers
             if (_books.Count % pageSize !=0 ) totalPages += 1;
             var response = new GetAllBookResponse(totalPages, result);
             return response;
+        }
+
+        [HttpGet("{id:Guid}")]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        public BookDto  GetBookById(Guid id)
+        {
+            // var foundBook = _bookService.GetBookById(id);
+            return _bookService.GetBookById(id);
         }
 
         [HttpPost]
