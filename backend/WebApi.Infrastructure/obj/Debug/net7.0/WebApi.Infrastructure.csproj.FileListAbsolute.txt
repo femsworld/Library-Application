@@ -37,3 +37,14 @@ C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\W
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\WebApi.Controller.pdb
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\WebApi.Business.pdb
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\WebApi.Domain.pdb
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.CodeAnalysis.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\System.Security.Permissions.dll
