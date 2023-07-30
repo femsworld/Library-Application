@@ -13,9 +13,9 @@ namespace WebApi.Business.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly List<User> _users = new() {
-            new User { Name = "Admin", Address = { PostCode = "000", State = "Kuo", Street = "Kuo st"}, Email = "admin@mail.com", Password = "admin123", Role = Role.Admin, Id = Guid.NewGuid(), },
-            new User { Name = "Femi", Address = { PostCode = "000", State = "Kuo", Street = "Kuo st"}, Email = "femi@mail.com", Password = "femi123", Role = Role.Client, Id = Guid.NewGuid(), },
-            new User { Name = "Ade", Address = { PostCode = "000", State = "Kuo", Street = "Kuo st"}, Email = "ade@mail.com", Password = "ade123", Role = Role.Librarian, Id = Guid.NewGuid(), } 
+            new User { Name = "Admin", Address = { PostCode = "000", State = "Kuo", Street = "Kuo st"}, Email = "admin@mail.com", Password = {}, Role = Role.Admin, Id = Guid.NewGuid(), },
+            new User { Name = "Femi", Address = { PostCode = "000", State = "Kuo", Street = "Kuo st"}, Email = "femi@mail.com", Password = {}, Role = Role.Client, Id = Guid.NewGuid(), },
+            new User { Name = "Ade", Address = { PostCode = "000", State = "Kuo", Street = "Kuo st"}, Email = "ade@mail.com", Password = {}, Role = Role.Librarian, Id = Guid.NewGuid(), } 
         };
         public UserService(IMapper mapper)
         {
@@ -44,6 +44,22 @@ namespace WebApi.Business.Services.Implementations
 
         public UserDto UpdateUser(Guid id, UserDto userDto)
         {
+            // Console.WriteLine("user service start");
+            // var foundUser = _userRepo.GetUserById(id);
+            // Console.WriteLine(userDto.Name);
+            // if (userDto.Name == null || (userDto.Name == ""))
+            // {
+            //     userDto.Name = foundUser.Name;
+            // }
+            // if (userDto.Email == null || (userDto.Email == ""))
+            // {
+            //     userDto.Email = foundUser.Email;
+            // }
+            // Console.WriteLine(userDto.Name);
+            // var updatedUser = _userRepo.UpdateUser(foundUser, userDto);
+            // var updatedDto= _mapper.Map<UserDto>(updatedUser);
+            // updatedDto.Password = userDto.Password;
+            // return updatedDto;
             throw new NotImplementedException();
         }
     }

@@ -48,3 +48,5 @@ C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\W
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\System.Security.Permissions.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
