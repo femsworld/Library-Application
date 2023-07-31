@@ -15,3 +15,5 @@ C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\W
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\refint\WebApi.Controller.dll
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.pdb
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\ref\WebApi.Controller.dll
+c:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\bin\Debug\net7.0\WebApi.Controller.runtimeconfig.json
+c:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Controller\obj\Debug\net7.0\WebApi.Controller.genruntimeconfig.cache

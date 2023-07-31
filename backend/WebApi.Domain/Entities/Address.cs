@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Domain.Entities
 {
-    public class Address
+    public class Address : BaseEnity
     {
         public string Street { get; set; } = default!;
         public string State { get; set; } = default!;

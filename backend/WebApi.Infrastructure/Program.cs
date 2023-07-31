@@ -1,8 +1,11 @@
 using WebApi.Business.Middlewares;
 using WebApi.Business.Services.Abstractions;
 using WebApi.Business.Services.Implementations;
+using WebApi.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<DatabaseContext>();
 
 // Add services to the container.
 
