@@ -1,3 +1,4 @@
+using System.Text;
 using AutoMapper;
 using WebApi.Business.Dto;
 using WebApi.Domain.Entities;
@@ -8,10 +9,11 @@ namespace WebApi.Business
     {
         public AutoMapperProfile()
         {
-             CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
             CreateMap<Book, BookDto>();
             CreateMap<BookDto, Book>();
+          
         }
     }
 }

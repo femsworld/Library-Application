@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Business.Middlewares
 {
@@ -14,9 +15,15 @@ namespace WebApi.Business.Middlewares
             try
             {
                 await next(context);
-            }catch (Exception e)
+            }
+            catch (DbUpdateException e)
             {
-                // context.Response.StatusCode = 400;
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(e.Message);
+            }
+            catch (Exception e)
+            {
+                context.Response.StatusCode = 500;
                await context.Response.WriteAsync(e.ToString());
             }
         }

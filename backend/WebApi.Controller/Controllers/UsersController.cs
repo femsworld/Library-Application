@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
@@ -50,6 +46,9 @@ namespace WebApi.Controller.Controllers
         }
 
         [HttpPost()]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
         public UserDto CreateUser([FromBody] UserDto userDto)
         {
             return _userService.CreateUser(userDto);
@@ -57,6 +56,9 @@ namespace WebApi.Controller.Controllers
 
         // [Authorize(Policy = "AdminOnly")]
         [HttpPatch("{id:Guid}")]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
         public UserDto UpdateUser([FromRoute] Guid id, [FromBody] UserDto update)
         {
             return _userService.UpdateUser(id, update);
