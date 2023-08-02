@@ -15,26 +15,17 @@ namespace WebApi.Controller.Controllers
             _userService = userService;
         }
 
-        // [HttpGet]
-        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
-        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
-        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        // public ActionResult<GetAllUserResponse>  GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 2)
-        // {
-        //     if (page < 0 || pageSize < 0)
-        //     {
-        //         return BadRequest("page or pageSize cannot be negative");
-        //     }
-        //     if (page == 0)
-        //     {
-        //         return Ok (new GetAllUserResponse(1, _users));
-        //     }
-        //     var result = _users.Skip((page-1)*pageSize).Take(pageSize).ToList();
-        //     var totalPages = _users.Count/pageSize;
-        //     if (_users.Count % pageSize !=0 ) totalPages += 1;
-        //     var response = new GetAllUserResponse(totalPages, result);
-        //     return response;
-        // }
+        
+
+        [HttpGet]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        public IActionResult GetAllUsers()
+        {
+            var users = _userService.GetAllUsers();
+            return Ok(users);
+        }
 
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
@@ -62,6 +53,20 @@ namespace WebApi.Controller.Controllers
         public UserDto UpdateUser([FromRoute] Guid id, [FromBody] UserDto update)
         {
             return _userService.UpdateUser(id, update);
+        }
+
+        [HttpDelete("{id:Guid}")]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        public IActionResult DeleteUser(Guid id)
+        {
+           var deleteUser = _userService.DeleteUser(id);
+           if (deleteUser == null)
+           {
+            return NotFound();
+           }
+           return Ok(deleteUser);
         }
     }
 

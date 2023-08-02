@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using WebApi.Business.Dto;
 using WebApi.Business.RepoAbstractions;
 using WebApi.Domain.Entities;
 using WebApi.Infrastructure.Database;
@@ -25,19 +24,33 @@ namespace WebApi.Infrastructure.RepoImplementations
             return user;
         }
 
+        public User DeleteUser(Guid id)
+        {
+            var userToDelete = _users.Find(id);
+            if (userToDelete != null)
+            {
+                _users.Remove(userToDelete);
+            }
+            _context.SaveChanges();
+            return userToDelete;
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return _users.ToList();
         }
 
         public User GetUserById(Guid id)
         {
-            throw new NotImplementedException();
+            return _users.Find(id);
         }
 
         public User UpdateUser(User user, User update)
         {
-            throw new NotImplementedException();
+            user.Name = update.Name ?? user.Name;
+            user.Email = update.Email ?? user.Email;
+            _context.SaveChanges();
+            return user;
         }
 
         public User VerifyCredentials(string email, string password)

@@ -9,5 +9,6 @@ namespace WebApi.Business.RepoAbstractions
         User CreateUser(User user);
         User UpdateUser(User user, User update);
         User VerifyCredentials(string email, string password);
+        User DeleteUser (Guid id);
     }
 }
