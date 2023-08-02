@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using WebApi.Business.Dto;
+using WebApi.Business.RepoAbstractions;
 using WebApi.Business.Services.Abstractions;
 using WebApi.Domain.Entities;
 
@@ -12,19 +9,20 @@ namespace WebApi.Business.Services.Implementations
     public class BookService : IBookService
     {
         private readonly IMapper _mapper;
+        private readonly IBookRepo _bookRepo;
         private readonly List<Book> _books = new() {
             new Book { Title = "Sunshine", Authors= {}, Id = Guid.NewGuid() },
         };
-        public BookService(IMapper mapper)
+        public BookService(IMapper mapper, IBookRepo bookRepo)
         {
             _mapper = mapper;
+            _bookRepo = bookRepo;
         }
         public BookDto AddBook(BookDto bookDto)
         {
-            // var newbook = new Book {Title = bookDto.Title, Authors = bookDto.Authors};
-            var newbook = _mapper.Map<Book>(bookDto);
-            _books.Add(newbook);
-            return bookDto;
+            var book = _mapper.Map<Book>(bookDto);
+            var newbook = _bookRepo.AddBook(book);
+            return _mapper.Map<BookDto>(newbook);
         }
 
         public BookDto DeleteBook(Guid id)

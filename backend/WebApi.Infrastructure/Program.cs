@@ -1,3 +1,4 @@
+using WebApi.Business;
 using WebApi.Business.Middlewares;
 using WebApi.Business.RepoAbstractions;
 using WebApi.Business.Services.Abstractions;
@@ -19,8 +20,10 @@ builder.Services.AddScoped<LoggingMiddleware>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IBookRepo, BookRepo>();
 
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
+// builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

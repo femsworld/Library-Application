@@ -23,6 +23,7 @@ namespace WebApi.Business.Services.Implementations
         }
         public UserDto CreateUser(UserDto userDto)
         {
+            // var user = _mapper.Map<User>(userDto);
             var user = _mapper.Map<User>(userDto);
             // user.Password = Encoding.UTF8.GetBytes(userDto.Password);
             var createdUser = _userRepo.CreateUser(user);
@@ -61,7 +62,21 @@ namespace WebApi.Business.Services.Implementations
 
         public UserDto UpdateUser(Guid id, UserDto userDto)
         {
-            throw new NotImplementedException();
+            var foundUser = _userRepo.GetUserById(id);
+            if (userDto.Name == null || (userDto.Name == ""))
+            {
+                userDto.Name = foundUser.Name;
+            }
+            if (userDto.Email == null || (userDto.Email == ""))
+            {
+                userDto.Email = foundUser.Email;
+            }
+            var updatedUser = _userRepo.UpdateUser(foundUser, userDto);
+            var updatedDto= _mapper.Map<UserDto>(updatedUser);
+            updatedDto.Password = userDto.Password;
+            return updatedDto;
+
+            // throw new NotImplementedException();
         }
     }
 }
