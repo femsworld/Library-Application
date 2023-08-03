@@ -16,7 +16,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddScoped<LoggingMiddleware>();
-// builder.Services.AddScoped<ErrorHandlerMiddware>();
+builder.Services.AddScoped<ErrorHandlerMiddware>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -38,7 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseMiddleware<LoggingMiddleware>();
 
-// app.UseMiddleware<ErrorHandlerMiddware>();
+app.UseMiddleware<ErrorHandlerMiddware>();
 
 app.UseHttpsRedirection();
 

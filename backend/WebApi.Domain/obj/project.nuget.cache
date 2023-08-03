@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kcpS7nCfFFEVQDwS+vS7zV8z7smsBMGlvBt+RG24NFKj2a1unkG6ImC752K4df0Rh5fRPhFREtTHAupuY0/38Q==",
+  "dgSpecHash": "BIKh64LrMeVGbH3fGgJ8CLXB9gmiZe7Lkp8gVx7LRi0ULNSNdEvmk4Ma6y0ND1Y0eZ6mnVhB+d6y7xSbZJyh1g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj",
+  "projectFilePath": "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ennie\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

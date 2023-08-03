@@ -22,15 +22,7 @@ namespace WebApi.Business.Services.Implementations
             // user.Password = Encoding.UTF8.GetBytes(userDto.Password);
             var createdUser = _userRepo.CreateUser(user);
             return _mapper.Map<UserDto>(createdUser);
-
-            // var user = _mapper.Map<User>(userDto);
-            // user.Password = Encoding.UTF8.GetBytes(userDto.Password);
-            // var createdUser = _userRepo.CreateUser(user);
-            // var createdUserDto = _mapper.Map<UserDto>(createdUser);
-            // createdUserDto.Password = Encoding.UTF8.GetString(createdUser.Password);
-            // return createdUserDto;
         }
-
 
         public UserDto DeleteUser(Guid id)
         {
@@ -46,32 +38,12 @@ namespace WebApi.Business.Services.Implementations
 
         public UserDto GetUserById(Guid id)
         {
-            // var foundUser = _users.Find(x => x.Id == id);
-            // if (foundUser is null)
-            // {
-            //     throw new Exception("Error not found");
-            // }
-            // var userDto = _mapper.Map<UserDto>(foundUser);
-            // return userDto;
             var foundUser = _userRepo.GetUserById(id);
             return _mapper.Map<UserDto>(foundUser);
         }
 
         public UserDto UpdateUser(Guid id, UserDto userDto)
         {
-            // var foundUser = _userRepo.GetUserById(id);
-            // if (userDto.Name == null || (userDto.Name == ""))
-            // {
-            //     userDto.Name = foundUser.Name;
-            // }
-            // if (userDto.Email == null || (userDto.Email == ""))
-            // {
-            //     userDto.Email = foundUser.Email;
-            // }
-            // var updatedUser = _userRepo.UpdateUser(foundUser, userDto);
-            // var updatedDto= _mapper.Map<UserDto>(updatedUser);
-            // updatedDto.Password = userDto.Password;
-            // return updatedDto;
             var userToUpdate = _userRepo.GetUserById(id);
             if (userToUpdate == null)
             {
@@ -81,8 +53,6 @@ namespace WebApi.Business.Services.Implementations
             var updateUser = _mapper.Map<User>(userDto);
             userToUpdate = _userRepo.UpdateUser(userToUpdate, updateUser);
             return _mapper.Map<UserDto>(userToUpdate);
-
-            // throw new NotImplementedException();
         }
     }
 }
