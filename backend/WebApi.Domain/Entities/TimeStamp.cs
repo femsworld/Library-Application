@@ -7,7 +7,7 @@ namespace WebApi.Domain.Entities
 {
     public class TimeStamp
     {
-        public DateOnly CreatedAt { get; set; }
-        public DateOnly UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }
