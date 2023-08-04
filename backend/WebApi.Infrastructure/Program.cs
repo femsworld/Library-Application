@@ -18,9 +18,11 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<LoggingMiddleware>();
 builder.Services.AddScoped<ErrorHandlerMiddware>();
 builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IBookRepo, BookRepo>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
@@ -36,12 +38,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
 app.UseMiddleware<LoggingMiddleware>();
 
 app.UseMiddleware<ErrorHandlerMiddware>();
 
-app.UseHttpsRedirection();
-
+app.UseAuthentication();
 
 app.UseAuthorization();
 

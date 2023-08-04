@@ -20,8 +20,6 @@ namespace WebApi.Infrastructure.Database
                 if (entry.Entity is TimeStamp hasTimestamp)
                 {
                     var now = DateTime.UtcNow;
-                    // hasTimestamp.CreatedAt = new DateOnly();
-                    // hasTimestamp.UpdatedAt = new DateOnly();
                     hasTimestamp.CreatedAt = now;
                     hasTimestamp.UpdatedAt = now;
                 }
@@ -34,7 +32,6 @@ namespace WebApi.Infrastructure.Database
             {
                 if (entry.Entity is TimeStamp hasTimestamp)
                 {
-                    // hasTimestamp.UpdatedAt = new DateOnly();
                     var now = DateTime.UtcNow;
                     hasTimestamp.UpdatedAt = now;
                 }

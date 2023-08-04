@@ -55,7 +55,8 @@ namespace WebApi.Infrastructure.RepoImplementations
 
         public User VerifyCredentials(string email, string password)
         {
-            throw new NotImplementedException();
+            var foundUser = _users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            return foundUser;
         }
     }
 }
