@@ -9,6 +9,7 @@ namespace WebApi.Business.Dto
     public class BookDto
     {
         public string Title { get; set; } = default!;
-        public List<Author> Authors { get; set; } = default!;
+        public Genre Genre { get; set; }
+        public int Inventory { get; set; }
     }
 }
