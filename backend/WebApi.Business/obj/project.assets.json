@@ -1630,11 +1630,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\WebApi.Business.csproj",
+      "projectUniqueName": "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\WebApi.Business.csproj",
       "projectName": "WebApi.Business",
-      "projectPath": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\WebApi.Business.csproj",
+      "projectPath": "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\WebApi.Business.csproj",
       "packagesPath": "C:\\Users\\ennie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\obj\\",
+      "outputPath": "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ennie\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1651,8 +1651,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj": {
-              "projectPath": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj"
+            "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj": {
+              "projectPath": "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj"
             }
           }
         }

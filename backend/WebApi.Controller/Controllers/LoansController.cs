@@ -10,7 +10,7 @@ namespace WebApi.Controller.Controllers
     [Route("api/[controller]")]
     public class LoansController : ControllerBase
     {
-        private readonly ILoansService _loansService;
+        // private readonly ILoansService _loansService;
 
         public LoansController(Parameters)
         {
