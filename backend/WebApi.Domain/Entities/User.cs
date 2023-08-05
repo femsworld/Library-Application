@@ -8,7 +8,8 @@ namespace WebApi.Domain.Entities
         // [Ignore]
         // public byte[]? Password { get; set; } 
         public string Password { get; set; }
-        public Role Role { get; set; } = Role.Client;
+        // public Role Role { get; set; } = Role.Client;
+        public Role Role { get; set; }
     }
 
     public enum Role {

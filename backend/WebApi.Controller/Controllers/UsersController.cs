@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
@@ -16,7 +18,7 @@ namespace WebApi.Controller.Controllers
         }
 
         
-
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -27,6 +29,7 @@ namespace WebApi.Controller.Controllers
             return Ok(users);
         }
 
+        [Authorize(Policy = "AdminOnly")]   
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -34,6 +37,15 @@ namespace WebApi.Controller.Controllers
         public UserDto GetUserById(Guid id)
         {
             return _userService.GetUserById(id);
+        }
+
+        [Authorize]
+        [HttpGet("profile")]
+        public ActionResult<UserDto> GetProfile()
+        {
+            var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id")!.Value;
+            // var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
+            return _userService.GetUserById(new Guid(id));
         }
 
         [HttpPost()]
@@ -45,7 +57,7 @@ namespace WebApi.Controller.Controllers
             return _userService.CreateUser(userDto);
         }
 
-        // [Authorize(Policy = "AdminOnly")]
+        [Authorize]
         [HttpPatch("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -55,6 +67,7 @@ namespace WebApi.Controller.Controllers
             return _userService.UpdateUser(id, update);
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpDelete("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]

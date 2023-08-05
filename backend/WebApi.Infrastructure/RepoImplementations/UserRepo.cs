@@ -19,6 +19,7 @@ namespace WebApi.Infrastructure.RepoImplementations
 
         public User CreateUser(User user)
         {
+            user.Role = Role.Client;
             _users.Add(user);
             _context.SaveChanges();
             return user;

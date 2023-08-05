@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NLjR9eUqoAiA7mr6Kb8b+wzqIwd/ngL4C00KMdriVExrpCQVhmbyNCp8fbl7tih9KaHzyfWkU6t8alnZcCaQ6Q==",
+  "dgSpecHash": "mpkqJrxTRcWNDsQtEEyiPpFmO3bKyhqJFJ++L5ChyRwZkHetUhcUsHpH2O1skxUeLmmZi4w5zL8gg/yqbXjoRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Infrastructure\\WebApi.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\ennie\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\jwt\\10.0.3\\jwt.10.0.3.nupkg.sha512",
+    "C:\\Users\\ennie\\.nuget\\packages\\jwt.extensions.aspnetcore\\10.1.1\\jwt.extensions.aspnetcore.10.1.1.nupkg.sha512",
+    "C:\\Users\\ennie\\.nuget\\packages\\jwt.extensions.dependencyinjection\\2.2.3\\jwt.extensions.dependencyinjection.2.2.3.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
@@ -49,6 +51,7 @@
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.aspnetcore.responsecaching.abstractions\\2.2.0\\microsoft.aspnetcore.responsecaching.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.aspnetcore.routing\\2.2.0\\microsoft.aspnetcore.routing.2.2.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.aspnetcore.routing.abstractions\\2.2.0\\microsoft.aspnetcore.routing.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\ennie\\.nuget\\packages\\microsoft.aspnetcore.testhost\\6.0.13\\microsoft.aspnetcore.testhost.6.0.13.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.2.0\\microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\microsoft.codeanalysis.common\\2.8.0\\microsoft.codeanalysis.common.2.8.0.nupkg.sha512",
@@ -134,6 +137,7 @@
     "C:\\Users\\ennie\\.nuget\\packages\\system.io.compression.zipfile\\4.3.0\\system.io.compression.zipfile.4.3.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\system.io.filesystem\\4.3.0\\system.io.filesystem.4.3.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\system.io.filesystem.primitives\\4.3.0\\system.io.filesystem.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\ennie\\.nuget\\packages\\system.io.pipelines\\6.0.3\\system.io.pipelines.6.0.3.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\system.linq\\4.3.0\\system.linq.4.3.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\system.linq.expressions\\4.3.0\\system.linq.expressions.4.3.0.nupkg.sha512",
     "C:\\Users\\ennie\\.nuget\\packages\\system.net.http\\4.3.0\\system.net.http.4.3.0.nupkg.sha512",

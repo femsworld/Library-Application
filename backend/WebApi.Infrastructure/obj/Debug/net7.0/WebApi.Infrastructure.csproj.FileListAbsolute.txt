@@ -59,3 +59,6 @@ C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\W
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\obj\Debug\net7.0\WebApi.Infrastructure.genruntimeconfig.cache
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\obj\Debug\net7.0\ref\WebApi.Infrastructure.dll
 C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\JWT.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\JWT.Extensions.AspNetCore.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\JWT.Extensions.DependencyInjection.dll
+C:\Users\ennie\Desktop\Integrify Assignments\Full Stack\fs15_Fullstack\backend\WebApi.Infrastructure\bin\Debug\net7.0\Microsoft.AspNetCore.TestHost.dll

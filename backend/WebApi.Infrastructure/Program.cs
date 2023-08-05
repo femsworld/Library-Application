@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using JWT.Algorithms;
+using JWT.Extensions.AspNetCore;
 using WebApi.Business;
 using WebApi.Business.Middlewares;
 using WebApi.Business.RepoAbstractions;
@@ -29,6 +32,24 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services
+.AddAuthentication(JwtAuthenticationDefaults.AuthenticationScheme)
+.AddJwt(
+    options =>
+    {
+        options.Keys = new[] { "my-secrete-key" };
+        options.VerifySignature = true;
+    }
+);
+
+builder.Services.AddSingleton<IAlgorithmFactory>(new HMACSHAAlgorithmFactory());
+
+builder.Services.AddAuthorization(options =>
+{
+    // options.AddPolicy("AdminEmail", policy => policy.RequireClaim(ClaimTypes.Email, "femi@mail.com"));
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+});
 
 var app = builder.Build();
 
