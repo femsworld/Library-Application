@@ -25,6 +25,12 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IBookRepo, BookRepo>();
+builder.Services.AddScoped<ILoanRepo, LoanRepo>();
+builder.Services.AddScoped<ILoanBookRepo, LoanBookRepo>();
+builder.Services.AddScoped<ILoanService, LoanService>();
+builder.Services.AddScoped<ILoanBookService, LoanBookService>();
+
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // builder.Services.AddAutoMapper(typeof(Program).Assembly);

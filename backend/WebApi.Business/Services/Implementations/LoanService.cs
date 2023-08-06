@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using WebApi.Business.Dto;
 using WebApi.Business.RepoAbstractions;
@@ -25,10 +21,19 @@ namespace WebApi.Business.Services.Implementations
         
         public Loan PlaceLoan(Guid userId, IEnumerable<LoanBookDto> loanBookDtos)
         {
+            var loan = new Loan {UserId = userId};
+            _loanRepo.PlaceLoan(loan);
             var loanBooks = _mapper.Map<IEnumerable<LoanBook>>(loanBookDtos);
-           var creatededLoanBooks =  _loanBookRepo.CreateLoanBook(loanBooks.ToArray());
-           var loan = new Loan{UserId = userId, LoanBooks = loanBooks.ToList()};
-           _loanRepo.PlaceLoan(loan);
+            var newList = new List<LoanBook>();
+            foreach (var book in loanBooks)
+            {
+                book.LoanId = loan.Id;
+                newList.Add(book);
+            }
+           var creatededLoanBooks =  _loanBookRepo.CreateLoanBook(newList.ToArray());
+        //    var loan = new Loan{UserId = userId, LoanBooks = loanBooks.ToList()};
+            loan.LoanBooks = creatededLoanBooks.ToList();
+        //    _loanRepo.PlaceLoan(loan);
            return loan;
         }
     }

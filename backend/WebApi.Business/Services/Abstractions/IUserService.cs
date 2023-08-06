@@ -10,6 +10,7 @@ namespace WebApi.Business.Services.Abstractions
     public interface IUserService
     {
         UserDto CreateUser(UserDto userDto);
+        // User CreateUserByAdmin(UserDto user);
         UserDto GetUserById(Guid id);
         UserDto UpdateUser(Guid id, UserDto userDto);
         UserDto DeleteUser (Guid id);

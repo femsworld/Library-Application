@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
+using WebApi.Domain.Entities;
 
 namespace WebApi.Controller.Controllers
 {
@@ -18,7 +19,7 @@ namespace WebApi.Controller.Controllers
         }
 
         
-        [Authorize(Policy = "AdminOnly")]
+        // [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -27,8 +28,10 @@ namespace WebApi.Controller.Controllers
         {
             var users = _userService.GetAllUsers();
             return Ok(users);
+            
+            //implement pagination
         }
-
+        
         [Authorize(Policy = "AdminOnly")]   
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
@@ -56,6 +59,19 @@ namespace WebApi.Controller.Controllers
         {
             return _userService.CreateUser(userDto);
         }
+
+        // [Authorize(Policy = "AdminOnly")]
+        // [HttpPost]
+        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        // public User CreateUserByAdmin([FromBody] User user)
+        // {
+        //     // Here admin can create a user and add roles as well
+        // // return _userService.CreateUserByAdmin(user);
+        // return _userService.CreateUserByAdmin(user);
+        // }
+
 
         [Authorize]
         [HttpPatch("{id:Guid}")]

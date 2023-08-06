@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
@@ -11,9 +7,8 @@ using WebApi.Domain.Entities;
 
 namespace WebApi.Controller.Controllers
 {   
-    [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class LoansController : ControllerBase
     {
         private readonly ILoanService _loanService;
@@ -23,11 +18,15 @@ namespace WebApi.Controller.Controllers
             _loanService = loanService;
         }
 
+        [Authorize]
         [HttpPost]
         public Loan PlaceLoan([FromBody] IEnumerable<LoanBookDto> loanBookDtos)  
         {
+            var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+             Console.WriteLine($"id: {id}");
+             Console.WriteLine("loan controller");
             var userId = new Guid (HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value);
-            _loanService.PlaceLoan(userId, loanBookDtos);
+            // _loanService.PlaceLoan(userId, loanBookDtos);
             // return new Loan();
             return _loanService.PlaceLoan(userId, loanBookDtos);
 

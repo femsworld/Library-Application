@@ -16,7 +16,7 @@ namespace WebApi.Domain.Entities
         public Book Book { get; set; }
         [ForeignKey(nameof(Loan))]
         public Guid LoanId { get; set; }
-        public Loan Loan { get; set; }
+        // public Loan Loan { get; set; }
         public int Amount   { get; set; }
     }
 }

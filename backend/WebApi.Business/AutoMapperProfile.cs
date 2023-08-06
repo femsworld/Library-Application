@@ -9,10 +9,12 @@ namespace WebApi.Business
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
-            CreateMap<Book, BookDto>();
-            CreateMap<BookDto, Book>();
+            CreateMap<User, UserDto>().ReverseMap();
+            // CreateMap<UserDto, User>();
+            CreateMap<Book, BookDto>().ReverseMap();
+            // CreateMap<BookDto, Book>();
+            CreateMap<Loan, LoanDto>().ReverseMap();
+            CreateMap<LoanBook, LoanBookDto>().ReverseMap();
           
         }
     }
