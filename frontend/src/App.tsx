@@ -1,25 +1,17 @@
-// import axios from 'axios';
-// import React from 'react'
-
-// const App = () => {
-  
-//   return (
-//     <div>App</div>
-//   )
-// }
-
-// export default App
-
 import React, { useState, useEffect } from 'react';
 import { fetchData } from './baseApi';
 
-function App() {
-  const [data, setData] = useState<any[]>([]); // Adjust the type as per your API response structure
+const App = () => {
+  const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
     fetchData()
       .then((fetchedData) => {
-        setData(fetchedData);
+        if (Array.isArray(fetchedData)) {
+          setData(fetchedData);
+        } else {
+          console.error('Data is not an array:', fetchedData);
+        }
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -31,11 +23,12 @@ function App() {
       <h1>Fetched Data from API</h1>
       <ul>
         {data.map((item, index) => (
-          <li key={index}>{item.name}</li> // Adjust the property according to your API response
+          <li key={index}>{item.title}</li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default App;
+
