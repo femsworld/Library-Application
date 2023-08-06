@@ -24,12 +24,21 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public IActionResult GetAllUsers()
+        public IActionResult GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
         {
+            if (page <= 0 || pageSize <= 0)
+            {
+                return BadRequest("page and pageSize must be positive integers.");
+            }
+
             var users = _userService.GetAllUsers();
-            return Ok(users);
-            
-            //implement pagination
+            var totalUsers = users.Count();
+            var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+
+            var result = users.Skip((page - 1) * pageSize).Take(pageSize);
+
+            var response = new GetAllUserResponse(totalPages, result);
+            return Ok(response);
         }
         
         [Authorize(Policy = "AdminOnly")]   
@@ -101,9 +110,10 @@ namespace WebApi.Controller.Controllers
 
     public class GetAllUserResponse
     {
-        public int TotalPages { get; set; }
-        public IEnumerable<string> Users { get; set; }
-        public GetAllUserResponse(int totalPages, IEnumerable<string> users)
+         public int TotalPages { get; set; }
+        public IEnumerable<UserDto> Users { get; set; } // Adjusted property type
+
+        public GetAllUserResponse(int totalPages, IEnumerable<UserDto> users)
         {
             TotalPages = totalPages;
             Users = users;
