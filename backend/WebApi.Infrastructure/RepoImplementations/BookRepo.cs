@@ -29,21 +29,38 @@ namespace WebApi.Infrastructure.RepoImplementations
 
         public Book DeleteBook(Guid id)
         {
-            throw new NotImplementedException();
+            var bookToDelete = _books.Find(id);
+            if (bookToDelete != null)
+            {
+                _books.Remove(bookToDelete);
+            }
+            _context.SaveChanges();
+            return bookToDelete;
         }
 
         public IEnumerable<Book> GetAllBooks()
         {
-            throw new NotImplementedException();
+            return _books.ToList();
         }
 
         public Book GetBookById(Guid id)
         {
-            throw new NotImplementedException();
+             return _books.Find(id);
         }
 
-        public Book UpdateBook(Book book, BookDto bookDto)
+        public Book UpdateBook(Book book, Book update)
         {
+            // user.Name = update.Name ?? user.Name;
+            // user.Email = update.Email ?? user.Email;
+            // _context.SaveChanges();
+            // return user;
+
+            book.Title = update.Title ?? book.Title;
+            // book.Genre = update.Genre ?? book.Genre;
+             _context.SaveChanges();
+            return book;
+
+
             throw new NotImplementedException();
         }
     }

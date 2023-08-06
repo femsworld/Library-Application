@@ -12,5 +12,6 @@ namespace WebApi.Business.Services.Abstractions
         BookDto GetBookById(Guid id);
         BookDto UpdateBook(Guid id, BookDto bookDto);
         BookDto DeleteBook(Guid id);
+         IEnumerable<BookDto> GetAllBooks();
     }
 }

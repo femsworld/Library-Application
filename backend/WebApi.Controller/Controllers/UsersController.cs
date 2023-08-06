@@ -26,11 +26,14 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
         public IActionResult GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
         {
-            if (page <= 0 || pageSize <= 0)
+            if (page < 0 || pageSize < 0)
             {
                 return BadRequest("page and pageSize must be positive integers.");
             }
-
+            if (page == 0)
+            {
+                return Ok (new GetAllUserResponse(1,  _userService.GetAllUsers()));
+            }
             var users = _userService.GetAllUsers();
             var totalUsers = users.Count();
             var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);

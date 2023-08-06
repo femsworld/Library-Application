@@ -10,9 +10,9 @@ namespace WebApi.Business.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IBookRepo _bookRepo;
-        private readonly List<Book> _books = new() {
-            new Book { Title = "Sunshine", Authors= {}, Id = Guid.NewGuid() },
-        };
+        // private readonly List<Book> _books = new() {
+        //     new Book { Title = "Sunshine", Authors= {}, Id = Guid.NewGuid() },
+        // };
         public BookService(IMapper mapper, IBookRepo bookRepo)
         {
             _mapper = mapper;
@@ -27,19 +27,32 @@ namespace WebApi.Business.Services.Implementations
 
         public BookDto DeleteBook(Guid id)
         {
-            throw new NotImplementedException();
+            var deleteBook = _bookRepo.DeleteBook(id);
+            return _mapper.Map<BookDto>(deleteBook);
+        }
+
+        public IEnumerable<BookDto> GetAllBooks()
+        {
+            var books = _bookRepo.GetAllBooks();
+            return books.Select(books => _mapper.Map<BookDto>(books));
         }
 
         public BookDto GetBookById(Guid id)
         {
-            var foundBook = _books.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Error not found");
-            var bookDto = _mapper.Map<BookDto>(foundBook);
-            return bookDto;
+            var foundBook = _bookRepo.GetBookById(id);
+            return _mapper.Map<BookDto>(foundBook);
         }
 
         public BookDto UpdateBook(Guid id, BookDto bookDto)
         {
-            throw new NotImplementedException();
+            var bookToUpdate = _bookRepo.GetBookById(id);
+            if (bookToUpdate == null)
+            {
+                return null;
+            }
+            var updatedBook = _mapper.Map<Book>(bookDto);
+            bookToUpdate = _bookRepo.UpdateBook(bookToUpdate, updatedBook);
+            return _mapper.Map<BookDto>(bookToUpdate);
         }
     }
 }

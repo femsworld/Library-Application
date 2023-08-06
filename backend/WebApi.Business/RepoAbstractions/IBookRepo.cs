@@ -12,7 +12,7 @@ namespace WebApi.Business.RepoAbstractions
         IEnumerable<Book> GetAllBooks();
         Book AddBook(Book book);
         Book GetBookById(Guid id);
-        Book UpdateBook(Book book, BookDto bookDto);
+        Book UpdateBook(Book book, Book update);
         Book DeleteBook(Guid id);
     }
 }
