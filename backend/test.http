@@ -57,3 +57,23 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
     "amount": 2
   }
 ]
+
+### Post Book
+POST http://localhost:5292/api/v1/Books
+Content-Type: application/json
+
+{
+  "title": "HD Studies",
+  "genre": 3,
+  "inventory": 2
+}
+
+### Get Books
+GET  http://localhost:5292/api/v1/Books
+Content-Type: application/json
+
+### Get Book by Id
+GET  http://localhost:5292/api/v1/Books/2de1a0a2-95a3-41de-979c-9c50a95bba05
+Content-Type: application/json
+
+
