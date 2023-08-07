@@ -25,6 +25,13 @@ namespace WebApi.Infrastructure.RepoImplementations
             return user;
         }
 
+        public User CreateUserByAdmin(User user)
+        {
+           _users.Add(user);
+            _context.SaveChanges();
+            return user;
+        }
+
         public User DeleteUser(Guid id)
         {
             var userToDelete = _users.Find(id);
@@ -50,6 +57,15 @@ namespace WebApi.Infrastructure.RepoImplementations
         {
             user.Name = update.Name ?? user.Name;
             user.Email = update.Email ?? user.Email;
+            _context.SaveChanges();
+            return user;
+        }
+
+        public User UpdateUserByAdmin(User user, User update)
+        {
+            user.Name = update.Name ?? user.Name;
+            user.Email = update.Email ?? user.Email;
+            user.Role = update.Role;
             _context.SaveChanges();
             return user;
         }

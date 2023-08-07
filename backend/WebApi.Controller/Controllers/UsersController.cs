@@ -72,18 +72,15 @@ namespace WebApi.Controller.Controllers
             return _userService.CreateUser(userDto);
         }
 
-        // [Authorize(Policy = "AdminOnly")]
-        // [HttpPost]
-        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
-        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
-        // [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        // public User CreateUserByAdmin([FromBody] User user)
-        // {
-        //     // Here admin can create a user and add roles as well
-        // // return _userService.CreateUserByAdmin(user);
-        // return _userService.CreateUserByAdmin(user);
-        // }
-
+        [Authorize(Policy = "AdminOnly")]
+        [HttpPost("admin")]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        public UserAdminDto CreateUserByAdmin([FromBody] UserAdminDto userAdminDto)
+        {
+        return _userService.CreateUserByAdmin(userAdminDto);
+        }
 
         [Authorize]
         [HttpPatch("{id:Guid}")]
@@ -94,6 +91,17 @@ namespace WebApi.Controller.Controllers
         {
             return _userService.UpdateUser(id, update);
         }
+
+        [Authorize]
+        [HttpPatch("admin/{id:Guid}")]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        public UserAdminDto UpdateUserByAdmin([FromRoute] Guid id, [FromBody] UserAdminDto update)
+        {
+            return _userService.UpdateUserByAdmin(id, update);
+        }
+
 
         [Authorize(Policy = "AdminOnly")]
         [HttpDelete("{id:Guid}")]
@@ -112,7 +120,7 @@ namespace WebApi.Controller.Controllers
     }
 
     public class GetAllUserResponse
-    {
+    {                                                          
          public int TotalPages { get; set; }
         public IEnumerable<UserDto> Users { get; set; } // Adjusted property type
 

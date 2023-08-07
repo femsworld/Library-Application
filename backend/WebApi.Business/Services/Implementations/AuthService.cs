@@ -26,6 +26,7 @@ namespace WebApi.Business.Services.Implementations
             if (foundUser != null)
             {
                 var token = JwtBuilder.Create()
+                    //   .WithAlgorithm(new RS256Algorithm(_rsaPrivateKey))
                       .WithAlgorithm(new HMACSHA256Algorithm())
                       .WithSecret("my-secrete-key")
                       .AddClaim(ClaimTypes.Email, foundUser.Email)
@@ -41,5 +42,6 @@ namespace WebApi.Business.Services.Implementations
                 throw new Exception("Credentials are incorrect");
             }
         }
+
     }
 }

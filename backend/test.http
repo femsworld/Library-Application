@@ -46,6 +46,18 @@ GET http://localhost:5292/api/v1/users
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiN2U4OGM4MTMtNWVmZC00ZjZjLWEwY2MtYmQ2MmVmNWI3YzNmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.kXNk0OQGY6X7FcjEDGt2D5KLRIC0iJx2fNi_ODKMPgI
 
+### admin token (CreateUserByAmin)
+POST http://localhost:5292/api/v1/users/admin
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0NEBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMWQwZjQ4MWQtYWU3OC00MDNkLTkzZDAtZTUxMDY1MTRlZDMwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.1gu8-6Cj8dLtBKFrRJAiJUpE-mB8gO8Cj1OQ0bC4iZE
+{
+  "name": "Admin",
+  "email": "admin@mail.com",
+  "age": 45,
+  "password": "admin123",
+  "role": 0
+}
+
 ### Post Loan
 POST http://localhost:5292/api/v1/Loans
 Content-Type: application/json

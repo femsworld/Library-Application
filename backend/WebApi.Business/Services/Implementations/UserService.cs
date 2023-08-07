@@ -24,6 +24,19 @@ namespace WebApi.Business.Services.Implementations
             return _mapper.Map<UserDto>(createdUser);
         }
 
+        public UserAdminDto CreateUserByAdmin(UserAdminDto userAdminDto)
+        {
+            var user = _mapper.Map<User>(userAdminDto);
+            var createdUser = _userRepo.CreateUserByAdmin(user);
+            return _mapper.Map<UserAdminDto>(createdUser);
+        }
+        // User IUserService.CreateUserByAdmin(UserAdminDto userAdminDto)
+        // {
+        //     var user = _mapper.Map<User>(userAdminDto);
+        //     var createdUser = _userRepo.CreateUserByAdmin(user);
+        //     return _mapper.Map<UserAdminDto>(createdUser);
+        // }
+
         public UserDto DeleteUser(Guid id)
         {
             var deleteUser = _userRepo.DeleteUser(id);
@@ -53,6 +66,19 @@ namespace WebApi.Business.Services.Implementations
             var updateUser = _mapper.Map<User>(userDto);
             userToUpdate = _userRepo.UpdateUser(userToUpdate, updateUser);
             return _mapper.Map<UserDto>(userToUpdate);
+        }
+
+        public UserAdminDto UpdateUserByAdmin(Guid id, UserAdminDto userAdminDto)
+        {
+            var userToUpdate = _userRepo.GetUserById(id);
+            if (userToUpdate == null)
+            {
+                return null; // or throw an exception if desired
+            }
+
+            var updateUser = _mapper.Map<User>(userAdminDto);
+            userToUpdate = _userRepo.UpdateUser(userToUpdate, updateUser);
+            return _mapper.Map<UserAdminDto>(userToUpdate);
         }
     }
 }

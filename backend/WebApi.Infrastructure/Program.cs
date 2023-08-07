@@ -49,6 +49,8 @@ builder.Services
     }
 );
 
+// builder.Services.AddSingleton<IAlgorithmFactory>(new RS256AlgorithmFactory("<your RSA public key>"));
+
 builder.Services.AddSingleton<IAlgorithmFactory>(new HMACSHAAlgorithmFactory());
 
 builder.Services.AddAuthorization(options =>
@@ -61,7 +63,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("http://localhost:3000") // Replace with your React app's URL
+        builder.WithOrigins("http://localhost:3000") // React app's URL
                .AllowAnyHeader()
                .AllowAnyMethod();
     });

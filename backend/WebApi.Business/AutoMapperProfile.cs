@@ -11,6 +11,8 @@ namespace WebApi.Business
         {
             CreateMap<User, UserDto>().ReverseMap();
             // CreateMap<UserDto, User>();
+            CreateMap<User, UserAdminDto>();
+            CreateMap<UserAdminDto, User>();
             CreateMap<Book, BookDto>().ReverseMap();
             // CreateMap<BookDto, Book>();
             CreateMap<Loan, LoanDto>().ReverseMap();
