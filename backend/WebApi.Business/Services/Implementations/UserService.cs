@@ -75,10 +75,9 @@ namespace WebApi.Business.Services.Implementations
             {
                 return null; // or throw an exception if desired
             }
-
-            var updateUser = _mapper.Map<User>(userAdminDto);
-            userToUpdate = _userRepo.UpdateUser(userToUpdate, updateUser);
+            _mapper.Map(userAdminDto, userToUpdate);
+            userToUpdate = _userRepo.UpdateUserByAdmin(userToUpdate, userToUpdate);
             return _mapper.Map<UserAdminDto>(userToUpdate);
-        }
+             }
     }
 }

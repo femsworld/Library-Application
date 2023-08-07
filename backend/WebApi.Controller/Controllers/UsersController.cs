@@ -92,7 +92,7 @@ namespace WebApi.Controller.Controllers
             return _userService.UpdateUser(id, update);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminOnly")]
         [HttpPatch("admin/{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -101,7 +101,6 @@ namespace WebApi.Controller.Controllers
         {
             return _userService.UpdateUserByAdmin(id, update);
         }
-
 
         [Authorize(Policy = "AdminOnly")]
         [HttpDelete("{id:Guid}")]

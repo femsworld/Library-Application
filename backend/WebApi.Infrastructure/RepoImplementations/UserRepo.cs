@@ -57,6 +57,7 @@ namespace WebApi.Infrastructure.RepoImplementations
         {
             user.Name = update.Name ?? user.Name;
             user.Email = update.Email ?? user.Email;
+            user.Age = update.Age;
             _context.SaveChanges();
             return user;
         }
