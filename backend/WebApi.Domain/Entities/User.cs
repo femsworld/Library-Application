@@ -10,6 +10,7 @@ namespace WebApi.Domain.Entities
         public string Password { get; set; }
         // public Role Role { get; set; } = Role.Client;
         public Role Role { get; set; }
+        public string? Avatar { get; set; }
     }
 
     public enum Role {

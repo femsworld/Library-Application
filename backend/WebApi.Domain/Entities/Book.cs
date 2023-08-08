@@ -6,6 +6,7 @@ namespace WebApi.Domain.Entities
         public List<Author> Authors { get; set; } = default!;
 
         public Genre Genre { get; set; }
+        public List<string> Images { get; set; } = new List<string>();
         public int Inventory { get; set; }
     }
 

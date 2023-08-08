@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using WebApi.Domain.Entities;
 
 namespace WebApi.Business.Dto
 {
+    [AutoMap(typeof(User))]
     public class UserAdminDto
     {
          public string? Name { get; set; }

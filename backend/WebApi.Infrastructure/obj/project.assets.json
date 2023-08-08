@@ -9432,14 +9432,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\WebApi.Business.csproj": {
-              "projectPath": "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\WebApi.Business.csproj"
+            "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\WebApi.Business.csproj": {
+              "projectPath": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Business\\WebApi.Business.csproj"
             },
             "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Controller\\WebApi.Controller.csproj": {
               "projectPath": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Controller\\WebApi.Controller.csproj"
             },
-            "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj": {
-              "projectPath": "C:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj"
+            "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj": {
+              "projectPath": "c:\\Users\\ennie\\Desktop\\Integrify Assignments\\Full Stack\\fs15_Fullstack\\backend\\WebApi.Domain\\WebApi.Domain.csproj"
             }
           }
         }

@@ -38,7 +38,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
   "password": "test14423"
 }
 
-
 ### admin token (Get User by ID)
 GET http://localhost:5292/api/v1/Users/81803401-802d-42b8-b91d-77e38ff59ebd
 Content-Type: application/json
@@ -70,6 +69,19 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
   "age": 45,
   "password": "admin123",
   "role": 0
+}
+
+### admin token (CreateUserByAmin)
+POST http://localhost:5292/api/v1/users/admin
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0NEBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMWQwZjQ4MWQtYWU3OC00MDNkLTkzZDAtZTUxMDY1MTRlZDMwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.1gu8-6Cj8dLtBKFrRJAiJUpE-mB8gO8Cj1OQ0bC4iZE
+
+{
+  "name": "Staff",
+  "email": "staff@mail.com",
+  "age": 29,
+  "password": "staff123",
+  "role": 2
 }
 
 ### admin token (UdateUserByAmin = UserId = Femi)
