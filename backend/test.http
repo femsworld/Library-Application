@@ -2,10 +2,10 @@ POST http://localhost:5292/api/v1/users
 Content-Type: application/json
 
 {
-    "name": "Test4",
-    "email": "test4@mail.com",
-    "password": "test123",
-    "age": "26"
+    "name": "Tom",
+    "email": "tom@mail.com",
+    "password": "tom123",
+    "age": "21"
 }
 
 ### Get admin token
@@ -13,8 +13,8 @@ POST http://localhost:5292/api/v1/Auth
 Content-Type: application/json
 
 {
-    "email": "test4@mail.com",
-    "password": "test123"
+    "email": "admin@mail.com",
+    "password": "admin123"
 }
 
 ### get client token
@@ -26,16 +26,16 @@ Content-Type: application/json
     "password": "test123"
 }
 
-### User token (UdateUser = UserId = test1)
-PATCH  http://localhost:5292/api/v1/Users/7e88c813-5efd-4f6c-a0cc-bd62ef5b7c3f
+### User token (UdateUser)
+PATCH  http://localhost:5292/api/v1/Users/720e0534-5cdf-4ff2-9f39-789fe308c3d7
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiN2U4OGM4MTMtNWVmZC00ZjZjLWEwY2MtYmQ2MmVmNWI3YzNmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.kXNk0OQGY6X7FcjEDGt2D5KLRIC0iJx2fNi_ODKMPgI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
 
 {
-  "name": "Test1",
-  "email": "test1@mail.com",
-  "age": 12,
-  "password": "test14423"
+  "name": "Enni",
+  "email": "enni@mail.com",
+  "age": 32,
+  "password": "enni123"
 }
 
 ### admin token (Get User by ID)
@@ -51,7 +51,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 ### admin Get all Users
 GET http://localhost:5292/api/v1/users
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0NEBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMWQwZjQ4MWQtYWU3OC00MDNkLTkzZDAtZTUxMDY1MTRlZDMwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.1gu8-6Cj8dLtBKFrRJAiJUpE-mB8gO8Cj1OQ0bC4iZE
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
 
 ### client Get all Users
 GET http://localhost:5292/api/v1/users
@@ -61,8 +61,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 ### admin token (CreateUserByAmin)
 POST http://localhost:5292/api/v1/users/admin
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0NEBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMWQwZjQ4MWQtYWU3OC00MDNkLTkzZDAtZTUxMDY1MTRlZDMwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.1gu8-6Cj8dLtBKFrRJAiJUpE-mB8gO8Cj1OQ0bC4iZE
-
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
 {
   "name": "Admin",
   "email": "admin@mail.com",
@@ -74,7 +73,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 ### admin token (CreateUserByAmin)
 POST http://localhost:5292/api/v1/users/admin
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0NEBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMWQwZjQ4MWQtYWU3OC00MDNkLTkzZDAtZTUxMDY1MTRlZDMwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.1gu8-6Cj8dLtBKFrRJAiJUpE-mB8gO8Cj1OQ0bC4iZE
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
 
 {
   "name": "Staff",
@@ -85,22 +84,22 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 }
 
 ### admin token (UdateUserByAmin = UserId = Femi)
-PATCH  http://localhost:5292/api/v1/Users/Admin/bc6759a2-a675-4fbd-b78c-976118f21b11
+PATCH  http://localhost:5292/api/v1/Users/Admin/720e0534-5cdf-4ff2-9f39-789fe308c3d7
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0NEBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMWQwZjQ4MWQtYWU3OC00MDNkLTkzZDAtZTUxMDY1MTRlZDMwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.1gu8-6Cj8dLtBKFrRJAiJUpE-mB8gO8Cj1OQ0bC4iZE
 
 {
-  "name": "Femi",
-  "email": "femi@mail.com",
-  "age": 42,
-  "password": "femi123",
-  "role": 0
+  "name": "Enni",
+  "email": "enni@mail.com",
+  "age": 32,
+  "password": "enni123",
+  "role": 2
 }
 
 ### Post Loan
 POST http://localhost:5292/api/v1/Loans
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiN2U4OGM4MTMtNWVmZC00ZjZjLWEwY2MtYmQ2MmVmNWI3YzNmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.kXNk0OQGY6X7FcjEDGt2D5KLRIC0iJx2fNi_ODKMPgI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
 
 [
   {
@@ -114,9 +113,9 @@ POST http://localhost:5292/api/v1/Books
 Content-Type: application/json
 
 {
-  "title": "HD Studies",
+  "title": "Stroke studies",
   "genre": 3,
-  "inventory": 2
+  "inventory": 10
 }
 
 ### Get Books

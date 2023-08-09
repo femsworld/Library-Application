@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { fetchData } from './baseApi';
+import { useSelector } from 'react-redux';
 
 const App = () => {
-  const [data, setData] = useState<any[]>([]);
+  const globalState = useSelector(state => state)
+  console.log("globalState: ", globalState)
 
-  useEffect(() => {
-    fetchData()
-      .then((fetchedData) => {
-        if (Array.isArray(fetchedData)) {
-          setData(fetchedData);
-        } else {
-          console.error('Data is not an array:', fetchedData);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+  // const [data, setData] = useState<any[]>([]);
+
+  // useEffect(() => {
+  //   fetchData()
+  //     .then((fetchedData) => {
+  //       if (Array.isArray(fetchedData)) {
+  //         setData(fetchedData);
+  //       } else {
+  //         console.error('Data is not an array:', fetchedData);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // }, []);
 
   return (
     <div className="App">
       <h1>Fetched Data from API</h1>
-      <ul>
+      {/* <ul>
         {data.map((item, index) => (
           <li key={index}>{item.title}</li>
+          
         ))}
-      </ul>
+      </ul> */}
     </div>
-  );
+  );  
 };
 
 export default App;
