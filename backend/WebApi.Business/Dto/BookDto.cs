@@ -10,6 +10,14 @@ namespace WebApi.Business.Dto
     {
         public string Title { get; set; } = default!;
         public Genre Genre { get; set; }
+        public List<string>? Images { get; set; }
         public int Inventory { get; set; }
+    }
+
+    public class BookReadDto
+    {
+        public string Title { get; set; } = default!;
+        public Genre Genre { get; set; }
+        public List<string>? Images { get; set; }
     }
 }

@@ -55,17 +55,17 @@ namespace WebApi.Business.Services.Implementations
             return _mapper.Map<UserDto>(foundUser);
         }
 
-        public UserDto UpdateUser(Guid id, UserDto userDto)
+        public UserUpdateDto UpdateUser(Guid id, UserUpdateDto userUpdateDto)
         {
             var userToUpdate = _userRepo.GetUserById(id);
             if (userToUpdate == null)
             {
-                return null; // or throw an exception if desired
+                return null;
             }
 
-            var updateUser = _mapper.Map<User>(userDto);
+            var updateUser = _mapper.Map<User>(userUpdateDto);
             userToUpdate = _userRepo.UpdateUser(userToUpdate, updateUser);
-            return _mapper.Map<UserDto>(userToUpdate);
+            return _mapper.Map<UserUpdateDto>(userToUpdate);
         }
 
         public UserAdminDto UpdateUserByAdmin(Guid id, UserAdminDto userAdminDto)

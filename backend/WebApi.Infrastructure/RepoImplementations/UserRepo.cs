@@ -56,7 +56,8 @@ namespace WebApi.Infrastructure.RepoImplementations
         public User UpdateUser(User user, User update)
         {
             user.Name = update.Name ?? user.Name;
-            user.Email = update.Email ?? user.Email;
+            // user.Email = update.Email ?? user.Email;
+            user.Avatar = update.Avatar ?? user.Avatar;
             user.Age = update.Age;
             _context.SaveChanges();
             return user;

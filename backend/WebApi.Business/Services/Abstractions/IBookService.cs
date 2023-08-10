@@ -9,6 +9,7 @@ namespace WebApi.Business.Services.Abstractions
     public interface IBookService
     {
         BookDto AddBook(BookDto userDto);
+        // BookDto GetBookById(Guid id);
         BookDto GetBookById(Guid id);
         BookDto UpdateBook(Guid id, BookDto bookDto);
         BookDto DeleteBook(Guid id);

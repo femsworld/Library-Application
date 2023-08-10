@@ -14,7 +14,8 @@ namespace WebApi.Business.Services.Abstractions
         // User CreateUserByAdmin(UserAdminDto userAdminDto);
         // User CreateUserByAdmin(UserDto user);
         UserDto GetUserById(Guid id);
-        UserDto UpdateUser(Guid id, UserDto userDto);
+        // UserDto UpdateUser(Guid id, UserDto userDto);
+        UserUpdateDto UpdateUser(Guid id, UserUpdateDto userUpdateDto);
         UserAdminDto UpdateUserByAdmin(Guid id, UserAdminDto userAdminDto);
         UserDto DeleteUser (Guid id);
         IEnumerable<UserDto> GetAllUsers();

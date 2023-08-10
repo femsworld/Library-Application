@@ -50,18 +50,12 @@ namespace WebApi.Infrastructure.RepoImplementations
 
         public Book UpdateBook(Book book, Book update)
         {
-            // user.Name = update.Name ?? user.Name;
-            // user.Email = update.Email ?? user.Email;
-            // _context.SaveChanges();
-            // return user;
-
             book.Title = update.Title ?? book.Title;
+            book.Genre = update.Genre;
+            book.Images = update.Images;
             // book.Genre = update.Genre ?? book.Genre;
              _context.SaveChanges();
             return book;
-
-
-            throw new NotImplementedException();
         }
     }
 }

@@ -87,7 +87,7 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public UserDto UpdateUser([FromRoute] Guid id, [FromBody] UserDto update)
+        public UserUpdateDto UpdateUser([FromRoute] Guid id, [FromBody] UserUpdateDto update)
         {
             return _userService.UpdateUser(id, update);
         }

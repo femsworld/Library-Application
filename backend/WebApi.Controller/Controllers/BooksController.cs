@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
-using WebApi.Domain.Entities;
 
 namespace WebApi.Controller.Controllers
 {
@@ -20,8 +15,6 @@ namespace WebApi.Controller.Controllers
             _bookService = bookService;
         }
 
-        // private readonly List<string> _books = new() {"Ake", "Ibadan", "Horses", "Orile", "Ijoko"};
-
         [HttpGet]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -29,20 +22,6 @@ namespace WebApi.Controller.Controllers
         // public ActionResult<GetAllBookResponse>  GetAllBooks([FromQuery] int page = 1, [FromQuery] int pageSize = 2)
         public IActionResult GetAllBooks([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
         {
-            // if (page < 0 || pageSize < 0)
-            // {
-            //     return BadRequest("page or pageSize cannot be negative");
-            // }
-            // if (page == 0)
-            // {
-            //     return Ok (new GetAllBookResponse(1, _books));
-            // }
-            // var result = _books.Skip((page-1)*pageSize).Take(pageSize).ToList();
-            // var totalPages = _books.Count/pageSize;
-            // if (_books.Count % pageSize !=0 ) totalPages += 1;
-            // var response = new GetAllBookResponse(totalPages, result);
-            // return response;
-
             if (page < 0 || pageSize < 0)
             {
                 return BadRequest("page and pageSize must be positive integers.");
@@ -71,21 +50,13 @@ namespace WebApi.Controller.Controllers
             return _bookService.GetBookById(id);
         }
 
-        // [HttpPost]
-        // public IEnumerable<string> CreateBook([FromBody] string name)
-        // {
-        //     _books.Add(name);
-        //     return _books;
-        // }
-
         [HttpPost]
         public BookDto AddBook([FromBody] BookDto bookDto)
         {
              return _bookService.AddBook(bookDto);
         }
 
-        [HttpPatch("{index:int}")]
-        // public IEnumerable<string> UpdateBook([FromRoute] int index, [FromBody] string name)
+        [HttpPatch("{id:Guid}")]
         public BookDto UpdateBook([FromRoute] Guid id, [FromBody] BookDto update)
         {
             return _bookService.UpdateBook(id, update);
