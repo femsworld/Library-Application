@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
+using WebApi.Domain.Entities;
+using WebApi.Business.Services.Shared;
 
 namespace WebApi.Controller.Controllers
 {
@@ -60,6 +62,27 @@ namespace WebApi.Controller.Controllers
         public BookDto UpdateBook([FromRoute] Guid id, [FromBody] BookDto update)
         {
             return _bookService.UpdateBook(id, update);
+        }
+
+        [HttpGet("search")]
+        public IActionResult SearchBooksByTitle([FromQuery] string searchTerm)
+        {
+            var books = _bookService.SearchBooksByTitle(searchTerm);
+            return Ok(books);
+        }
+
+        [HttpGet("categorize")]
+        public IActionResult CategorizeBooksByGenre([FromQuery] Genre genre)
+        {
+            var books = _bookService.CategorizeBooksByGenre(genre);
+            return Ok(books);
+        }
+
+        [HttpGet("sort")]
+        public IActionResult GetSortedBooks([FromQuery] SortOrder sortOrder)
+        {
+            var books = _bookService.GetSortedBooks(sortOrder);
+            return Ok(books);
         }
 
     }

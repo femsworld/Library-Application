@@ -7,6 +7,6 @@ namespace WebApi.Domain.Entities
 {
     public class BookImages
     {
-       public string Images { get; set; } = default!;
+       public string? Images { get; set; }
     }
 }

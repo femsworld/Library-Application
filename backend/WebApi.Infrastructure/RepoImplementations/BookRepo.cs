@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Business.Dto;
 using WebApi.Business.RepoAbstractions;
 using WebApi.Domain.Entities;
 using WebApi.Infrastructure.Database;
+using WebApi.Business.Services.Shared;
+using AutoMapper;
 
 namespace WebApi.Infrastructure.RepoImplementations
 {
@@ -14,11 +12,14 @@ namespace WebApi.Infrastructure.RepoImplementations
     {
         private readonly DbSet<Book> _books;
         private readonly DatabaseContext _context;
+        private readonly IMapper _mapper;
 
-        public BookRepo(DatabaseContext context)
+
+        public BookRepo(DatabaseContext context, IMapper mapper)
         {
             _books = context.Books;
             _context = context;
+            _mapper = mapper;
         }
         public Book AddBook(Book book)
         {
@@ -56,6 +57,36 @@ namespace WebApi.Infrastructure.RepoImplementations
             // book.Genre = update.Genre ?? book.Genre;
              _context.SaveChanges();
             return book;
+        }
+
+        public IEnumerable<BookDto> SearchBooksByTitle(string searchTerm)
+        {
+            return _context.Books.Where(book => book.Title.Contains(searchTerm))
+                               .Select(book => _mapper.Map<BookDto>(book))
+                               .ToList();
+        }
+
+        public IEnumerable<BookDto> CategorizeBooksByGenre(Genre genre)
+        {
+            return _context.Books.Where(book => book.Genre == genre)
+                               .Select(book => _mapper.Map<BookDto>(book))
+                               .ToList();
+        }
+
+        public IEnumerable<BookDto> GetSortedBooks(SortOrder sortOrder)
+        {
+            var query = _context.Books.AsQueryable();
+
+            if (sortOrder == SortOrder.Ascending)
+            {
+            query = query.OrderBy(book => book.Title);
+            }
+            else
+            {
+            query = query.OrderByDescending(book => book.Title);
+            }
+
+            return query.Select(book => _mapper.Map<BookDto>(book)).ToList();
         }
     }
 }

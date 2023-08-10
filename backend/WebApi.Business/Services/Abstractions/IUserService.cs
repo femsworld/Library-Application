@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Business.Dto;
-using WebApi.Domain.Entities;
 
 namespace WebApi.Business.Services.Abstractions
 {

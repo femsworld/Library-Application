@@ -3,6 +3,7 @@ using WebApi.Business.Dto;
 using WebApi.Business.RepoAbstractions;
 using WebApi.Business.Services.Abstractions;
 using WebApi.Domain.Entities;
+using WebApi.Business.Services.Shared;
 
 namespace WebApi.Business.Services.Implementations
 {
@@ -53,6 +54,21 @@ namespace WebApi.Business.Services.Implementations
             var updatedBook = _mapper.Map<Book>(bookDto);
             bookToUpdate = _bookRepo.UpdateBook(bookToUpdate, updatedBook);
             return _mapper.Map<BookDto>(bookToUpdate);
+        }
+
+        public IEnumerable<BookDto> SearchBooksByTitle(string searchTerm)
+        {
+           return _bookRepo.SearchBooksByTitle(searchTerm);
+         }
+
+        public IEnumerable<BookDto> CategorizeBooksByGenre(Genre genre)
+        {
+            return _bookRepo.CategorizeBooksByGenre(genre);
+        }
+
+        public IEnumerable<BookDto> GetSortedBooks(SortOrder sortOrder)
+        {
+            return _bookRepo.GetSortedBooks(sortOrder);
         }
     }
 }
