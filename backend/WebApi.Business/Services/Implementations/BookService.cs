@@ -11,9 +11,6 @@ namespace WebApi.Business.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IBookRepo _bookRepo;
-        // private readonly List<Book> _books = new() {
-        //     new Book { Title = "Sunshine", Authors= {}, Id = Guid.NewGuid() },
-        // };
         public BookService(IMapper mapper, IBookRepo bookRepo)
         {
             _mapper = mapper;
