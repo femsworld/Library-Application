@@ -18,7 +18,12 @@ namespace WebApi.Business.Services.Implementations
             _loanBookRepo = loanBookRepo;
             _mapper = mapper;
         }
-        
+
+        public IEnumerable<Loan> GetAllLoans()
+        {
+            return _loanRepo.GetAllLoans();
+        }
+
         public Loan PlaceLoan(Guid userId, IEnumerable<LoanBookDto> loanBookDtos)
         {
             var loan = new Loan {UserId = userId};

@@ -6,5 +6,6 @@ namespace WebApi.Business.RepoAbstractions
     {
         // Loan PlaceLoan(Guid userId, IEnumerable<LoanBook> loanBooks);
         Loan PlaceLoan(Loan loan);
+        IEnumerable<Loan> GetAllLoans();
     }
 }

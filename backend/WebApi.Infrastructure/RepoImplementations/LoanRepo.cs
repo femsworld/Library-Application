@@ -15,6 +15,12 @@ namespace WebApi.Infrastructure.RepoImplementations
             _context = context;
             _loans = context.Loans;
         }
+
+        public IEnumerable<Loan> GetAllLoans()
+        {
+            return _loans.Include(l => l.LoanBooks).ToList();
+        }
+
         public Loan PlaceLoan(Loan loan)
         {
             _loans.Add(loan);

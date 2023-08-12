@@ -25,8 +25,9 @@ namespace WebApi.Controller.Controllers
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out var userId))
             {
-                _cartService.AddToCart(userId, request.BookId);
-                return Ok();
+                var cartItemCount = _cartService.AddToCart(userId, request.BookId);
+                // return Ok();
+                return Ok(cartItemCount);
             }
             else
             {

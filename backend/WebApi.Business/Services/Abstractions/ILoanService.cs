@@ -6,5 +6,6 @@ namespace WebApi.Business.Services.Abstractions
     public interface ILoanService
     {
         Loan PlaceLoan(Guid userId, IEnumerable<LoanBookDto> loanBookDtos);
+        IEnumerable<Loan> GetAllLoans();
     }
 }

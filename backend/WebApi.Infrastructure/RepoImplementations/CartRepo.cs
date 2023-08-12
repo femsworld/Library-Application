@@ -10,13 +10,14 @@ namespace WebApi.Infrastructure.RepoImplementations
         {
             _userCarts = new Dictionary<Guid, List<Guid>>();
         }
-        public void AddToCart(Guid userId, Guid bookId)
+        public int AddToCart(Guid userId, Guid bookId)
         {
             if (!_userCarts.ContainsKey(userId))
             {
-                 _userCarts[userId] = new List<Guid>();
+                _userCarts[userId] = new List<Guid>();
             }
                 _userCarts[userId].Add(bookId);
+            return _userCarts[userId].Count;
         }
 
         public void ClearCart(Guid userId)

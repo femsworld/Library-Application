@@ -13,7 +13,8 @@ namespace WebApi.Business.Services.Implementations
             _cartRepo = cartRepo;
             _bookRepo = bookRepo;
         }
-        public void AddToCart(Guid userId, Guid bookId)
+        // public void AddToCart(Guid userId, Guid bookId)
+        public int AddToCart(Guid userId, Guid bookId)
         {
             // _cartRepo.AddToCart(userId, bookId);
             var book = _bookRepo.GetBookById(bookId);
@@ -21,10 +22,12 @@ namespace WebApi.Business.Services.Implementations
             if (book != null)
             {
                 _cartRepo.AddToCart(userId, bookId);
+                var cartItemCount = _cartRepo.GetCartContents(userId);
+                return cartItemCount.Count;
             }
             else
             {
-                // Handle the case where the book doesn't exist
+                return -1;
             }
         }
 

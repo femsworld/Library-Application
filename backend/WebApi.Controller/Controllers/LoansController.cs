@@ -29,7 +29,14 @@ namespace WebApi.Controller.Controllers
             // _loanService.PlaceLoan(userId, loanBookDtos);
             // return new Loan();
             return _loanService.PlaceLoan(userId, loanBookDtos);
-
         }
+
+        [Authorize(Policy = "AdminOnly")]
+        [HttpGet]
+        public IEnumerable<Loan> GetAllLoans()
+        {
+            return _loanService.GetAllLoans();
+        }
+
     }
 }
