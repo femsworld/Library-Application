@@ -30,6 +30,7 @@ builder.Services.AddScoped<ILoanBookRepo, LoanBookRepo>();
 builder.Services.AddScoped<ILoanService, LoanService>();
 builder.Services.AddScoped<ILoanBookService, LoanBookService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICartRepo, CartRepo>();
 
 
 builder.Services.AddScoped<IAuthService, AuthService>();
