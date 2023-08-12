@@ -1,0 +1,17 @@
+### Post Book
+POST http://localhost:5292/api/v1/Books
+Content-Type: application/json
+
+{
+  "title": "Stroke studies",
+  "genre": 3,
+  "inventory": 10
+}
+
+### Get Books
+GET  http://localhost:5292/api/v1/Books
+Content-Type: application/json
+
+### Get Book by Id
+GET  http://localhost:5292/api/v1/Books/b4c66b06-bd3e-4ca1-81ae-ef399c074f91
+Content-Type: application/json
