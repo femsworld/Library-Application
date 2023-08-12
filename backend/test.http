@@ -122,7 +122,7 @@ GET  http://localhost:5292/api/v1/Books
 Content-Type: application/json
 
 ### Get Book by Id
-GET  http://localhost:5292/api/v1/Books/2de1a0a2-95a3-41de-979c-9c50a95bba05
+GET  http://localhost:5292/api/v1/Books/b4c66b06-bd3e-4ca1-81ae-ef399c074f91
 Content-Type: application/json
 
 ### Post Item in Cart
@@ -134,7 +134,22 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
   "bookId": "76d981a9-f048-415e-b231-64dca9084564"
 }
 
+### Post Remove Item in Cart
+POST http://localhost:5292/api/v1/cart/removeFromCart
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMmM1NzhhNGEtOTZhMC00MjI2LWFlZWItYzY3OTg0NzUwZTA3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.mlHlYL3mMmdY_X_rsTzdVERE2KUjD3q1eUJlrrbRLEk
+
+{
+  "bookId": "76d981a9-f048-415e-b231-64dca9084564",
+  "bookId": "a787928b-5758-40f9-9811-c5f78d805305"
+}
+
 ### Get Cart items
 GET http://localhost:5292/api/v1/cart/cart
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMmM1NzhhNGEtOTZhMC00MjI2LWFlZWItYzY3OTg0NzUwZTA3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.mlHlYL3mMmdY_X_rsTzdVERE2KUjD3q1eUJlrrbRLEk
+
+### Clear Cart
+POST http://localhost:5292/api/v1/cart/clearcart
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMmM1NzhhNGEtOTZhMC00MjI2LWFlZWItYzY3OTg0NzUwZTA3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.mlHlYL3mMmdY_X_rsTzdVERE2KUjD3q1eUJlrrbRLEk

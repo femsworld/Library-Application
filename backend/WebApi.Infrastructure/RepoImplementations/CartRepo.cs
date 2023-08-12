@@ -12,19 +12,16 @@ namespace WebApi.Infrastructure.RepoImplementations
         }
         public void AddToCart(Guid userId, Guid bookId)
         {
-            if(!_userCarts.ContainsKey(userId))
+            if (!_userCarts.ContainsKey(userId))
             {
-                _userCarts[userId] = new List<Guid>();
+                 _userCarts[userId] = new List<Guid>();
             }
-            if(!_userCarts.ContainsKey(bookId))
-            {
-                _userCarts[bookId].Add(bookId);
-            }
+                _userCarts[userId].Add(bookId);
         }
 
         public void ClearCart(Guid userId)
         {
-            if(!_userCarts.ContainsKey(userId))
+            if(_userCarts.ContainsKey(userId))
             {
                 _userCarts[userId].Clear();
             }
@@ -37,7 +34,7 @@ namespace WebApi.Infrastructure.RepoImplementations
 
         public void RemoveFromCart(Guid userId, Guid bookId)
         {
-            if(!_userCarts.ContainsKey(userId))
+            if(_userCarts.ContainsKey(userId))
             {
                 _userCarts[userId].Remove(bookId);
             }

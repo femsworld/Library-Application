@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
-using WebApi.Business.RepoAbstractions;
 using WebApi.Business.Services.Abstractions;
 
 namespace WebApi.Controller.Controllers
@@ -75,7 +70,7 @@ namespace WebApi.Controller.Controllers
             }
         }
 
-        [HttpPost("cart")]
+        [HttpPost("clearcart")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]

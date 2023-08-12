@@ -6,14 +6,26 @@ namespace WebApi.Business.Services.Implementations
     public class CartService : ICartService
     {
         private readonly ICartRepo _cartRepo;
+        private readonly IBookRepo _bookRepo;
 
-        public CartService(ICartRepo cartRepo)
+        public CartService(ICartRepo cartRepo, IBookRepo bookRepo)
         {
             _cartRepo = cartRepo;
+            _bookRepo = bookRepo;
         }
         public void AddToCart(Guid userId, Guid bookId)
         {
-            _cartRepo.AddToCart(userId, bookId);
+            // _cartRepo.AddToCart(userId, bookId);
+            var book = _bookRepo.GetBookById(bookId);
+    
+            if (book != null)
+            {
+                _cartRepo.AddToCart(userId, bookId);
+            }
+            else
+            {
+                // Handle the case where the book doesn't exist
+            }
         }
 
         public void ClearCart(Guid userId)
