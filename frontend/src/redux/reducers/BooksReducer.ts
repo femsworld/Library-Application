@@ -26,7 +26,7 @@ export const fetchAllBooks = createAsyncThunk(
     "fetchAllBooks",
     async ({ offset, limit }: FetchQuery) => {
       try {
-        const result = await axios.get<Book[]>(
+        const result = await axios.get<{books: Book[]}>(
           `${base_Api}/books?offset=${offset}&limit=${limit}`
         );
         return result.data;
@@ -46,20 +46,25 @@ const booksSlice = createSlice({
     },
     extraReducers: (build) => {
         build
-          .addCase(fetchAllBooks.pending, (state, action) => {
+          .addCase(fetchAllBooks.pending, (state) => {
             state.loading = true;
           })
-          .addCase(fetchAllBooks.rejected, (state, action) => {
+          .addCase(fetchAllBooks.rejected, (state) => {
             state.loading = false;
             state.error =
               "This action cannot be completed at the moment, please try again later";
           })
           .addCase(fetchAllBooks.fulfilled, (state, action) => {
-            state.loading = false;
             if (typeof action.payload === "string") {
+              console.log('Action Payload:', action.payload);
+              state.loading = false;
               state.error = action.payload;
             } else {
-              state.books = action.payload;
+              const booksPayload = action.payload as { books: Book[] };
+              console.log('Action Payload:', booksPayload);
+              state.loading = false;
+              state.error = "";
+              state.books = booksPayload.books;
             }
           })
       },

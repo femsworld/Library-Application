@@ -7,8 +7,14 @@ const store = configureStore({
     reducer: {
         booksReducer,
         userReducer,
-        cartReducer
-        
+        cartReducer  
+    },
+    preloadedState: {
+        booksReducer: {
+            loading: false,
+            error: "",
+            books: [],
+        }
     }
 })
 
