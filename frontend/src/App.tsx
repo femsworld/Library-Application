@@ -5,6 +5,7 @@ import { GlobalState } from './redux/store';
 import useAppSelector from './hooks/useAppSelector';
 import { createUser, fetchAllUsers, updataUserReducer } from './redux/reducers/usersReducer';
 import useAppDispatch from './hooks/useAppDispatch';
+import Header from './components/layout/Header';
 
 const App = () => {
   const user = useAppSelector(state => state.userReducer)
@@ -23,6 +24,7 @@ const App = () => {
   return (
     <div className="App">
       <h1>Fetched Data from API</h1>
+      <Header/>
       <button onClick={addNewUser}> New User</button>
       {/* <ul>
         {data.map((item, index) => (
