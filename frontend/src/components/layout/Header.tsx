@@ -15,6 +15,15 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { User } from '../../types/User';
+import SignUp from '../Services/SignUp';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import useAppDispatch from '../../hooks/useAppDispatch';
+import useAppSelector from '../../hooks/useAppSelector';
+import { userLogout } from '../../redux/reducers/authenticationReducer';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -58,22 +67,35 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
   const Header = () => {
+    const dispatch = useAppDispatch();
+  // const { items } = useAppSelector((state) => state.cartReducer);
+  const cartItems = localStorage.getItem('cartItems');
+  const items = cartItems ? JSON.parse(cartItems) : []
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [showCartPage, setShowCartPage] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userProfile, setUserProfile] = useState<User | null>(null);
 
-  // const handleCartIconClick = () => {
-  //   if (!showCartPage) {
-  //     setShowCartPage(true);
-  //   }
-  // };
 
-  // const handleCartPageClose = () => {
-  //   setShowCartPage(false);
-  // };
+  const handleSignUpClick = () => {
+    setShowSignUp(!showSignUp);
+  };
+
+  const handleCartIconClick = () => {
+    if (!showCartPage) {
+      setShowCartPage(true);
+    }
+  };
+
+  const handleCartPageClose = () => {
+    setShowCartPage(false);
+  };
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -92,53 +114,123 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const menuId = 'primary-search-account-menu';
+  const storedUserProfile = localStorage.getItem("userProfile");
+
+  const handleLogout = () => {
+    dispatch(userLogout());
+    setIsLoggedIn(false);
+  };
+
+  useEffect(() => {
+    if (storedUserProfile) {
+      const parsedUserProfile = JSON.parse(storedUserProfile);
+      setUserProfile(parsedUserProfile);
+    } else {
+      setUserProfile(null);
+    }
+  }, [storedUserProfile]);
+  
+  const menuId = "primary-search-account-menu";
+  
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {!userProfile ? (
+        <>
+          <MenuItem>
+            <Link
+              to="/signup"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Sign Up
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Login
+            </Link>
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          {userProfile.role === "admin" && (
+            <MenuItem>
+              <Link
+                to="/dashboard"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Dashboard
+              </Link>
+            </MenuItem>
+          )}
+          <MenuItem>
+            <Link
+              to="/profile"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Profile
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link
+              to="/"
+              onClick={handleLogout}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Log Out
+            </Link>
+          </MenuItem>
+        </>
+      )}
     </Menu>
   );
+  
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  {
+    showSignUp && <SignUp />;
+  }
+
+  const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
+      <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem> */}
+      </MenuItem>
       <MenuItem>
         <IconButton
           size="large"
@@ -151,7 +243,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      {/* <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -161,14 +253,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+        <p>Login</p>
+      </MenuItem> */}
     </Menu>
   );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             size="large"
@@ -183,9 +275,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>HOME</Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -193,39 +285,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ "aria-label": "search" }}
             />
           </Search>
+          
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-
-          {/* <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          {userProfile &&
+      <div>
+        <h2>Welcome, {userProfile?.name}!</h2>
+      </div>
+      }
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Link to="/cart" onClick={handleCartIconClick}>
               <IconButton
                 size="large"
@@ -247,9 +317,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               >
                 <AccountCircle />
               </IconButton>
-          </Box> */}
-
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="show more"
@@ -265,6 +334,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {showSignUp && <SignUp />}
     </Box>
   );
 }

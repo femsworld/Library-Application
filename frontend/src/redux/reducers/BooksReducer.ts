@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Book } from "../../types/Book";
 import axios, { AxiosError } from "axios";
+import { baseApi } from "../common/baseApi";
 
 interface BookReducer {
     loading: boolean;
@@ -19,15 +20,13 @@ const initialState : BookReducer = {
     books: [],
   };
 
-const base_Api = "http://localhost:5292/api/v1";
-
 
 export const fetchAllBooks = createAsyncThunk(
     "fetchAllBooks",
     async ({ offset, limit }: FetchQuery) => {
       try {
         const result = await axios.get<{books: Book[]}>(
-          `${base_Api}/books?offset=${offset}&limit=${limit}`
+          `${baseApi}/books?offset=${offset}&limit=${limit}`
         );
         return result.data;
       } catch (e) {
@@ -61,7 +60,7 @@ const booksSlice = createSlice({
               state.error = action.payload;
             } else {
               const booksPayload = action.payload as { books: Book[] };
-              console.log('Action Payload:', booksPayload);
+              // console.log('Action Payload:', booksPayload);
               state.loading = false;
               state.error = "";
               state.books = booksPayload.books;

@@ -23,11 +23,13 @@ const BookCard: React.FC<BookCardProps> = ({book}) => {
       <h3>{book.title}</h3>
       <img
         src={
-            book.images ? book.images[0] : "https://media.cnn.com/api/v1/images/stellar/prod/230124153647-01-monterey-park-vigil.jpg?c=16x9&q=w_800,c_fill"
+            book.images && book.images.length > 0
+              ? book.images[0]
+              : "https://islandpress.org/sites/default/files/default_book_cover_2015.jpg"
           }
         className="card-img-top"
         alt="Book Cover"
-        style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+        style={{ width: "20%", height: "auto", borderRadius: "8px" }}
       />
       <IconButton onClick={(e) => addOneItemToCart(e)} size="large" aria-label="shopping cart" color="inherit">
         <AddShoppingCartIcon />

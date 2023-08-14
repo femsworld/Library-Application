@@ -17,14 +17,39 @@ const cartSlice = createSlice({
   reducers: {
     addItemToCart: (state, action) => {
       const newItem: CartItem = action.payload;
-      const existingItem = state.items.find((item) => item.id === newItem.id);
-      if (existingItem) {
-        if (existingItem.quantity){
-          existingItem.quantity+= 1;
-        } 
-      } else {
+      const inCart = localStorage.getItem('cartItems')
+      const cartItems = inCart && JSON.parse(inCart)
+
+      if(cartItems){
+        cartItems.map((item: {title: String, quantity: number}) => {
+          if(item.title === newItem.title){
+            item.quantity += 1
+          }
+        });
+        const existingItem = cartItems.find((item: {title: String}) => item.title === newItem.title);
+        if (!existingItem) {
+          const newCartItem = { ...newItem, quantity: 1 };
+          cartItems.push(newCartItem);
+        }
+        console.log("cartItems: ", cartItems)
+        localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        // const existingItem = cartItems.find((item: {title: String}) => item.title === newItem.title);
+        // if (existingItem) {
+        //   if (existingItem.quantity){
+        //     existingItem.quantity+= 1;
+        //   } 
+        //   console.log("existingItem: ", cartItems)
+        // } else {
+        //   const newCartItem = { ...newItem, quantity: 1 };
+        //   state.items.push(newCartItem);
+        //   localStorage.setItem('cartItems', JSON.stringify(state.items))
+        //   // console.log("newCartItems: ", state.items)
+        // }
+      } else{
         const newCartItem = { ...newItem, quantity: 1 };
         state.items.push(newCartItem);
+        localStorage.setItem('cartItems', JSON.stringify(state.items))
+        console.log("newCartItems: ", state.items)
       }
     },
     removeItemToCart: (state, action) => {
