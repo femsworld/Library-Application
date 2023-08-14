@@ -58,9 +58,19 @@ namespace WebApi.Controller.Controllers
         [HttpGet("profile")]
         public ActionResult<UserDto> GetProfile()
         {
-            var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id")!.Value;
+            // var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id")!.Value;
+            // var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             // var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
-            return _userService.GetUserById(new Guid(id));
+            // return _userService.GetUserById(new Guid(id));
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out var userId))
+            {
+                return _userService.GetUserById(userId);
+            }
+            else
+            {
+                return BadRequest("Unable to obtain the user ID from claims.");
+            }
         }
 
         [HttpPost()]

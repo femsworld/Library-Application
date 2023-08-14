@@ -10,6 +10,7 @@ namespace WebApi.Business.Dto
         public string? Email { get; set; }
         public int Age { get; set; }
         public string? Avatar { get; set; }
+        public Role Role { get; set; }
     }
 
     public class UserUpdateDto

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace WebApi.Domain.Entities
 {
     public class Book : BaseEnity
@@ -10,6 +12,7 @@ namespace WebApi.Domain.Entities
         public int Inventory { get; set; }
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Genre
     {
         TextBooks,

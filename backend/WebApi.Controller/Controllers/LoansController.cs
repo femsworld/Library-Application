@@ -31,7 +31,7 @@ namespace WebApi.Controller.Controllers
             return _loanService.PlaceLoan(userId, loanBookDtos);
         }
 
-        [Authorize(Policy = "AdminOnly")]
+        // [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         public IEnumerable<Loan> GetAllLoans()
         {

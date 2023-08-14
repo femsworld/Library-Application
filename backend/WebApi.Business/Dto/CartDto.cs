@@ -19,6 +19,7 @@ namespace WebApi.Business.Dto
     public class AddToCartRequest
     {
         public Guid BookId { get; set; }
+        // public Book Book { get; set; }
     }
 
     public class RemoveFromCartRequest

@@ -27,6 +27,7 @@ namespace WebApi.Controller.Controllers
             {
                 var cartItemCount = _cartService.AddToCart(userId, request.BookId);
                 // return Ok();
+                Console.WriteLine($"Add to cart: {cartItemCount}");
                 return Ok(cartItemCount);
             }
             else

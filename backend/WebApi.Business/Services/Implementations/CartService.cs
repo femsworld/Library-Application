@@ -18,6 +18,7 @@ namespace WebApi.Business.Services.Implementations
         {
             // _cartRepo.AddToCart(userId, bookId);
             var book = _bookRepo.GetBookById(bookId);
+            Console.WriteLine($"Book by Id: {bookId}");
     
             if (book != null)
             {

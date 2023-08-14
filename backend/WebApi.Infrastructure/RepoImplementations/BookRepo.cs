@@ -46,7 +46,8 @@ namespace WebApi.Infrastructure.RepoImplementations
 
         public Book GetBookById(Guid id)
         {
-             return _books.Find(id);
+            Console.WriteLine($"From GetBookById BookRepo: {id}");
+            return _books.Find(id);
         }
 
         public Book UpdateBook(Book book, Book update)
@@ -54,8 +55,7 @@ namespace WebApi.Infrastructure.RepoImplementations
             book.Title = update.Title ?? book.Title;
             book.Genre = update.Genre;
             book.Images = update.Images;
-            // book.Genre = update.Genre ?? book.Genre;
-             _context.SaveChanges();
+            _context.SaveChanges();
             return book;
         }
 

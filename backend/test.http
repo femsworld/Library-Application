@@ -2,10 +2,10 @@ POST http://localhost:5292/api/v1/users
 Content-Type: application/json
 
 {
-    "name": "Tom",
-    "email": "tom@mail.com",
-    "password": "tom123",
-    "age": "21"
+    "name": "Teni",
+    "email": "Teni@mail.com",
+    "age": "21",
+    "avatar": "string"
 }
 
 ### Get admin token
@@ -25,6 +25,8 @@ Content-Type: application/json
     "email": "test1@mail.com",
     "password": "test123"
 }
+
+
 
 ### User token (UdateUser)
 PATCH  http://localhost:5292/api/v1/Users/720e0534-5cdf-4ff2-9f39-789fe308c3d7
@@ -46,6 +48,12 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 GET http://localhost:5292/api/v1/Users/81803401-802d-42b8-b91d-77e38ff59ebd
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiN2U4OGM4MTMtNWVmZC00ZjZjLWEwY2MtYmQ2MmVmNWI3YzNmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.kXNk0OQGY6X7FcjEDGt2D5KLRIC0iJx2fNi_ODKMPgI
+
+### client token get profile
+GET http://localhost:5292/api/v1/users/profile
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMmM1NzhhNGEtOTZhMC00MjI2LWFlZWItYzY3OTg0NzUwZTA3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.mlHlYL3mMmdY_X_rsTzdVERE2KUjD3q1eUJlrrbRLEk
+
 
 ### admin Get all Users
 GET http://localhost:5292/api/v1/users
