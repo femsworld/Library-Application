@@ -12,6 +12,7 @@ interface BookCardProps{
 const BookCard: React.FC<BookCardProps> = ({book}) => {
     const dispatch = useDispatch();
     const { items } = useAppSelector((state) => state.cartReducer);
+    // const {  } = useAppSelector((state) => state.cartReducer);
 
     const addOneItemToCart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();

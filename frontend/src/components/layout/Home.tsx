@@ -33,7 +33,7 @@ useEffect(() => {
   return (
     <div>
         <Header />
-        <div>
+        <div className="book-grid">
       {loading || !dataLoaded ? (
           <p>Loading...</p>
         ) : (

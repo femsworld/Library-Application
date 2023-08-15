@@ -68,9 +68,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
   const Header = () => {
     const dispatch = useAppDispatch();
-  // const { items } = useAppSelector((state) => state.cartReducer);
-  const cartItems = localStorage.getItem('cartItems');
-  const items = cartItems ? JSON.parse(cartItems) : []
+  const { items } = useAppSelector((state) => state.cartReducer);
+  // const cartItems = localStorage.getItem('cartItems');
+  // const items = cartItems ? JSON.parse(cartItems) : []
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
