@@ -81,17 +81,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   const [showSignUp, setShowSignUp] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState<User | null>(null);
+  const [cartItemCount, setCartItemCount] = useState(0);
+
 
 
   const handleSignUpClick = () => {
     setShowSignUp(!showSignUp);
   };
 
-  const handleCartIconClick = () => {
-    if (!showCartPage) {
-      setShowCartPage(true);
-    }
-  };
+  // const handleCartIconClick = () => {
+  //   if (!showCartPage) {
+  //     setShowCartPage(true);
+  //   }
+  // };
 
   const handleCartPageClose = () => {
     setShowCartPage(false);
@@ -128,8 +130,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     } else {
       setUserProfile(null);
     }
-  }, [storedUserProfile]);
-  
+    
+    const cartItems = localStorage.getItem('cartItems');
+    if (cartItems) {
+      const parsedCartItems = JSON.parse(cartItems);
+      setCartItemCount(parsedCartItems.length);
+    } else {
+      setCartItemCount(0);
+    }
+  }, [storedUserProfile, localStorage.getItem('cartItems')]);
+
   const menuId = "primary-search-account-menu";
   
   const renderMenu = (
@@ -228,6 +238,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
+          {/* {items.length > 0 && (
+          <Badge badgeContent={items.length} color="error" />
+          )} */}
         </IconButton>
         <p>Messages</p>
       </MenuItem>
@@ -296,16 +309,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       </div>
       }
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link to="/cart" onClick={handleCartIconClick}>
-              <IconButton
-                size="large"
-                aria-label="shopping cart"
-                color="inherit"
-              >
-                <Badge badgeContent={items.length} color="error" />
+            <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <IconButton size="large" aria-label="shopping cart" color="inherit">
+                {cartItemCount > 0 && (
+                  <Badge badgeContent={cartItemCount} color="error" />
+                )}
                 <ShoppingCartIcon />
               </IconButton>
             </Link>
+
               <IconButton
                 size="large"
                 edge="end"

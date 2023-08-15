@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import useAppSelector from '../../hooks/useAppSelector';
 import { FetchQuery, fetchAllBooks } from '../../redux/reducers/booksReducer';
-// import { Book } from '../../types/Book';
 import BookCard from './BookCard';
 import Header from './Header'
 import { Pagination } from '@mui/material';
@@ -23,7 +22,6 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
 };
 
 useEffect(() => {
-  // console.log('Fetching books...');
   dispatch(fetchAllBooks({ offset: 1, limit: 6 }))
   .then(() => {
     setDataLoaded(true);
