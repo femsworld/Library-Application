@@ -24,22 +24,20 @@ namespace WebApi.Business.Services.Implementations
             return _loanRepo.GetAllLoans();
         }
 
-        public Loan PlaceLoan(Guid userId, IEnumerable<LoanBookDto> loanBookDtos)
+        public Loan PlaceLoan(Guid userId, LoanDto loanDto)
         {
-            var loan = new Loan {UserId = userId};
+            var loan = new Loan { UserId = loanDto.UserId };
             _loanRepo.PlaceLoan(loan);
-            var loanBooks = _mapper.Map<IEnumerable<LoanBook>>(loanBookDtos);
-            var newList = new List<LoanBook>();
+
+            var loanBooks = _mapper.Map<IEnumerable<LoanBook>>(loanDto.LoanBooks);
             foreach (var book in loanBooks)
             {
                 book.LoanId = loan.Id;
-                newList.Add(book);
             }
-           var creatededLoanBooks =  _loanBookRepo.CreateLoanBook(newList.ToArray());
-        //    var loan = new Loan{UserId = userId, LoanBooks = loanBooks.ToList()};
-            loan.LoanBooks = creatededLoanBooks.ToList();
-        //    _loanRepo.PlaceLoan(loan);
-           return loan;
+            var createdLoanBooks = _loanBookRepo.CreateLoanBook(loanBooks.ToArray());
+            loan.LoanBooks = createdLoanBooks.ToList();
+
+            return loan;
         }
     }
 }

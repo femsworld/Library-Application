@@ -1,18 +1,30 @@
-### Post Loan
+### Post Loan (user = test1)
 POST http://localhost:5292/api/v1/Loans
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMmM1NzhhNGEtOTZhMC00MjI2LWFlZWItYzY3OTg0NzUwZTA3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.mlHlYL3mMmdY_X_rsTzdVERE2KUjD3q1eUJlrrbRLEk
 
-[
-  {
-    "bookId": "28a178a6-efc2-4e48-ae19-995185ab0525",
-    "amount": 2
-  },
-  {
-    "bookId": "28a178a6-efc2-4e48-ae19-995185ab0525",
-    "amount": 1
-  }
-]
+# [
+#   {
+#     "bookId": "28a178a6-efc2-4e48-ae19-995185ab0525",
+#     "amount": 2
+#   },
+#   {
+#     "bookId": "28a178a6-efc2-4e48-ae19-995185ab0525",
+#     "amount": 1
+#   }
+# ]
+
+{
+  "userId": "2c578a4a-96a0-4226-aeeb-c67984750e07",
+  "loanBooks": [
+    {
+      "bookId": "28a178a6-efc2-4e48-ae19-995185ab0525"
+    },
+    {
+      "bookId": "76d981a9-f048-415e-b231-64dca9084564"
+    }
+  ]
+}
 
 ### Get all Loans admin
 GET http://localhost:5292/api/v1/Loans

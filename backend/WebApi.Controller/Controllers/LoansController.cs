@@ -20,15 +20,11 @@ namespace WebApi.Controller.Controllers
 
         [Authorize]
         [HttpPost]
-        public Loan PlaceLoan([FromBody] IEnumerable<LoanBookDto> loanBookDtos)  
+        public Loan PlaceLoan([FromBody] LoanDto loanDto)  
         {
-            // var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-            //  Console.WriteLine($"id: {id}");
-            //  Console.WriteLine("loan controller");
-            var userId = new Guid (HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value);
-            // _loanService.PlaceLoan(userId, loanBookDtos);
-            // return new Loan();
-            return _loanService.PlaceLoan(userId, loanBookDtos);
+            var userId = new Guid(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value);
+            return _loanService.PlaceLoan(userId, loanDto);
+
         }
 
         // [Authorize(Policy = "AdminOnly")]
