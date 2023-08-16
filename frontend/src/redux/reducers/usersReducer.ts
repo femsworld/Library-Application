@@ -22,7 +22,7 @@ const initialState: UserReducer = {
     email: "",
     password: "",
     avatar: "",
-    age: -1
+    age: 0
   },
   currentUser: {
     name: "",
@@ -30,7 +30,7 @@ const initialState: UserReducer = {
     avatar: "",
     password: "",
     role: "client",
-    age: -1
+    age: 0
   },
 };
 
@@ -79,7 +79,8 @@ export const createOneUser = createAsyncThunk(
     "createOneUser", 
     async({email, password, name, avatar}: NewUser) => {
     try {
-      const result = await axios.post<NewUser>(`${baseApi}/users`, { email: email, password: password, name: name, avatar: avatar, age: -1 })
+      const result = await axios.post<NewUser>(`${baseApi}/users`, { email: email, password: password, name: name, avatar: avatar, age: 0 })
+      // const result = await axios.post<NewUser>(`${baseApi}/users`, { email, password, name, avatar, age });
       return result.data
     } catch (e) {
       const error = e as AxiosError

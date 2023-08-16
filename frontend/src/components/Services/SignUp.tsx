@@ -10,7 +10,7 @@ const SignUp = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [age, setAge] = useState(-1);
+  const [age, setAge] = useState(0);
   const [avatar, setAvatar] = useState(defaultAvatar);
   const [error, setError] = useState("");
   // const [createdNewUserSucess, setCreatedNewUserSucess] = useState(false);
@@ -48,7 +48,7 @@ const SignUp = () => {
     // ... (validation checks and other logic)
 
     try {
-      await dispatch(createOneUser({ name, email, password, avatar, age: -1}));
+      await dispatch(createOneUser({ name, email, password, avatar, age}));
       // User created successfully, you might want to navigate to a new page or show a success message
       alert("User successfully created! Please login");
       window.location.href = "/login";
