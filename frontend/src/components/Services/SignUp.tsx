@@ -45,6 +45,18 @@ const SignUp = () => {
     }
   };
 
+//   const handleSubmit = async () => {
+//     const { name, email, password, avatar } = formData; // Get your form data
+    
+//     try {
+//         // Dispatch the createOneUser action
+//         await dispatch(createOneUser({ name, email, password, avatar }));
+//         // User created successfully, you might want to navigate to a new page or show a success message
+//     } catch (error) {
+//         // Handle error, maybe show an error message
+//     }
+// };
+
   return (
     <div data-testid="signup">
       <form onSubmit={(e) => handleSubmit(e)}>

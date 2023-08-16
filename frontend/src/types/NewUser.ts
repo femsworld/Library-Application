@@ -3,4 +3,5 @@ export interface NewUser {
     password: string
     name: string
     avatar: string
+    age: number
 }

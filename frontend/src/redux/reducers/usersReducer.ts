@@ -1,8 +1,56 @@
-import { PayloadAction, createAsyncThunk, createSlice, isAction } from "@reduxjs/toolkit";
+import { PayloadAction, createAction, createAsyncThunk, createSlice, isAction } from "@reduxjs/toolkit";
 import axios, { Axios, AxiosError } from "axios";
 import { User } from "../../types/User";
 import { baseApi } from "../common/baseApi";
 import { NewUser } from "../../types/NewUser";
+
+
+interface UserReducer {
+  users: User[];
+  currentUser?: User;
+  newUser: NewUser;
+  loading: boolean;
+  error: string;
+}
+
+const initialState: UserReducer = {
+  users: [],
+  loading: false,
+  error: "",
+  newUser: {
+    name: "",
+    email: "",
+    password: "",
+    avatar: "",
+  },
+  currentUser: {
+    name: "",
+    email: "",
+    avatar: "",
+    role: "client",
+    age: -1
+  },
+};
+
+interface FetchQuery {
+  page: number;
+  per_page: number;
+}
+
+interface thunkAPI {
+  username: string;
+  password: string;
+}
+
+interface TokenResponse {
+  token: string;
+}
+
+interface DecodedToken {
+  name: string;
+}
+
+export const setCurrentUser = createAction<User>("users/setCurrentUser");
 
 export const fetchAllUsers = createAsyncThunk(
     "fetchAllUsers",
@@ -23,11 +71,13 @@ export const fetchAllUsers = createAsyncThunk(
     }
 )
 
+
+
 export const createOneUser = createAsyncThunk(
     "createOneUser", 
     async({email, password, name, avatar}: NewUser) => {
     try {
-      const result = await axios.post<NewUser>(`${baseApi}/users`, { email: email, password: password, name: name, avatar: avatar })
+      const result = await axios.post<NewUser>(`${baseApi}/users`, { email: email, password: password, name: name, avatar: avatar, age: -1 })
       return result.data
     } catch (e) {
       const error = e as AxiosError
@@ -36,32 +86,6 @@ export const createOneUser = createAsyncThunk(
     }
   )
 
-interface UserReducer {
-    users: User[];
-    currentUser?: User;
-    newUser: NewUser;
-    loading: boolean;
-    error: string;
-  }
-
-const initialState: UserReducer = {
-    users: [],
-    loading: false,
-    error: "",
-    newUser: {
-      name: "",
-      email: "",
-      password: "",
-      avatar: "",
-    },
-    currentUser: {
-      name: "",
-      email: "",
-      avatar: "",
-      role: "client",
-      age: -1
-    },
-  };
 const usersSlice = createSlice({
     name: "users",
     initialState,
@@ -75,19 +99,19 @@ const usersSlice = createSlice({
     },
     extraReducers: (build) => {
         build
-        //   .addCase(fetchAllUsers.fulfilled, (state, action) => {
-        //     if (action.payload instanceof AxiosError) {
-        //       state.error = action.payload.message;
-        //     } else {
-        //       state.users = action.payload;
-        //     }
-        //   })
-        //   .addCase(fetchAllUsers.pending, (state, action) => {
-        //     state.loading = true;
-        //   })
-        //   .addCase(fetchAllUsers.rejected, (state, action) => {
-        //     state.error = "Cannot fetch data";
-        //   })
+          .addCase(fetchAllUsers.fulfilled, (state, action) => {
+            if (action.payload instanceof AxiosError) {
+              state.error = action.payload.message;
+            } else {
+              state.users = action.payload;
+            }
+          })
+          .addCase(fetchAllUsers.pending, (state, action) => {
+            state.loading = true;
+          })
+          .addCase(fetchAllUsers.rejected, (state, action) => {
+            state.error = "Cannot fetch data";
+          })
         //   .addCase(EditMeUser.fulfilled, (state, action) => {
         //     if (action.payload instanceof AxiosError) {
         //       state.error = action.payload.message;
@@ -101,19 +125,19 @@ const usersSlice = createSlice({
         //   .addCase(EditMeUser.rejected, (state) => {
         //     state.error = "User cannot be update at the moment, try again later.";
         //   })
-        //   .addCase(createOneUser.fulfilled, (state, action) => {
-        //     if (action.payload instanceof AxiosError) {
-        //       state.error = action.payload.message
-        //     } else {
-        //       state.newUser = action.payload
-        //     }
-        //   })
-        //   .addCase(createOneUser.pending, (state) => {
-        //     state.loading = true;
-        //   })
-        //   .addCase(createOneUser.rejected, (state) => {
-        //     state.error = "User cannot be update at the moment, try again later.";
-        //   })
+          .addCase(createOneUser.fulfilled, (state, action) => {
+            if (action.payload instanceof AxiosError) {
+              state.error = action.payload.message
+            } else {
+              state.newUser = action.payload
+            }
+          })
+          .addCase(createOneUser.pending, (state) => {
+            state.loading = true;
+          })
+          .addCase(createOneUser.rejected, (state) => {
+            state.error = "User cannot be update at the moment, try again later.";
+          })
       },
 })
 

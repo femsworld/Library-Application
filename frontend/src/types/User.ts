@@ -4,4 +4,6 @@ export interface User{
     age: number,
     role: "admin" | "client" | "librarian",
     avatar: string
+    password: string
+    
 }
