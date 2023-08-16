@@ -22,11 +22,13 @@ const initialState: UserReducer = {
     email: "",
     password: "",
     avatar: "",
+    age: -1
   },
   currentUser: {
     name: "",
     email: "",
     avatar: "",
+    password: "",
     role: "client",
     age: -1
   },
@@ -103,7 +105,7 @@ const usersSlice = createSlice({
             if (action.payload instanceof AxiosError) {
               state.error = action.payload.message;
             } else {
-              state.users = action.payload;
+              state.users = action.payload || [];
             }
           })
           .addCase(fetchAllUsers.pending, (state, action) => {
