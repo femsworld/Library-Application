@@ -22,9 +22,9 @@ namespace WebApi.Controller.Controllers
         [HttpPost]
         public Loan PlaceLoan([FromBody] IEnumerable<LoanBookDto> loanBookDtos)  
         {
-            var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-             Console.WriteLine($"id: {id}");
-             Console.WriteLine("loan controller");
+            // var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            //  Console.WriteLine($"id: {id}");
+            //  Console.WriteLine("loan controller");
             var userId = new Guid (HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value);
             // _loanService.PlaceLoan(userId, loanBookDtos);
             // return new Loan();

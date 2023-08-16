@@ -5,8 +5,12 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 
 [
   {
-    "bookId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "bookId": "28a178a6-efc2-4e48-ae19-995185ab0525",
     "amount": 2
+  },
+  {
+    "bookId": "28a178a6-efc2-4e48-ae19-995185ab0525",
+    "amount": 1
   }
 ]
 

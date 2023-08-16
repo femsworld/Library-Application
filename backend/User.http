@@ -27,7 +27,6 @@ Content-Type: application/json
 }
 
 
-
 ### User token (UdateUser)
 PATCH  http://localhost:5292/api/v1/Users/720e0534-5cdf-4ff2-9f39-789fe308c3d7
 Content-Type: application/json

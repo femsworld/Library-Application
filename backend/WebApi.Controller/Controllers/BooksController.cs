@@ -48,7 +48,6 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
         public BookDto  GetBookById(Guid id)
         {
-            // var foundBook = _bookService.GetBookById(id);
             return _bookService.GetBookById(id);
         }
 
