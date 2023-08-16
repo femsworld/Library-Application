@@ -6,6 +6,7 @@ import {
   clearCart,
   removeItemFromCart,
   decreaseItemInCart,
+  placeLoan,
 } from '../../redux/reducers/cartReducer';
 import Header from './Header';
 import { CartItem } from '../../types/CartItem';
@@ -44,6 +45,18 @@ const CartPage = () => {
     dispatch(removeItemFromCart({ itemTitle }));
   };
 
+  const LoanBooks = async () => {
+    const loanBooks = cartItems.map((item) => ({
+      bookId: item.id,
+      // other properties if needed
+    }));
+  
+    await dispatch(placeLoan({ loanBooks }));
+  
+    localStorage.removeItem('cartItems');
+    setCartItems([]);
+  };
+  
   return (
     <div>
       <div>
@@ -66,6 +79,9 @@ const CartPage = () => {
         </ul>
       )}
       <button onClick={handleClearCart}>Clear Cart</button>
+      <h2>
+        <button onClick={LoanBooks}>Place Loan</button>
+      </h2>
     </div>
   );
 };

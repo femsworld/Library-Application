@@ -1,15 +1,50 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CartItem } from "../../types/CartItem";
+import { baseApi } from "../common/baseApi";
+import axios, { AxiosError } from "axios";
+import { LoanBook } from "../../types/LoanBook";
+import { Loan } from "../../types/Loan";
 
 interface CartReducer {
   items: CartItem[];
   count: number;
+  loading: boolean;
+  error: string;
 }
 
 const initialState: CartReducer = {
   items: [],
   count: 0,
+  loading: false,
+  error: "",
 };
+
+export const mapLoanToCartItem = (loan: Loan): CartItem[] => {
+  const cartItems: CartItem[] = loan.loanBooks.map((loanBook: LoanBook) => {
+    return {
+      id: loanBook.bookId, 
+      title: "", 
+      images: [], 
+      quantity: 1,
+    };
+  });
+
+  return cartItems;
+};
+
+export const placeLoan = createAsyncThunk(
+  "placeLoan" , 
+  async({ loanBooks }: { loanBooks: LoanBook[] }) => {
+  try {
+    const result = await axios.post<Loan>(`${baseApi}/loans`, { loanBooks  })
+    return result.data
+  } catch (e) {
+    const error = e as AxiosError
+    return error
+  }
+  }
+)
+
 
 const cartSlice = createSlice({
   name: "cart",
@@ -31,29 +66,15 @@ const cartSlice = createSlice({
           const newCartItem = { ...newItem, quantity: 1 };
           cartItems.push(newCartItem);
         }
-        // console.log("cartItems: ", cartItems)
+        
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         
         const updatedCart = localStorage.getItem('cartItems')
         const updatedCartItems = updatedCart && JSON.parse(updatedCart)
         state.items = [...updatedCartItems]
-
-        // const existingItem = cartItems.find((item: {title: String}) => item.title === newItem.title);
-        // if (existingItem) {
-        //   if (existingItem.quantity){
-        //     existingItem.quantity+= 1;
-        //   } 
-        //   console.log("existingItem: ", cartItems)
-        // } else {
-        //   const newCartItem = { ...newItem, quantity: 1 };
-        //   state.items.push(newCartItem);
-        //   localStorage.setItem('cartItems', JSON.stringify(state.items))
-        //   // console.log("newCartItems: ", state.items)
-        // }
       } else{
         const newCartItem = { ...newItem, quantity: 1 };
         const newCart = [newCartItem]
-        // state.items.push(newCartItem);
         localStorage.setItem('cartItems', JSON.stringify(newCart))
 
         const updatedCart = localStorage.getItem('cartItems')
@@ -81,9 +102,6 @@ const cartSlice = createSlice({
       const updatedCartItems = updatedCart && JSON.parse(updatedCart)
     const existingItemIndex = updatedCartItems.findIndex((item: {title: String}) => item.title === itemTitle.itemTitle);
       if (existingItemIndex !== -1) {
-        // const existingItem = updatedCartItems[existingItemIndex];
-        // if(existingItem.quantity){
-        // }
         updatedCartItems.splice(existingItemIndex, 1);
         state.items = [...updatedCartItems]
         localStorage.setItem('cartItems', JSON.stringify(state.items))
@@ -92,6 +110,24 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       return initialState;
     },
+  },
+  extraReducers: (build) => {
+    build
+    .addCase(placeLoan.fulfilled, (state, action) => {
+      if (action.payload instanceof AxiosError) {
+        state.error = action.payload.message;
+      } else {
+        state.loading = false;
+        const cartItems = mapLoanToCartItem(action.payload);
+        state.items = cartItems;
+      }
+    })
+      .addCase(placeLoan.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(placeLoan.rejected, (state) => {
+        state.error = "Cannot fetch data";
+      })
   },
 });
 
