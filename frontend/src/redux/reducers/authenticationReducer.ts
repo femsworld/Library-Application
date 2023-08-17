@@ -31,13 +31,17 @@ export const userLogin = createAsyncThunk(
   async ({ email, password }: loginQuery) => {
     try {
       const result = await axios.post<AuthenticationReducer>(
-        `${baseApi}/auth/`, {email, password}
+        `${baseApi}/Auth`, {email, password}
+        
       );
+      console.log("User result: ", result.data)
+      localStorage.setItem("loginResponse", JSON.stringify(result.data));
       const userProfile = await axios.get<UserProfile>(
-        `${baseApi}/auth/profile`, { headers: { Authorization: `Bearer ${result.data.access_token}` } }
+        `${baseApi}/users/profile`, { headers: { Authorization: `Bearer ${result.data}` } }
       );
       console.log("userprofile.statustext", userProfile.statusText )
       if (userProfile.statusText === "OK"){
+        console.log("userProfile.data status text: ",userProfile.data )
         localStorage.setItem("userProfile", JSON.stringify(userProfile.data));
       }
       return {
@@ -60,7 +64,7 @@ const authenticationSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    cleanUpAuthenticationReducer: (state) => {
+    cleanUpAuthenticationReducer: () => {
       return initialState;
     },
     setCurrentUser: (state, action: PayloadAction<UserProfile>) => {

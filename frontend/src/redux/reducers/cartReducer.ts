@@ -36,7 +36,11 @@ export const placeLoan = createAsyncThunk(
   "placeLoan" , 
   async({ loanBooks }: { loanBooks: LoanBook[] }) => {
   try {
-    const result = await axios.post<Loan>(`${baseApi}/loans`, { loanBooks  })
+    const storeToken = localStorage.getItem("loginResponse");
+    const parseStoreToken = storeToken && JSON.parse(storeToken);
+    
+    const result = await axios.post<Loan>(`${baseApi}/Loans`,  { loanBooks  }, { headers: { Authorization: `Bearer ${parseStoreToken}` } })
+    console.log("Loan Info reducer:", loanBooks)
     return result.data
   } catch (e) {
     const error = e as AxiosError
@@ -44,7 +48,6 @@ export const placeLoan = createAsyncThunk(
   }
   }
 )
-
 
 const cartSlice = createSlice({
   name: "cart",
@@ -56,12 +59,12 @@ const cartSlice = createSlice({
       const cartItems = inCart && JSON.parse(inCart)
 
       if(cartItems){
-        cartItems.map((item: {title: String, quantity: number}) => {
-          if(item.title === newItem.title){
+        cartItems.map((item: {id: string, quantity: number}) => {
+          if(item.id === newItem.id){
             item.quantity += 1
           }
         });
-        const existingItem = cartItems.find((item: {title: String}) => item.title === newItem.title);
+        const existingItem = cartItems.find((item: {id: string}) => item.id === newItem.id);
         if (!existingItem) {
           const newCartItem = { ...newItem, quantity: 1 };
           cartItems.push(newCartItem);
@@ -86,7 +89,7 @@ const cartSlice = createSlice({
     },
     decreaseItemInCart: (state, action) => {
       const newItem: CartItem = action.payload;
-      const existingItem = state.items.find((item) => item.title === newItem.title);
+      const existingItem = state.items.find((item) => item.id === newItem.id);
       if (existingItem) {
         if (existingItem.quantity){
           existingItem.quantity-= 1;
@@ -97,10 +100,10 @@ const cartSlice = createSlice({
       }
     },
     removeItemFromCart: (state, action) => {
-      const itemTitle = action.payload;
+      const itemObj = action.payload;
       const updatedCart = localStorage.getItem('cartItems')
       const updatedCartItems = updatedCart && JSON.parse(updatedCart)
-    const existingItemIndex = updatedCartItems.findIndex((item: {title: String}) => item.title === itemTitle.itemTitle);
+    const existingItemIndex = updatedCartItems.findIndex((item: {id: string}) => item.id === itemObj.id);
       if (existingItemIndex !== -1) {
         updatedCartItems.splice(existingItemIndex, 1);
         state.items = [...updatedCartItems]

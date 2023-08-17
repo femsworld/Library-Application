@@ -13,35 +13,7 @@ const SignUp = () => {
   const [age, setAge] = useState(0);
   const [avatar, setAvatar] = useState(defaultAvatar);
   const [error, setError] = useState("");
-  // const [createdNewUserSucess, setCreatedNewUserSucess] = useState(false);
-//   const { newUser } = useAppSelector((state) => state.usersReducer);
-//   const dispatch = useAppDispatch();
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   if (!name || !email) {
-  //     setError("Name and email cannot be empty");
-  //   } else if (name.length < 4) {
-  //     setError("Username must be at least 4 characters");
-  //   } else if (password.length < 5) {
-  //     setError("Password must be at least 5 characters long.");
-  //   } else {
-  //     if (
-  //       inputRef.current &&
-  //       inputRef.current.files &&
-  //       inputRef.current.files.length > 0
-  //     ) {
-  //       const avatarFile = inputRef.current.files[0];
-  //     }
-
-  //   //   dispatch(createOneUser({ name, email, password, avatar }));
-  //   //   if (newUser) {
-  //   //     alert("User issuccessfully created! Please login");
-  //   //     window.location.href = "/login";
-  //   //   }
-      
-  //   }
-  // };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,7 +22,6 @@ const SignUp = () => {
       alert("User successfully created! Please login");
       window.location.href = "/login";
     } catch (error) {
-      // Handle error, maybe show an error message
       console.error("Error creating user:", error);
     }
   };
@@ -61,18 +32,6 @@ const SignUp = () => {
       inputRef.current.value = "";
     }
   };
-
-//   const handleSubmit = async () => {
-//     const { name, email, password, avatar } = formData; // Get your form data
-    
-//     try {
-//         // Dispatch the createOneUser action
-//         await dispatch(createOneUser({ name, email, password, avatar }));
-//         // User created successfully, you might want to navigate to a new page or show a success message
-//     } catch (error) {
-//         // Handle error, maybe show an error message
-//     }
-// };
 
   return (
     <div data-testid="signup">

@@ -39,7 +39,7 @@ const booksSlice = createSlice({
     name: "books",
     initialState,
     reducers: {
-        cleanUpBookReducer: (state) => {
+        cleanUpBookReducer: () => {
             return initialState;
         },
     },

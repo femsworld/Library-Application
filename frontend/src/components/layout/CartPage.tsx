@@ -35,23 +35,23 @@ const CartPage = () => {
     setCartItems(cartItemsFromStore)
   }, [cartItemsFromStore])
 
-  const handleIncreaseQuantity = (itemTitle: any) => {
-    dispatch(addItemToCart({ title: itemTitle }));
+  const handleIncreaseQuantity = (id: string) => {
+    dispatch(addItemToCart({ id }));
   };
-  const handleDecreaseQuantity = (itemTitle: any) => {
-    dispatch(decreaseItemInCart({ title: itemTitle }));
+  const handleDecreaseQuantity = (id: string) => {
+    dispatch(decreaseItemInCart({ id }));
   };
-  const handleDeleteQuantity = (itemTitle: any) => {
-    dispatch(removeItemFromCart({ itemTitle }));
+  const handleDeleteQuantity = (id: string) => {
+    dispatch(removeItemFromCart({ id }));
   };
 
   const LoanBooks = async () => {
     const loanBooks = cartItems.map((item) => ({
       bookId: item.id,
-      // other properties if needed
     }));
   
     await dispatch(placeLoan({ loanBooks }));
+    console.log("Dispatch books:", loanBooks)
   
     localStorage.removeItem('cartItems');
     setCartItems([]);
@@ -68,12 +68,12 @@ const CartPage = () => {
       ) : (
         <ul>
           {cartItems.map((item: CartItem) => (
-            <li key={item.title}>
+            <li key={item.id}>
               <p>{item.title}</p>
               <p>Quantity: {item.quantity}</p>
-              <button onClick={() => handleIncreaseQuantity(item.title)}>+</button>
-              <button onClick={() => handleDecreaseQuantity(item.title)}>-</button>
-              <button onClick={() => handleDeleteQuantity(item.title)}>Remove item</button>
+              <button onClick={() => handleIncreaseQuantity(item.id)}>+</button>
+              <button onClick={() => handleDecreaseQuantity(item.id)}>-</button>
+              <button onClick={() => handleDeleteQuantity(item.id)}>Remove item</button>
             </li>
           ))}
         </ul>
