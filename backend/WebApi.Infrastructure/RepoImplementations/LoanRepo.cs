@@ -21,11 +21,23 @@ namespace WebApi.Infrastructure.RepoImplementations
             return _loans.Include(l => l.LoanBooks).ToList();
         }
 
+        public Loan GetLoanById(Guid loanId)
+        {
+            // return _loans.Include(l => l.LoanBooks).SingleOrDefault(l => l.Id == loanId);
+            return _loans.Include(l => l.LoanBooks).SingleOrDefault(l => l.Id == loanId) ?? throw new Exception("Loan not found"); 
+        }
+
         public Loan PlaceLoan(Loan loan)
         {
             _loans.Add(loan);
             _context.SaveChanges();
             return loan;
+        }
+
+        public void RemoveLoan(Loan loan)
+        {
+            _loans.Remove(loan);
+            _context.SaveChanges();
         }
     }
 }

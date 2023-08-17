@@ -22,5 +22,11 @@ namespace WebApi.Infrastructure.RepoImplementations
             _context.SaveChanges();
             return loanBooks;
         }
+
+        public void DeleteLoanBooks(IEnumerable<LoanBook> loanBooks)
+        {
+            _loanBooks.RemoveRange(loanBooks);
+            _context.SaveChanges();
+        }
     }
 }
