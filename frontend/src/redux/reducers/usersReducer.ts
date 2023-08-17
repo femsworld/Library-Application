@@ -77,10 +77,9 @@ export const fetchAllUsers = createAsyncThunk(
 
 export const createOneUser = createAsyncThunk(
     "createOneUser", 
-    async({email, password, name, avatar}: NewUser) => {
+    async({email, password, name, avatar, age}: NewUser) => {
     try {
-      const result = await axios.post<NewUser>(`${baseApi}/users`, { email: email, password: password, name: name, avatar: avatar, age: 0 })
-      // const result = await axios.post<NewUser>(`${baseApi}/users`, { email, password, name, avatar, age });
+      const result = await axios.post<NewUser>(`${baseApi}/users`, { email: email, password: password, name: name, avatar: avatar, age: age })
       return result.data
     } catch (e) {
       const error = e as AxiosError
