@@ -23,8 +23,13 @@ namespace WebApi.Controller.Controllers
         public Loan PlaceLoan([FromBody] LoanDto loanDto)  
         {
             var userId = new Guid(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value);
-            return _loanService.PlaceLoan(userId, loanDto);
-
+            var processedLoanDto = new LoanDto
+            {
+                UserId = userId,
+                LoanBooks = loanDto.LoanBooks
+            };
+            
+            return _loanService.PlaceLoan(userId, processedLoanDto);
         }
 
         // [Authorize(Policy = "AdminOnly")]
@@ -34,5 +39,26 @@ namespace WebApi.Controller.Controllers
             return _loanService.GetAllLoans();
         }
 
+        [Authorize]
+        [HttpPut("return/{loanId}")]
+        public IActionResult ReturnLoan(Guid loanId)
+        {
+            try
+            {
+                _loanService.ReturnLoan(loanId);
+                return Ok("Loan returned successfully");
+            }
+            catch (Exception)
+            {
+                return NotFound("Loan not found");
+            }
+        }
+
+        [Authorize]
+        [HttpGet("user/{userId}")]
+        public IEnumerable<Loan> GetLoansByUserId(Guid userId)
+        {
+            return _loanService.GetLoansByUserId(userId);
+        }    
     }
 }

@@ -15,3 +15,7 @@ Content-Type: application/json
 ### Get Book by Id
 GET  http://localhost:5292/api/v1/Books/b4c66b06-bd3e-4ca1-81ae-ef399c074f91
 Content-Type: application/json
+
+### Search book
+GET http://localhost:5292/api/v1/Books/search
+Content-Type: application/json

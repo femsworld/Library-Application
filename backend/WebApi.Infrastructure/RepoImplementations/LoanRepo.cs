@@ -27,6 +27,13 @@ namespace WebApi.Infrastructure.RepoImplementations
             return _loans.Include(l => l.LoanBooks).SingleOrDefault(l => l.Id == loanId) ?? throw new Exception("Loan not found"); 
         }
 
+        public IEnumerable<Loan> GetLoansByUserId(Guid userId)
+        {
+            return _loans.Include(l => l.LoanBooks)
+                         .Where(l => l.UserId == userId)
+                         .ToList();
+        }
+
         public Loan PlaceLoan(Loan loan)
         {
             _loans.Add(loan);

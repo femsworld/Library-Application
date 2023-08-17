@@ -24,6 +24,11 @@ namespace WebApi.Business.Services.Implementations
             return _loanRepo.GetAllLoans();
         }
 
+        public IEnumerable<Loan> GetLoansByUserId(Guid userId)
+        {
+            return _loanRepo.GetLoansByUserId(userId);
+        }
+
         public Loan PlaceLoan(Guid userId, LoanDto loanDto)
         {
             var loan = new Loan { UserId = loanDto.UserId };
@@ -38,6 +43,23 @@ namespace WebApi.Business.Services.Implementations
             loan.LoanBooks = createdLoanBooks.ToList();
 
             return loan;
+        }
+
+        public void ReturnLoan(Guid loanId)
+        {
+            var loan = _loanRepo.GetLoanById(loanId);
+            if (loan == null)
+            {
+                return;
+            }
+
+            // var returnedBooks = loan.LoanBooks.ToList();
+            var returnedBooks = loan.LoanBooks ?? new List<LoanBook>();
+            _loanBookRepo.DeleteLoanBooks(returnedBooks);
+
+            _loanRepo.RemoveLoan(loan);
+
+            var returnedBookTitles = returnedBooks.Select(b => b.Book.Title).ToList();
         }
     }
 }

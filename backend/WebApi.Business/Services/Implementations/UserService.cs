@@ -16,13 +16,65 @@ namespace WebApi.Business.Services.Implementations
             _mapper = mapper;
             _userRepo = userRepo;
         }
+        // public UserDto CreateUser(UserDto userDto)
+        // {
+        //     // var user = _mapper.Map<User>(userDto);
+        //     // // user.Password = Encoding.UTF8.GetBytes(userDto.Password);
+        //     // var createdUser = _userRepo.CreateUser(user);
+        //     // return _mapper.Map<UserDto>(createdUser);
+        //     var user = _mapper.Map<User>(userDto);
+        //     user.Role = Role.Client;
+        //     var createdUser = _userRepo.CreateUser(user);
+        //     var createdUserDto = _mapper.Map<UserDto>(createdUser);
+        //     return createdUserDto;
+        // }
+
+        // public UserDto CreateUser(UserDto userDto)
+        // {
+        //     try
+        //     {
+        //         var user = _mapper.Map<User>(userDto);
+        //         user.Role = Role.Client;
+        //         user.Password = userDto.Password; 
+        //         var createdUser = _userRepo.CreateUser(user);
+        //         var createdUserDto = _mapper.Map<UserDto>(createdUser);
+        //         return createdUserDto;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //     // Log the exception details, including inner exception
+        //     Console.WriteLine($"Error creating user: {ex.Message}");
+        //     if (ex.InnerException != null)
+        //     {
+        //         Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+        //         Console.WriteLine($"Inner Exception Stack Trace: {ex.InnerException.StackTrace}");
+        //     }
+        //     throw; // Rethrow the exception
+        //     }
+        // }
+
         public UserDto CreateUser(UserDto userDto)
         {
+            try
+            {
+        // Remove the role property from userDto (if present)
+            userDto.Role = Role.Client; // Set the role directly to "Client"
+
             var user = _mapper.Map<User>(userDto);
-            // user.Password = Encoding.UTF8.GetBytes(userDto.Password);
+            // Map other properties
+            user.Password = userDto.Password; 
+
             var createdUser = _userRepo.CreateUser(user);
-            return _mapper.Map<UserDto>(createdUser);
-        }
+            var createdUserDto = _mapper.Map<UserDto>(createdUser);
+            return createdUserDto;
+            }
+            catch (Exception ex)
+            {
+                // Log and handle exceptions here
+                throw;
+            }
+}
+
 
         public UserAdminDto CreateUserByAdmin(UserAdminDto userAdminDto)
         {

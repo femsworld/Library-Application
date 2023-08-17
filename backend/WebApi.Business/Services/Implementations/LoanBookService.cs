@@ -16,11 +16,19 @@ namespace WebApi.Business.Services.Implementations
             _loanBookRepo = loanBookRepo;
             _mapper = mapper;
         }
-      
+
+        public void DeleteLoanBooks(IEnumerable<LoanBook> loanBooks)
+        {
+            // throw new NotImplementedException();
+            _loanBookRepo.DeleteLoanBooks(loanBooks);
+            
+        }
+
         IEnumerable<LoanBook> ILoanBookService.CreateLoanBook(params LoanBookDto[] loanBookDto)
         {
             var loanBooks = _mapper.Map<IEnumerable<LoanBook>>(loanBookDto);
             return _loanBookRepo.CreateLoanBook(loanBooks.ToArray());
         }
+        
     }
 }

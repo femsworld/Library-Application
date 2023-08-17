@@ -1,11 +1,12 @@
-POST http://localhost:5292/api/v1/users
+POST http://localhost:5292/api/v1/Users
 Content-Type: application/json
 
 {
-    "name": "Teni",
-    "email": "Teni@mail.com",
-    "age": "21",
-    "avatar": "string"
+  "name": "Danny",
+  "email": "danny@mail.com",
+  "age": 19,
+  "avatar": "string",
+  "password": "danny123"
 }
 
 ### Get admin token
@@ -22,18 +23,18 @@ POST http://localhost:5292/api/v1/Auth
 Content-Type: application/json
 
 {
-    "email": "test1@mail.com",
-    "password": "test123"
+    "email": "erik@mail.com",
+    "password": "erik123"
 }
 
 
 ### User token (UdateUser)
-PATCH  http://localhost:5292/api/v1/Users/720e0534-5cdf-4ff2-9f39-789fe308c3d7
+PATCH  http://localhost:5292/api/v1/Users/ec92ca98-eda3-4e5d-9ac2-5a24ba33b781
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJibHVlQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlYzkyY2E5OC1lZGEzLTRlNWQtOWFjMi01YTI0YmEzM2I3ODEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDbGllbnQifQ.e75P15_uOUXt7XejSwNigL7JsJDt0e1G5bSe_Qn-dS0
 
 {
-  "name": "Eniola",
+  "name": "Blue",
   "age": 22,
   "avatar": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffree-vector%2Fbird-colorful-logo-gradient-vector_343694-1365.jpg&tbnid=qrn4zRugFoxeWM&vet=12ahUKEwi9-e3H6tKAAxVKEBAIHc37BNoQMygAegUIARDXAQ..i&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Flogo&docid=ldkRqsCRrSjoyM&w=626&h=626&q=images&hl=en&ved=2ahUKEwi9-e3H6tKAAxVKEBAIHc37BNoQMygAegUIARDXAQ"
 }
@@ -101,3 +102,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
   "password": "enni123",
   "role": 2
 }
+
+### admin token (Delete User by ID)
+DELETE http://localhost:5292/api/v1/Users/2d3c5a57-dcf4-4a74-b000-190bcb528e46
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
+
