@@ -49,6 +49,19 @@ export const placeLoan = createAsyncThunk(
   }
 )
 
+// export const fetchLoanByUser = createAsyncThunk(
+//   "fetchLoanByUser",
+//   async () => {
+//       try {
+//           const result = await axios.get<Category[]>("https://api.escuelajs.co/api/v1/categories")
+//           return result.data
+//       } catch (e) {
+//           const error = e as AxiosError
+//           return error.message
+//       }
+//   }
+// )
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -75,7 +88,7 @@ const cartSlice = createSlice({
         const updatedCart = localStorage.getItem('cartItems')
         const updatedCartItems = updatedCart && JSON.parse(updatedCart)
         state.items = [...updatedCartItems]
-      } else{
+      } else {
         const newCartItem = { ...newItem, quantity: 1 };
         const newCart = [newCartItem]
         localStorage.setItem('cartItems', JSON.stringify(newCart))

@@ -1,4 +1,5 @@
-# Fullstack Project
+# Library Application (Web API Project)
+
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
 ![SASS](https://img.shields.io/badge/SASS-v.4-hotpink)
@@ -10,86 +11,76 @@
 
 This project involves creating a Fullstack project with React and Redux on the frontend and ASP.NET Core 7 on the backend. The goal is to provide a seamless experience for users, along with robust management system for administrators.
 
-- Frontend: SASS, TypeScript, React, Redux Toolkit
+- Frontend: SASS, MUI, TypeScript, React, Redux Toolkit
 - Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
-You can follow the same topics as your backend project or choose the alternative one, between E-commerce and Library. You can reuse the previous frontend project, with necessary modification, or make a new layout to fit your backend server.
+This is a Web API project that provides Library's functionality, user management, and loan operations.
 
 ## Table of Contents
 
-1. [Features](#features)
-   - [Mandatory features](#mandatory-features)
-   - [Extra features](#extra-features)
-2. [Requirements](#requirements)
-3. [Getting Started](#getting-started)
-4. [Testing](#testing)
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Authentication](#authentication)
+- [Usage Examples](#usage-examples)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Features
+## Introduction
 
-### Mandatory features
-
-#### User Functionalities
-
-1. User Management: Users should be able to register for an account and log in. Users cannot register themselves as admin.
-2. Browse Products: Users should be able to view all available products and single product, search and sort products.
-3. Add to Cart: Users should be able to add products to a shopping cart, and manage cart.
-4. Checkout: Users should be able to place order.
-
-#### Admin Functionalities
-
-1. User Management: Admins should be able to view and delete users.
-2. Product Management: Admins should be able to view, edit, delete and add new products.
-3. Order Management: Admins should be able to view all orders
-
-### Extra features
-
-#### User Functionalities
-
-1. User Management: Users should be able to view and edit only certain properties in their accounts. They also can unregister their own accounts.
-2. Authentication and account registration with Google Oauth.
-3. Order Management: Users should be able to view their order history, track the status of their orders, and potentially cancel orders within a certain timeframe.
-
-#### Admin Functionalities
-
-1. User Management: Admins should be able to edit users' role and create new users.
-2. Order Management: Admins should be able to update order status, view order details, handle returns/refunds, and cancel orders.
-
-And any other extra features that you want to implement ...
-
-## Requirements
-
-1. Apply CLEAN architecture in your backend. In README file, explain the architecture of your project as well.
-2. Implement Error Handling Middleware: This will ensure any exceptions thrown in your application are handled appropriately and helpful error messages are returned.
-3. Document with Swagger: Make sure to annotate your API endpoints and generate a Swagger UI for easier testing and documentation.
-4. Project should have proper file structure, naming convention, and comply with Rest API.
-5. `README` file should sufficiently describe the project, as well as the deployment.
+This Web API project is designed to provide various services related to books, user management, and loan operations. It includes services to manage books, user accounts, carts, loans, and more.
 
 ## Getting Started
 
-1. Your full stack project should have one git repo to manage both frontend and backend. The shared .git in the root directory is used to push commits to the remote repo. In case you need to deploy frontend and backend to different server, you can inittiate another `.git` folder in each repository. Syntax: `cd frontend` -> `git init` (similar to backend folder). Remember to add `.gitignore` for each folder when you intiate `git` repo.
-2. `frontend` folder is for the react frontend. Start with `backend` first before moving to `frontend`.
-3. In the `backend`, here is the recommended order:
+1. Clone this repository to your local machine.
+2. Configure the connection string to your database in the `appsettings.example.json` file.
+3. Run the application using your preferred development environment.
 
-   - Plan Your Database Schema before start coding
+## API Endpoints
 
-   - Set Up the Project Structure
+### Book Operations
 
-   - Build the models
+- `GET /api/v1/Books`: Get a list of all books.
+- `GET /api/v1/Books/{id}`: Get details of a specific book by ID.
+- `POST /api/v1/Books`: Add a new book.
+- `PUT /api/v1/Books/{id}`: Update details of a specific book by ID.
+- `DELETE /api/v1/Books/{id}`: Delete a book by ID.
 
-   - Create the Repositories
+### User Operations
 
-   - Build the Services
+- `GET /api/v1/Users`: Get a list of all users (AdminOnly).
+- `GET /api/v1/Users/{id}`: Get details of a specific user by ID (AdminOnly).
+- `POST /api/v1/Users`: Create a new user.
+- `PUT /api/v1/Users/{id}`: Update details of a specific user by ID.
+- `DELETE /api/v1/Users/{id}`: Delete a user by ID.
 
-   - Set Up Authentication & Authorization
+### Loan Operations
 
-   - Build the Controllers
+- `GET /api/v1/Loans`: Get a list of all loans (AdminOnly).
+- `GET /api/v1/Loans/user/{userId}`: Get loans associated with a specific user.
+- `POST /api/v1/Loans`: Place a new loan.
+- `PUT /api/v1/Loans/return/{loanId}`: Return a loan.
 
-   - Implement Error Handling Middleware
+Please refer to the API documentation or your development environment for more details on available endpoints and their request/response formats.
 
-4. You should focus on the mandatory features first. Make sure you have minimal working project before opting for advanced functionalities.
+## Authentication
 
-Testing should be done along the development circle, early and regularly.
+Authentication is required to access certain endpoints. You can obtain an access token by following the authentication process specific to your project.
 
-## Testing
+## Usage Examples
 
-Unit testing, and optionally integration testing, must be included for both frontend and backend code. Aim for high test coverage and ensure all major functionalities are covered.
+### Place a Loan
+
+To place a loan, send a `POST` request to `/api/v1/Loans` with the loan details in the request body.
+
+### Return a Loan
+
+To return a loan, send a `PUT` request to `/api/v1/Loans/return/{loanId}` where `{loanId}` is the ID of the loan to be returned.
+
+## Contributing
+
+Contributions to this project are welcome. Please fork the repository, create a new branch for your changes, and submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
