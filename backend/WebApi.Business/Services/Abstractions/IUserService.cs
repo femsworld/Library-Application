@@ -11,5 +11,6 @@ namespace WebApi.Business.Services.Abstractions
         UserAdminDto UpdateUserByAdmin(Guid id, UserAdminDto userAdminDto);
         UserDto DeleteUser (Guid id);
         IEnumerable<UserDto> GetAllUsers();
+        UserChangePasswordDto ChangeUserPassword(Guid id, UserChangePasswordDto userChangePasswordDto);
     }
 }

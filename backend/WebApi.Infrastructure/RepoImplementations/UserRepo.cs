@@ -17,6 +17,13 @@ namespace WebApi.Infrastructure.RepoImplementations
 
         }
 
+        public User ChangeUserPassword(User user, User updatePassword)
+        {
+            user.Password = updatePassword.Password ?? user.Password;
+            _context.SaveChanges();
+            return user;
+        }
+
         public User CreateUser(User user)
         {
             user.Role = Role.Client;

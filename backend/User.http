@@ -2,11 +2,23 @@ POST http://localhost:5292/api/v1/Users
 Content-Type: application/json
 
 {
-  "name": "Danny",
-  "email": "danny@mail.com",
-  "age": 19,
+  "name": "Admin",
+  "email": "admin@mail.com",
+  "age": 42,
   "avatar": "string",
-  "password": "danny123"
+  "password": "admin123"
+}
+
+### Create user client
+POST http://localhost:5292/api/v1/Users
+Content-Type: application/json
+
+{
+  "name": "Tom",
+  "email": "tom@mail.com",
+  "age": 43,
+  "avatar": "string",
+  "password": "tom123"
 }
 
 ### Get admin token
@@ -14,8 +26,8 @@ POST http://localhost:5292/api/v1/Auth
 Content-Type: application/json
 
 {
-    "email": "admin@mail.com",
-    "password": "admin123"
+    "email": "femi@mail.com",
+    "password": "femi123"
 }
 
 ### get client token
@@ -23,10 +35,9 @@ POST http://localhost:5292/api/v1/Auth
 Content-Type: application/json
 
 {
-    "email": "erik@mail.com",
-    "password": "erik123"
+    "email": "tom@mail.com",
+    "password": "string"
 }
-
 
 ### User token (UdateUser)
 PATCH  http://localhost:5292/api/v1/Users/ec92ca98-eda3-4e5d-9ac2-5a24ba33b781
@@ -39,10 +50,19 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
   "avatar": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffree-vector%2Fbird-colorful-logo-gradient-vector_343694-1365.jpg&tbnid=qrn4zRugFoxeWM&vet=12ahUKEwi9-e3H6tKAAxVKEBAIHc37BNoQMygAegUIARDXAQ..i&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Flogo&docid=ldkRqsCRrSjoyM&w=626&h=626&q=images&hl=en&ved=2ahUKEwi9-e3H6tKAAxVKEBAIHc37BNoQMygAegUIARDXAQ"
 }
 
+### User token (UdateUserPassword)
+PATCH  http://localhost:5292/api/v1/Users/password/dae86825-00b5-4e08-9492-54e837c9acfc
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0b21AbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImRhZTg2ODI1LTAwYjUtNGUwOC05NDkyLTU0ZTgzN2M5YWNmYyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkNsaWVudCJ9.T-jXytCxtjCN99pE_Pox9FqOluTf_zeQQx_MPAFgiaA
+
+{
+  "password": "string"
+}
+
 ### admin token (Get User by ID)
 GET http://localhost:5292/api/v1/Users/81803401-802d-42b8-b91d-77e38ff59ebd
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0NEBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMWQwZjQ4MWQtYWU3OC00MDNkLTkzZDAtZTUxMDY1MTRlZDMwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.1gu8-6Cj8dLtBKFrRJAiJUpE-mB8gO8Cj1OQ0bC4iZE
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1YTc4OTFkYy00MmZmLTQ4NGItOTlkMC01ODU2N2ZmM2QwZTAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.qGgKcjdX1gisH9fpQNcbHu1E2q0-sBLZn9AmBki6Ej0
 
 ### client token
 GET http://localhost:5292/api/v1/Users/81803401-802d-42b8-b91d-77e38ff59ebd
@@ -104,6 +124,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 }
 
 ### admin token (Delete User by ID)
-DELETE http://localhost:5292/api/v1/Users/2d3c5a57-dcf4-4a74-b000-190bcb528e46
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
+DELETE http://localhost:5292/api/v1/Users/3d541a79-48e3-48e4-9991-868c60c79461
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJkNjA0NGZjZi04M2U0LTQ0Y2EtYmEyNS0zMGI3NDUyYmJmZTAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.Ii0V11o8y_noAIFe5oPs0sfKi2dheVMJ7YTDDrPm7y0
 

@@ -3,9 +3,9 @@ POST http://localhost:5292/api/v1/Books
 Content-Type: application/json
 
 {
-  "title": "Stroke studies",
-  "genre": 3,
-  "inventory": 10
+  "title": "Algebra 101",
+  "genre": 2,
+  "inventory": 1
 }
 
 ### Get Books

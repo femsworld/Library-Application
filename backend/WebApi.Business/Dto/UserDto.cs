@@ -20,4 +20,9 @@ namespace WebApi.Business.Dto
         public int Age { get; set; }
         public string? Avatar { get; set; }
     }
+
+    public class UserChangePasswordDto
+    {
+        public string Password { get; set; }
+    }
 }

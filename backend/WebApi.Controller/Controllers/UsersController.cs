@@ -102,6 +102,16 @@ namespace WebApi.Controller.Controllers
             return _userService.UpdateUser(id, update);
         }
 
+        [Authorize]
+        [HttpPatch("password/{id:Guid}")]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        public UserChangePasswordDto ChangeUserPassword([FromRoute] Guid id, [FromBody] UserChangePasswordDto update)
+        {
+            return _userService.ChangeUserPassword(id, update);
+        }
+
         [Authorize(Policy = "AdminOnly")]
         [HttpPatch("admin/{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]

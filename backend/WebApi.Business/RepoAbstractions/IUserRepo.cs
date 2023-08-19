@@ -12,5 +12,6 @@ namespace WebApi.Business.RepoAbstractions
         User UpdateUserByAdmin(User user, User update);
         User VerifyCredentials(string email, string password);
         User DeleteUser (Guid id);
+        User ChangeUserPassword(User user, User updatePassword);
     }
 }
