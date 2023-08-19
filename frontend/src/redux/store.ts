@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import booksReducer from "./reducers/booksReducer";
 import userReducer from "./reducers/usersReducer";
 import cartReducer from "./reducers/cartReducer";
+import genreReducer from "./reducers/genreReducer";
 
 const store = configureStore({
     reducer: {
         booksReducer,
         userReducer,
-        cartReducer  
+        cartReducer,
+        genreReducer  
     },
     preloadedState: {
         booksReducer: {
