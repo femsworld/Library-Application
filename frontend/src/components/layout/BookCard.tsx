@@ -4,6 +4,7 @@ import useAppSelector from "../../hooks/useAppSelector";
 import { addItemToCart } from "../../redux/reducers/cartReducer";
 import { IconButton } from "@mui/material";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Link } from "react-router-dom";
 
 interface BookCardProps{
     book: Book
@@ -35,6 +36,9 @@ const BookCard: React.FC<BookCardProps> = ({book}) => {
       <IconButton onClick={(e) => addOneItemToCart(e)} size="large" aria-label="shopping cart" color="inherit">
         <AddShoppingCartIcon />
       </IconButton> 
+      <Link to={`/bookDetails/${book.id}`}>
+        <button>Detail</button>
+      </Link>
     </div>
   )
 }

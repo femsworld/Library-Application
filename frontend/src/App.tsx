@@ -3,8 +3,7 @@ import Home from './components/layout/Home';
 import Login from './components/Services/Login';
 import SignUp from './components/Services/SignUp';
 import CartPage from './components/layout/CartPage';
-
-
+import BookDetails from './components/layout/BookDetails';
 
 const App = () => {
   
@@ -15,6 +14,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/bookDetails/:id" element={<BookDetails />} />
       </Routes>
     </BrowserRouter>
   );  
