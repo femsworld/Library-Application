@@ -9,11 +9,15 @@ Content-Type: application/json
 }
 
 ### Get Books
+GET http://localhost:5292/api/v1/Books/categorize?genre=Novel
+Content-Type: application/json
+
+### Get Books by Genre
 GET  http://localhost:5292/api/v1/Books
 Content-Type: application/json
 
 ### Get Book by Id
-GET  http://localhost:5292/api/v1/Books/b4c66b06-bd3e-4ca1-81ae-ef399c074f91
+GET  http://localhost:5292/api/v1/Books/42a5fe40-b20a-49d6-b0b4-b719db8ce9d9
 Content-Type: application/json
 
 ### Search book
