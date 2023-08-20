@@ -9,6 +9,8 @@ interface BookReducer {
     error: string;
     books: Book[];
     singleBook: SingleBook;
+    genre: string;
+  booksByGenre: Book[]
 }
 
 export interface FetchQuery {
@@ -20,10 +22,16 @@ export interface FetchQuery {
     id: string | undefined;
   }
 
+  export interface FetchQueryCategory {
+    genre: string
+    }
+
 const initialState : BookReducer = {
     loading: false,
     error: "",
     books: [],
+    genre: "",
+    booksByGenre: [],
     singleBook: {
       id: "",
       title: "",
@@ -36,10 +44,11 @@ const initialState : BookReducer = {
 
 export const fetchAllBooks = createAsyncThunk(
     "fetchAllBooks",
-    async ({ offset, limit }: FetchQuery) => {
+    async () => {
       try {
+        console.log("fetchAllBooks!!!!!!!")
         const result = await axios.get<{books: Book[]}>(
-          `${baseApi}/books?offset=${offset}&limit=${limit}`
+          `${baseApi}/books`
         );
         return result.data;
       } catch (e) {
@@ -48,6 +57,21 @@ export const fetchAllBooks = createAsyncThunk(
       }
     }
   );
+
+  export const fetchBooksByGenre = createAsyncThunk(
+    "fetchBooksByGenre",
+    async ({ genre}: FetchQueryCategory) => {
+        try {
+            console.log("Reducer: ", genre)
+            const result = await axios.get<Book[]>(`${baseApi}/Books/categorize?genre=${genre}`)
+            console.log("fetchBooksByGenre URL: ", result)
+            return result.data
+        } catch (e) {
+            const error = e as AxiosError
+            return error.message
+        }
+    }
+  ) 
 
   export const fetchSingleBook = createAsyncThunk(
     "fetchSingleBook",
@@ -71,6 +95,12 @@ const booksSlice = createSlice({
     reducers: {
         cleanUpBookReducer: () => {
             return initialState;
+        },
+        setGenre: (state, action) => {
+          state.genre = action.payload;
+        },
+        selectGenre: (state, action) => {
+          state.genre = action.payload;
         },
     },
     extraReducers: (build) => {
@@ -111,10 +141,25 @@ const booksSlice = createSlice({
             state.loading = false;
             state.error =
               "This action cannot be completed at the moment, please try again later";
-          });
+          })
+          .addCase(fetchBooksByGenre.fulfilled, (state, action) => {
+            if (typeof action.payload === "string") {
+                state.error = action.payload
+            } else {
+              state.books = action.payload
+            }
+            state.loading = false
+        })
+        .addCase(fetchBooksByGenre.pending, (state) => {
+            state.loading = true
+        })
+        .addCase(fetchBooksByGenre.rejected, (state) => {
+            state.loading = false
+            state.error = "This action cannot be completed at the moment, please try again later"
+        })
       },
 })
 
 const booksReducer = booksSlice.reducer
-export const { cleanUpBookReducer } = booksSlice.actions;
+export const { cleanUpBookReducer, setGenre, selectGenre } = booksSlice.actions;
 export default booksReducer

@@ -11,6 +11,7 @@ const BookDetails = () => {
 
     useEffect(() => {
         dispatch(fetchSingleBook({ id }));
+        
       }, [id]);
 
 
