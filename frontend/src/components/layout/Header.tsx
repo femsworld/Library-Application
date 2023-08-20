@@ -1,72 +1,77 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { User } from '../../types/User';
-import SignUp from '../Services/SignUp';
+import * as React from "react";
+import { styled, alpha } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import InputBase from "@mui/material/InputBase";
+import Badge from "@mui/material/Badge";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { User } from "../../types/User";
+import SignUp from "../Services/SignUp";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import useAppDispatch from '../../hooks/useAppDispatch';
-import useAppSelector from '../../hooks/useAppSelector';
-import { userLogout } from '../../redux/reducers/authenticationReducer';
+import useAppDispatch from "../../hooks/useAppDispatch";
+import useAppSelector from "../../hooks/useAppSelector";
+import { userLogout } from "../../redux/reducers/authenticationReducer";
+import { useDebounce } from "use-debounce";
+import { SearchBooksByTitle } from "../../redux/reducers/booksReducer";
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
+  "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: 'auto',
+    width: "auto",
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
   },
 }));
 
-  const Header = () => {
-    const dispatch = useAppDispatch();
+const Header = () => {
+  const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.cartReducer);
+  const { loading, error, books } = useAppSelector(
+    (state) => state.booksReducer
+  );
   // const cartItems = localStorage.getItem('cartItems');
   // const items = cartItems ? JSON.parse(cartItems) : []
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -80,9 +85,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState<User | null>(null);
   const [cartItemCount, setCartItemCount] = useState(0);
-
-
-
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
+  
   const handleSignUpClick = () => {
     setShowSignUp(!showSignUp);
   };
@@ -128,18 +133,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     } else {
       setUserProfile(null);
     }
-    
-    const cartItems = localStorage.getItem('cartItems');
+
+    const cartItems = localStorage.getItem("cartItems");
     if (cartItems) {
       const parsedCartItems = JSON.parse(cartItems);
       setCartItemCount(parsedCartItems.length);
     } else {
       setCartItemCount(0);
     }
-  }, [storedUserProfile, localStorage.getItem('cartItems')]);
+  }, [storedUserProfile, localStorage.getItem("cartItems")]);
 
   const menuId = "primary-search-account-menu";
-  
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -208,7 +213,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       )}
     </Menu>
   );
-  
 
   {
     showSignUp && <SignUp />;
@@ -269,6 +273,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     </Menu>
   );
 
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
+    }
+  }, [debouncedSearchTerm]);
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -288,27 +298,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>HOME</Link>
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+              HOME
+            </Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search by title…"
               inputProps={{ "aria-label": "search" }}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </Search>
-          
+
           <Box sx={{ flexGrow: 1 }} />
-          {userProfile &&
-      <div>
-        <h2>Welcome, {userProfile?.name}!</h2>
-      </div>
-      }
+          {userProfile && (
+            <div>
+              <h2>Welcome, {userProfile?.name}!</h2>
+            </div>
+          )}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IconButton size="large" aria-label="shopping cart" color="inherit">
+            <Link
+              to="/cart"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <IconButton
+                size="large"
+                aria-label="shopping cart"
+                color="inherit"
+              >
                 {cartItemCount > 0 && (
                   <Badge badgeContent={cartItemCount} color="error" />
                 )}
@@ -316,17 +337,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               </IconButton>
             </Link>
 
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -347,6 +368,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       {showSignUp && <SignUp />}
     </Box>
   );
-}
+};
 
-export default Header
+export default Header;
