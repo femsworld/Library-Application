@@ -15,6 +15,7 @@ const store = configureStore({
             error: "",
             books: [],
             genre: "",
+            search: "",
             booksByGenre: [],
             singleBook: {
                 genre: ""

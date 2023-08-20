@@ -10,6 +10,7 @@ interface BookReducer {
     books: Book[];
     singleBook: SingleBook;
     genre: string;
+    search: string
   booksByGenre: Book[]
 }
 
@@ -22,6 +23,10 @@ export interface FetchQuery {
     id: string | undefined;
   }
 
+  export interface SearchBookQuery {
+    search: string | undefined;
+  }
+
   export interface FetchQueryCategory {
     genre: string
     }
@@ -31,6 +36,7 @@ const initialState : BookReducer = {
     error: "",
     books: [],
     genre: "",
+    search: "",
     booksByGenre: [],
     singleBook: {
       id: "",
@@ -64,6 +70,21 @@ export const fetchAllBooks = createAsyncThunk(
         try {
             console.log("Reducer: ", genre)
             const result = await axios.get<Book[]>(`${baseApi}/Books/categorize?genre=${genre}`)
+            console.log("fetchBooksByGenre URL: ", result)
+            return result.data
+        } catch (e) {
+            const error = e as AxiosError
+            return error.message
+        }
+    }
+  );
+
+  export const SearchBooksByTitle = createAsyncThunk(
+    "SearchBooksByTitle",
+    async ({ search}: SearchBookQuery) => {
+        try {
+            console.log("Reducer: ", search)
+            const result = await axios.get<Book[]>(`${baseApi}/Books/search?searchTerm=${search}`)
             console.log("fetchBooksByGenre URL: ", result)
             return result.data
         } catch (e) {
@@ -115,12 +136,10 @@ const booksSlice = createSlice({
           })
           .addCase(fetchAllBooks.fulfilled, (state, action) => {
             if (typeof action.payload === "string") {
-              console.log('Action Payload:', action.payload);
               state.loading = false;
               state.error = action.payload;
             } else {
               const booksPayload = action.payload as { books: Book[] };
-              // console.log('Action Payload:', booksPayload);
               state.loading = false;
               state.error = "";
               state.books = booksPayload.books;
@@ -134,10 +153,10 @@ const booksSlice = createSlice({
             }
             state.loading = false;
           })
-          .addCase(fetchSingleBook.pending, (state, action) => {
+          .addCase(fetchSingleBook.pending, (state) => {
             state.loading = true;
           })
-          .addCase(fetchSingleBook.rejected, (state, action) => {
+          .addCase(fetchSingleBook.rejected, (state) => {
             state.loading = false;
             state.error =
               "This action cannot be completed at the moment, please try again later";
@@ -157,6 +176,21 @@ const booksSlice = createSlice({
             state.loading = false
             state.error = "This action cannot be completed at the moment, please try again later"
         })
+        .addCase(SearchBooksByTitle.fulfilled, (state, action) => {
+          if (typeof action.payload === "string") {
+              state.error = action.payload
+          } else {
+            state.books = action.payload
+          }
+          state.loading = false
+      })
+      .addCase(SearchBooksByTitle.pending, (state) => {
+          state.loading = true
+      })
+      .addCase(SearchBooksByTitle.rejected, (state) => {
+          state.loading = false
+          state.error = "This action cannot be completed at the moment, please try again later"
+      })
       },
 })
 

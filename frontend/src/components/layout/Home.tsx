@@ -39,11 +39,10 @@ const getGenreProps = ((genre: string) =>
 
 return (
   <div>
-    <>
-      {console.log("Genre: ", books)}
-    </>
-        {/* <Header /> */}
+        <Header />
+        <div style={{ marginTop: '4rem' }}>
         <SelectGenre getGenre={getGenreProps}/>
+        </div>
         <div className="book-grid">
       {loading ? (
           <p>Loading...</p>
