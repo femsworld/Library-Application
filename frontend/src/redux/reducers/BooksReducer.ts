@@ -84,9 +84,15 @@ export const fetchAllBooks = createAsyncThunk(
     async ({ search}: SearchBookQuery) => {
         try {
             console.log("Reducer: ", search)
-            const result = await axios.get<Book[]>(`${baseApi}/Books/search?searchTerm=${search}`)
-            console.log("fetchBooksByGenre URL: ", result)
-            return result.data
+            // if(search = 1)
+            // {
+            //   const result = await axios.get<{books: Book[]}>(`${baseApi}/books`) 
+            //   return result.data 
+            // } else{
+              const result = await axios.get<Book[]>(`${baseApi}/Books/search?searchTerm=${search}`)
+              console.log("fetchBooksByGenre URL: ", result)
+              return result.data
+            // }
         } catch (e) {
             const error = e as AxiosError
             return error.message
@@ -146,6 +152,7 @@ const booksSlice = createSlice({
             }
           })
           .addCase(fetchSingleBook.fulfilled, (state, action) => {
+
             if (typeof action.payload === "string") {
               state.error = action.payload;
             } else {

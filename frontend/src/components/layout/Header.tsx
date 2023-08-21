@@ -24,7 +24,7 @@ import useAppDispatch from "../../hooks/useAppDispatch";
 import useAppSelector from "../../hooks/useAppSelector";
 import { userLogout } from "../../redux/reducers/authenticationReducer";
 import { useDebounce } from "use-debounce";
-import { SearchBooksByTitle } from "../../redux/reducers/booksReducer";
+import { SearchBooksByTitle, fetchAllBooks } from "../../redux/reducers/booksReducer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -274,9 +274,14 @@ const Header = () => {
   );
 
   useEffect(() => {
-    if (debouncedSearchTerm) {
-      dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
-    }
+    if (debouncedSearchTerm === "") {
+      dispatch(fetchAllBooks());
+    } 
+    else { 
+    dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
+     }
+    console.log("DebouncedSearchTerm: ", debouncedSearchTerm)
+    console.log("searchTerm: ", searchTerm)
   }, [debouncedSearchTerm]);
   
   return (
