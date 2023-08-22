@@ -11,6 +11,7 @@ interface BookReducer {
     singleBook: SingleBook;
     genre: string;
     search: string
+    sort: string
   booksByGenre: Book[]
 }
 
@@ -27,6 +28,10 @@ export interface FetchQuery {
     search: string | undefined;
   }
 
+  export interface SortBookQuery {
+    sort: string | undefined;
+  }
+
   export interface FetchQueryCategory {
     genre: string
     }
@@ -37,6 +42,7 @@ const initialState : BookReducer = {
     books: [],
     genre: "",
     search: "",
+    sort: "",
     booksByGenre: [],
     singleBook: {
       id: "",
@@ -84,13 +90,24 @@ export const fetchAllBooks = createAsyncThunk(
     async ({ search}: SearchBookQuery) => {
         try {
             console.log("Reducer: ", search)
-            // if(search = 1)
-            // {
-            //   const result = await axios.get<{books: Book[]}>(`${baseApi}/books`) 
-            //   return result.data 
-            // } else{
               const result = await axios.get<Book[]>(`${baseApi}/Books/search?searchTerm=${search}`)
               console.log("fetchBooksByGenre URL: ", result)
+              return result.data
+            // }
+        } catch (e) {
+            const error = e as AxiosError
+            return error.message
+        }
+    }
+  );
+  
+  export const SortBooks = createAsyncThunk(
+    "SortBooks",
+    async ({ sort}: SortBookQuery) => {
+        try {
+            console.log("Reducer: ", sort)
+              const result = await axios.get<Book[]>(`${baseApi}/Books/sort?sortOrder==${sort}`)
+              console.log("SortBooks URL: ", result)
               return result.data
             // }
         } catch (e) {
@@ -198,6 +215,23 @@ const booksSlice = createSlice({
           state.loading = false
           state.error = "This action cannot be completed at the moment, please try again later"
       })
+      .addCase(SortBooks.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(SortBooks.rejected, (state) => {
+        state.loading = false;
+        state.error =
+          "This action cannot be completed at the moment, please try again later";
+      })
+      .addCase(SortBooks.fulfilled, (state, action) => {
+        if (typeof action.payload === "string") {
+          state.loading = false;
+          state.error = action.payload;
+        } else {
+          state.books = action.payload;
+        }
+        state.loading = false;
+      });
       },
 })
 

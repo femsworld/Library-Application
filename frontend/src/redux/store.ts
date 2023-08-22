@@ -16,6 +16,7 @@ const store = configureStore({
             books: [],
             genre: "",
             search: "",
+            sort: "",
             booksByGenre: [],
             singleBook: {
                 genre: ""
