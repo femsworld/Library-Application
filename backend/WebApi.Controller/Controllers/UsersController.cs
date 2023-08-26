@@ -17,6 +17,7 @@ namespace WebApi.Controller.Controllers
             _userService = userService;
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -41,6 +42,7 @@ namespace WebApi.Controller.Controllers
             return Ok(response);
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]

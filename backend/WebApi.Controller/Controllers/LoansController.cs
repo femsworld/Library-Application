@@ -31,7 +31,7 @@ namespace WebApi.Controller.Controllers
             return await _loanService.PlaceLoanAsync(userId, processedLoanDto);
         }
 
-        // [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         public async Task<IEnumerable<Loan>> GetAllLoans()
         {

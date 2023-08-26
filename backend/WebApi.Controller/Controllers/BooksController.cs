@@ -53,6 +53,7 @@ namespace WebApi.Controller.Controllers
             return Ok(book);
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public async Task<IActionResult> AddBook([FromBody] BookDto bookDto)
         {
@@ -60,6 +61,7 @@ namespace WebApi.Controller.Controllers
             return CreatedAtAction(nameof(GetBookById), new { id = addedBook.Id }, addedBook);
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpPatch("{id:Guid}")]
         public async Task<IActionResult> UpdateBook(Guid id, [FromBody] BookDto update)
         {
