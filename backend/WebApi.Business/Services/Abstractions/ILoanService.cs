@@ -5,9 +5,9 @@ namespace WebApi.Business.Services.Abstractions
 {
     public interface ILoanService
     {
-        Loan PlaceLoan(Guid userId, LoanDto loanDto);
-        void ReturnLoan(Guid loanId);
-        IEnumerable<Loan> GetAllLoans();
-        IEnumerable<Loan> GetLoansByUserId(Guid userId);
+        Task<Loan> PlaceLoanAsync(Guid userId, LoanDto loanDto);
+        Task ReturnLoanAsync(Guid loanId);
+        Task<IEnumerable<Loan>> GetAllLoansAsync();
+        Task<IEnumerable<Loan>> GetLoansByUserIdAsync(Guid userId);
     }
 }

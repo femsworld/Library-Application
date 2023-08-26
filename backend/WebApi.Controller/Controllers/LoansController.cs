@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
 using WebApi.Domain.Entities;
-
 namespace WebApi.Controller.Controllers
 {   
     [ApiController]
@@ -20,7 +19,7 @@ namespace WebApi.Controller.Controllers
 
         [Authorize]
         [HttpPost]
-        public Loan PlaceLoan([FromBody] LoanDto loanDto)  
+        public async Task<Loan> PlaceLoan([FromBody] LoanDto loanDto)
         {
             var userId = new Guid(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value);
             var processedLoanDto = new LoanDto
@@ -29,23 +28,23 @@ namespace WebApi.Controller.Controllers
                 LoanBooks = loanDto.LoanBooks
             };
             
-            return _loanService.PlaceLoan(userId, processedLoanDto);
+            return await _loanService.PlaceLoanAsync(userId, processedLoanDto);
         }
 
         // [Authorize(Policy = "AdminOnly")]
         [HttpGet]
-        public IEnumerable<Loan> GetAllLoans()
+        public async Task<IEnumerable<Loan>> GetAllLoans()
         {
-            return _loanService.GetAllLoans();
+            return await _loanService.GetAllLoansAsync();
         }
 
         [Authorize]
         [HttpPut("return/{loanId}")]
-        public IActionResult ReturnLoan(Guid loanId)
+        public async Task<IActionResult> ReturnLoan(Guid loanId)
         {
             try
             {
-                _loanService.ReturnLoan(loanId);
+                await _loanService.ReturnLoanAsync(loanId);
                 return Ok("Loan returned successfully");
             }
             catch (Exception)
@@ -56,9 +55,9 @@ namespace WebApi.Controller.Controllers
 
         [Authorize]
         [HttpGet("user/{userId}")]
-        public IEnumerable<Loan> GetLoansByUserId(Guid userId)
+        public async Task<IEnumerable<Loan>> GetLoansByUserId(Guid userId)
         {
-            return _loanService.GetLoansByUserId(userId);
+            return await _loanService.GetLoansByUserIdAsync(userId);
         }    
     }
 }

@@ -14,79 +14,84 @@ namespace WebApi.Infrastructure.RepoImplementations
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
 
-
         public BookRepo(DatabaseContext context, IMapper mapper)
         {
             _books = context.Books;
             _context = context;
             _mapper = mapper;
         }
-        public Book AddBook(Book book)
+
+        public async Task<Book> AddBookAsync(Book book)
         {
             _books.Add(book);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return book;
         }
 
-        public Book DeleteBook(Guid id)
+        public async Task<Book> DeleteBookAsync(Guid id)
         {
-            var bookToDelete = _books.Find(id);
+            var bookToDelete = await _books.FindAsync(id);
             if (bookToDelete != null)
             {
                 _books.Remove(bookToDelete);
+                await _context.SaveChangesAsync();
             }
-            _context.SaveChanges();
             return bookToDelete;
         }
 
-        public IEnumerable<Book> GetAllBooks()
+        public async Task<IEnumerable<Book>> GetAllBooksAsync()
         {
-            return _books.ToList();
+            return await _books.ToListAsync();
         }
 
-        public Book GetBookById(Guid id)
+        public async Task<Book> GetBookByIdAsync(Guid id)
         {
             Console.WriteLine($"From GetBookById BookRepo: {id}");
-            return _books.Find(id);
+            return await _books.FindAsync(id);
         }
 
-        public Book UpdateBook(Book book, Book update)
+        public async Task<Book> UpdateBookAsync(Book book, Book update)
         {
             book.Title = update.Title ?? book.Title;
             book.Genre = update.Genre;
             book.Images = update.Images;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return book;
         }
 
-        public IEnumerable<BookDto> SearchBooksByTitle(string searchTerm)
+        public async Task<IEnumerable<BookDto>> SearchBooksByTitleAsync(string searchTerm)
         {
-            return _context.Books.Where(book => book.Title.Contains(searchTerm))
-                               .Select(book => _mapper.Map<BookDto>(book))
-                               .ToList();
+            var books = await _context.Books
+                .Where(book => book.Title.Contains(searchTerm))
+                .ToListAsync();
+
+            return books.Select(book => _mapper.Map<BookDto>(book)).ToList();
         }
 
-        public IEnumerable<BookDto> CategorizeBooksByGenre(Genre genre)
+        public async Task<IEnumerable<BookDto>> CategorizeBooksByGenreAsync(Genre genre)
         {
-            return _context.Books.Where(book => book.Genre == genre)
-                               .Select(book => _mapper.Map<BookDto>(book))
-                               .ToList();
+            var books = await _context.Books
+                .Where(book => book.Genre == genre)
+                .ToListAsync();
+
+            return books.Select(book => _mapper.Map<BookDto>(book)).ToList();
         }
 
-        public IEnumerable<BookDto> GetSortedBooks(SortOrder sortOrder)
+        public async Task<IEnumerable<BookDto>> GetSortedBooksAsync(SortOrder sortOrder)
         {
             var query = _context.Books.AsQueryable();
 
             if (sortOrder == SortOrder.Ascending)
             {
-            query = query.OrderBy(book => book.Title);
+                query = query.OrderBy(book => book.Title);
             }
             else
             {
-            query = query.OrderByDescending(book => book.Title);
+                query = query.OrderByDescending(book => book.Title);
             }
 
-            return query.Select(book => _mapper.Map<BookDto>(book)).ToList();
+            var books = await query.ToListAsync();
+            return books.Select(book => _mapper.Map<BookDto>(book)).ToList();
         }
     }
 }

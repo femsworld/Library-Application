@@ -11,61 +11,66 @@ namespace WebApi.Business.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IBookRepo _bookRepo;
+
         public BookService(IMapper mapper, IBookRepo bookRepo)
         {
             _mapper = mapper;
             _bookRepo = bookRepo;
         }
-        public BookDto AddBook(BookDto bookDto)
+
+        public async Task<BookDto> AddBookAsync(BookDto bookDto)
         {
             var book = _mapper.Map<Book>(bookDto);
-            var newbook = _bookRepo.AddBook(book);
+            var newbook = await _bookRepo.AddBookAsync(book);
             return _mapper.Map<BookDto>(newbook);
         }
 
-        public BookDto DeleteBook(Guid id)
+        public async Task<BookDto> DeleteBookAsync(Guid id)
         {
-            var deleteBook = _bookRepo.DeleteBook(id);
+            var deleteBook = await _bookRepo.DeleteBookAsync(id);
             return _mapper.Map<BookDto>(deleteBook);
         }
 
-        public IEnumerable<BookDto> GetAllBooks()
+        public async Task<IEnumerable<BookDto>> GetAllBooksAsync()
         {
-            var books = _bookRepo.GetAllBooks();
+            var books = await _bookRepo.GetAllBooksAsync();
             return books.Select(books => _mapper.Map<BookDto>(books));
         }
 
-        public BookDto GetBookById(Guid id)
+        public async Task<BookDto> GetBookByIdAsync(Guid id)
         {
-            var foundBook = _bookRepo.GetBookById(id);
+            var foundBook = await _bookRepo.GetBookByIdAsync(id);
             return _mapper.Map<BookDto>(foundBook);
         }
 
-        public BookDto UpdateBook(Guid id, BookDto bookDto)
+        public async Task<BookDto> UpdateBookAsync(Guid id, BookDto bookDto)
         {
-            var bookToUpdate = _bookRepo.GetBookById(id);
+            var bookToUpdate = await _bookRepo.GetBookByIdAsync(id);
             if (bookToUpdate == null)
             {
                 return null;
             }
             var updatedBook = _mapper.Map<Book>(bookDto);
-            bookToUpdate = _bookRepo.UpdateBook(bookToUpdate, updatedBook);
+            bookToUpdate = await _bookRepo.UpdateBookAsync(bookToUpdate, updatedBook);
             return _mapper.Map<BookDto>(bookToUpdate);
         }
 
-        public IEnumerable<BookDto> SearchBooksByTitle(string searchTerm)
+        public async Task<IEnumerable<BookDto>> SearchBooksByTitleAsync(string searchTerm)
         {
-           return _bookRepo.SearchBooksByTitle(searchTerm);
-         }
-
-        public IEnumerable<BookDto> CategorizeBooksByGenre(Genre genre)
-        {
-            return _bookRepo.CategorizeBooksByGenre(genre);
+            var books = await _bookRepo.SearchBooksByTitleAsync(searchTerm);
+            return books.Select(books => _mapper.Map<BookDto>(books));
         }
 
-        public IEnumerable<BookDto> GetSortedBooks(SortOrder sortOrder)
+        public async Task<IEnumerable<BookDto>> CategorizeBooksByGenreAsync(Genre genre)
         {
-            return _bookRepo.GetSortedBooks(sortOrder);
+            var books = await _bookRepo.CategorizeBooksByGenreAsync(genre);
+            return books.Select(books => _mapper.Map<BookDto>(books));
+        }
+
+        public async Task<IEnumerable<BookDto>> GetSortedBooksAsync(SortOrder sortOrder)
+        {
+            var books = await _bookRepo.GetSortedBooksAsync(sortOrder);
+            return books.Select(books => _mapper.Map<BookDto>(books));
         }
     }
 }

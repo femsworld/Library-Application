@@ -6,13 +6,14 @@ namespace WebApi.Business.Services.Abstractions
 {
     public interface IBookService
     {
-        BookDto AddBook(BookDto userDto);
-        BookDto GetBookById(Guid id);
-        BookDto UpdateBook(Guid id, BookDto bookDto);
-        BookDto DeleteBook(Guid id);
-         IEnumerable<BookDto> GetAllBooks();
-         IEnumerable<BookDto> SearchBooksByTitle(string searchTerm);
-        IEnumerable<BookDto> CategorizeBooksByGenre(Genre genre);
-        IEnumerable<BookDto> GetSortedBooks(SortOrder sort);
+        Task<BookDto> AddBookAsync(BookDto bookDto);
+        Task<BookDto> GetBookByIdAsync(Guid id);
+        Task<BookDto> UpdateBookAsync(Guid id, BookDto bookDto);
+        Task<BookDto> DeleteBookAsync(Guid id);
+        Task<IEnumerable<BookDto>> GetAllBooksAsync();
+        Task<IEnumerable<BookDto>> SearchBooksByTitleAsync(string searchTerm);
+        Task<IEnumerable<BookDto>> CategorizeBooksByGenreAsync(Genre genre);
+        Task<IEnumerable<BookDto>> GetSortedBooksAsync(SortOrder sort);
     }
+    
 }

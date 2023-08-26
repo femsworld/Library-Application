@@ -8,6 +8,6 @@ namespace WebApi.Business.Services.Abstractions
 {
     public interface IAuthService
     {
-        string VerifyCredentials(AuthDto auth);
+        Task<string> VerifyCredentialsAsync(AuthDto auth);
     }
 }

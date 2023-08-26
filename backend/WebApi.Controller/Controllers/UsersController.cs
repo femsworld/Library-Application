@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
-using WebApi.Domain.Entities;
 
 namespace WebApi.Controller.Controllers
 {
@@ -18,13 +17,11 @@ namespace WebApi.Controller.Controllers
             _userService = userService;
         }
 
-        
-        // [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public IActionResult GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
+        public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
         {
             if (page < 0 || pageSize < 0)
             {
@@ -32,9 +29,9 @@ namespace WebApi.Controller.Controllers
             }
             if (page == 0)
             {
-                return Ok (new GetAllUserResponse(1,  _userService.GetAllUsers()));
+                return Ok(new GetAllUserResponse(1, await _userService.GetAllUsersAsync()));
             }
-            var users = _userService.GetAllUsers();
+            var users = await _userService.GetAllUsersAsync();
             var totalUsers = users.Count();
             var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
 
@@ -43,53 +40,65 @@ namespace WebApi.Controller.Controllers
             var response = new GetAllUserResponse(totalPages, result);
             return Ok(response);
         }
-        
-        [Authorize(Policy = "AdminOnly")]   
+
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public UserDto GetUserById(Guid id)
+        public async Task<IActionResult> GetUserById(Guid id)
         {
-            return _userService.GetUserById(id);
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+            return Ok(user);
         }
 
         [Authorize]
         [HttpGet("profile")]
-        public ActionResult<UserDto> GetProfile()
+        public async Task<ActionResult<UserDto>> GetProfile()
         {
-            // var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id")!.Value;
-            // var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            // var id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
-            // return _userService.GetUserById(new Guid(id));
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out var userId))
             {
-                return _userService.GetUserById(userId);
+                var user = await _userService.GetUserByIdAsync(userId);
+                if (user != null)
+                {
+                    return user;
+                }
             }
-            else
-            {
-                return BadRequest("Unable to obtain the user ID from claims.");
-            }
+            return BadRequest("Unable to obtain the user profile.");
         }
 
         [HttpPost()]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public UserDto CreateUser([FromBody] UserDto userDto)
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateUser([FromBody] UserDto userDto)
         {
-            return _userService.CreateUser(userDto);
+            // var createdUser = await _userService.CreateUserAsync(userDto);
+            // // return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+            // return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+            // //  return _userService.CreateUser(userDto);
+
+             var createdUser = await _userService.CreateUserAsync(userDto);
+            return Ok(createdUser); 
         }
 
         [Authorize(Policy = "AdminOnly")]
         [HttpPost("admin")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public UserAdminDto CreateUserByAdmin([FromBody] UserAdminDto userAdminDto)
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateUserByAdmin([FromBody] UserAdminDto userAdminDto)
         {
-        return _userService.CreateUserByAdmin(userAdminDto);
+            // var createdUser = await _userService.CreateUserByAdminAsync(userAdminDto);
+            // return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+
+            var createdUser = await _userService.CreateUserByAdminAsync(userAdminDto);
+            return Ok(createdUser); 
+
         }
 
         [Authorize]
@@ -97,9 +106,14 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public UserUpdateDto UpdateUser([FromRoute] Guid id, [FromBody] UserUpdateDto update)
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UserUpdateDto update)
         {
-            return _userService.UpdateUser(id, update);
+            var updatedUser = await _userService.UpdateUserAsync(id, update);
+            if (updatedUser == null)
+            {
+                return NotFound("User not found");
+            }
+            return Ok(updatedUser);
         }
 
         [Authorize]
@@ -107,9 +121,14 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public UserChangePasswordDto ChangeUserPassword([FromRoute] Guid id, [FromBody] UserChangePasswordDto update)
+        public async Task<IActionResult> ChangeUserPassword(Guid id, [FromBody] UserChangePasswordDto update)
         {
-            return _userService.ChangeUserPassword(id, update);
+            var updatedPasswordUser = await _userService.ChangeUserPasswordAsync(id, update);
+            if (updatedPasswordUser == null)
+            {
+                return NotFound("User not found");
+            }
+            return Ok(updatedPasswordUser);
         }
 
         [Authorize(Policy = "AdminOnly")]
@@ -117,9 +136,14 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public UserAdminDto UpdateUserByAdmin([FromRoute] Guid id, [FromBody] UserAdminDto update)
+        public async Task<IActionResult> UpdateUserByAdmin(Guid id, [FromBody] UserAdminDto update)
         {
-            return _userService.UpdateUserByAdmin(id, update);
+            var updatedUser = await _userService.UpdateUserByAdminAsync(id, update);
+            if (updatedUser == null)
+            {
+                return NotFound("User not found");
+            }
+            return Ok(updatedUser);
         }
 
         [Authorize(Policy = "AdminOnly")]
@@ -127,21 +151,23 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public IActionResult DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-           var deleteUser = _userService.DeleteUser(id);
-           if (deleteUser == null)
-           {
-            return NotFound();
-           }
-           return Ok(deleteUser);
+            var deletedUser = await _userService.DeleteUserAsync(id);
+            if (deletedUser == null)
+            {
+                return NotFound("User not found");
+            }
+            // return Ok(_mapper.Map<UserDto>(deletedUser));
+            return Ok(deletedUser);
+
         }
     }
 
     public class GetAllUserResponse
-    {                                                          
-         public int TotalPages { get; set; }
-        public IEnumerable<UserDto> Users { get; set; } // Adjusted property type
+    {
+        public int TotalPages { get; set; }
+        public IEnumerable<UserDto> Users { get; set; } 
 
         public GetAllUserResponse(int totalPages, IEnumerable<UserDto> users)
         {

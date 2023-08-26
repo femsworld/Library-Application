@@ -4,13 +4,13 @@ namespace WebApi.Business.Services.Abstractions
 {
     public interface IUserService
     {
-        UserDto CreateUser(UserDto userDto);
-        UserAdminDto CreateUserByAdmin(UserAdminDto userAdminDto);
-        UserDto GetUserById(Guid id);
-        UserUpdateDto UpdateUser(Guid id, UserUpdateDto userUpdateDto);
-        UserAdminDto UpdateUserByAdmin(Guid id, UserAdminDto userAdminDto);
-        UserDto DeleteUser (Guid id);
-        IEnumerable<UserDto> GetAllUsers();
-        UserChangePasswordDto ChangeUserPassword(Guid id, UserChangePasswordDto userChangePasswordDto);
+        Task<UserDto> CreateUserAsync(UserDto userDto);
+        Task<UserAdminDto> CreateUserByAdminAsync(UserAdminDto userAdminDto);
+        Task<UserDto> GetUserByIdAsync(Guid id);
+        Task<UserUpdateDto> UpdateUserAsync(Guid id, UserUpdateDto userUpdateDto);
+        Task<UserAdminDto> UpdateUserByAdminAsync(Guid id, UserAdminDto userAdminDto);
+        Task<UserDto> DeleteUserAsync(Guid id);
+        Task<IEnumerable<UserDto>> GetAllUsersAsync();
+        Task<UserChangePasswordDto> ChangeUserPasswordAsync(Guid id, UserChangePasswordDto userChangePasswordDto);
     }
 }

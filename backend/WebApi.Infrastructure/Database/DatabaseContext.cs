@@ -13,29 +13,40 @@ namespace WebApi.Infrastructure.Database
         public DbSet<Loan> Loans { get; set; }     
         public DbSet<LoanBook> LoanBooks { get; set; }     
 
-         static DatabaseContext()
+        //  static DatabaseContext()
+        // {
+        //     AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+        // }
+
+        public DatabaseContext(DbContextOptions options, IConfiguration config) : base(options)
         {
+            _configuration = config;
+        }
+
+        static DatabaseContext()
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
         }
         
-        public DatabaseContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        // public DatabaseContext(IConfiguration configuration)
+        // {
+        //     _configuration = configuration;
+        // }
+
+        
 
         // public override int SaveChanges();
         // {
         //     return base.SaveChanges();
         // }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new NpgsqlDataSourceBuilder(_configuration.GetConnectionString("DefaultConnection"));
              builder.MapEnum<Role>();
              builder.MapEnum<Genre>();
             optionsBuilder.AddInterceptors(new TimeStampInterceptor());
-            // var builder = new NpgsqlDataSourceBuilder(_configuration.GetConnectionString("DefaultConnection"));
-            // builder.MapEnum<Role>();
-            // optionsBuilder.AddInterceptors(new TimeStampInterceptor());
             // optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
             optionsBuilder.UseNpgsql(builder.Build());
         }  

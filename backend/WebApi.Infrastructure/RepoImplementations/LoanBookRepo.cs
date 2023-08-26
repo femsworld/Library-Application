@@ -13,20 +13,20 @@ namespace WebApi.Infrastructure.RepoImplementations
         public LoanBookRepo(DatabaseContext context)
         {
             _context = context;
-            _loanBooks = _context.LoanBooks;
+            _loanBooks = context.LoanBooks;
         }
 
-        public IEnumerable<LoanBook> CreateLoanBook(params LoanBook[] loanBooks)
+        public async Task<IEnumerable<LoanBook>> CreateLoanBookAsync(params LoanBook[] loanBooks)
         {
             _loanBooks.AddRange(loanBooks);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return loanBooks;
         }
 
-        public void DeleteLoanBooks(IEnumerable<LoanBook> loanBooks)
+        public async Task DeleteLoanBooksAsync(IEnumerable<LoanBook> loanBooks)
         {
             _loanBooks.RemoveRange(loanBooks);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

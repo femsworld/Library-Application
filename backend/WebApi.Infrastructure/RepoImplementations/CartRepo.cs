@@ -1,5 +1,4 @@
 using WebApi.Business.RepoAbstractions;
-
 namespace WebApi.Infrastructure.RepoImplementations
 {
     public class CartRepo : ICartRepo
@@ -10,32 +9,34 @@ namespace WebApi.Infrastructure.RepoImplementations
         {
             _userCarts = new Dictionary<Guid, List<Guid>>();
         }
-        public int AddToCart(Guid userId, Guid bookId)
+
+        public async Task<int> AddToCartAsync(Guid userId, Guid bookId)
         {
             if (!_userCarts.ContainsKey(userId))
             {
                 _userCarts[userId] = new List<Guid>();
             }
-                _userCarts[userId].Add(bookId);
+            
+            _userCarts[userId].Add(bookId);
             return _userCarts[userId].Count;
         }
 
-        public void ClearCart(Guid userId)
+        public async Task ClearCartAsync(Guid userId)
         {
-            if(_userCarts.ContainsKey(userId))
+            if (_userCarts.ContainsKey(userId))
             {
                 _userCarts[userId].Clear();
             }
         }
 
-        public List<Guid> GetCartContents(Guid userId)
+        public async Task<List<Guid>> GetCartContentsAsync(Guid userId)
         {
             return _userCarts.ContainsKey(userId) ? _userCarts[userId] : new List<Guid>();
         }
 
-        public void RemoveFromCart(Guid userId, Guid bookId)
+        public async Task RemoveFromCartAsync(Guid userId, Guid bookId)
         {
-            if(_userCarts.ContainsKey(userId))
+            if (_userCarts.ContainsKey(userId))
             {
                 _userCarts[userId].Remove(bookId);
             }

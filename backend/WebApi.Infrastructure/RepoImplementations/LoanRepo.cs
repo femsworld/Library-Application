@@ -7,7 +7,7 @@ namespace WebApi.Infrastructure.RepoImplementations
 {
     public class LoanRepo : ILoanRepo
     {
-        private readonly DatabaseContext  _context;
+        private readonly DatabaseContext _context;
         private readonly DbSet<Loan> _loans;
 
         public LoanRepo(DatabaseContext context)
@@ -16,35 +16,39 @@ namespace WebApi.Infrastructure.RepoImplementations
             _loans = context.Loans;
         }
 
-        public IEnumerable<Loan> GetAllLoans()
+        public async Task<IEnumerable<Loan>> GetAllLoansAsync()
         {
-            return _loans.Include(l => l.LoanBooks).ToList();
+            return await _loans.Include(l => l.LoanBooks).ToListAsync();
         }
 
-        public Loan GetLoanById(Guid loanId)
+        public async Task<Loan> GetLoanByIdAsync(Guid loanId)
         {
-            // return _loans.Include(l => l.LoanBooks).SingleOrDefault(l => l.Id == loanId);
-            return _loans.Include(l => l.LoanBooks).SingleOrDefault(l => l.Id == loanId) ?? throw new Exception("Loan not found"); 
-        }
-
-        public IEnumerable<Loan> GetLoansByUserId(Guid userId)
-        {
-            return _loans.Include(l => l.LoanBooks)
-                         .Where(l => l.UserId == userId)
-                         .ToList();
-        }
-
-        public Loan PlaceLoan(Loan loan)
-        {
-            _loans.Add(loan);
-            _context.SaveChanges();
+            var loan = await _loans.Include(l => l.LoanBooks).SingleOrDefaultAsync(l => l.Id == loanId);
+            if (loan == null)
+            {
+                throw new Exception("Loan not found");
+            }
             return loan;
         }
 
-        public void RemoveLoan(Loan loan)
+        public async Task<IEnumerable<Loan>> GetLoansByUserIdAsync(Guid userId)
+        {
+            return await _loans.Include(l => l.LoanBooks)
+                               .Where(l => l.UserId == userId)
+                               .ToListAsync();
+        }
+
+        public async Task<Loan> PlaceLoanAsync(Loan loan)
+        {
+            _loans.Add(loan);
+            await _context.SaveChangesAsync();
+            return loan;
+        }
+
+        public async Task RemoveLoanAsync(Loan loan)
         {
             _loans.Remove(loan);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

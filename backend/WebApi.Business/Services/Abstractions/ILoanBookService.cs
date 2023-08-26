@@ -5,7 +5,7 @@ namespace WebApi.Business.Services.Abstractions
 {
     public interface ILoanBookService
     {
-       IEnumerable <LoanBook> CreateLoanBook(params LoanBookDto[] loanBookDto);
-       void DeleteLoanBooks(IEnumerable<LoanBook> loanBooks);
+        Task<IEnumerable<LoanBook>> CreateLoanBookAsync(params LoanBookDto[] loanBookDto);
+        Task DeleteLoanBooksAsync(IEnumerable<LoanBook> loanBooks);
     }
 }

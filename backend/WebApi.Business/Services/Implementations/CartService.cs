@@ -13,17 +13,15 @@ namespace WebApi.Business.Services.Implementations
             _cartRepo = cartRepo;
             _bookRepo = bookRepo;
         }
-        // public void AddToCart(Guid userId, Guid bookId)
-        public int AddToCart(Guid userId, Guid bookId)
+
+        public async Task<int> AddToCartAsync(Guid userId, Guid bookId)
         {
-            // _cartRepo.AddToCart(userId, bookId);
-            var book = _bookRepo.GetBookById(bookId);
-            Console.WriteLine($"Book by Id: {bookId}");
-    
+            var book = await _bookRepo.GetBookByIdAsync(bookId);
+            
             if (book != null)
             {
-                _cartRepo.AddToCart(userId, bookId);
-                var cartItemCount = _cartRepo.GetCartContents(userId);
+                await _cartRepo.AddToCartAsync(userId, bookId);
+                var cartItemCount = await _cartRepo.GetCartContentsAsync(userId);
                 return cartItemCount.Count;
             }
             else
@@ -32,19 +30,19 @@ namespace WebApi.Business.Services.Implementations
             }
         }
 
-        public void ClearCart(Guid userId)
+        public async Task ClearCartAsync(Guid userId)
         {
-            _cartRepo.ClearCart(userId);
+            await _cartRepo.ClearCartAsync(userId);
         }
 
-        public List<Guid> GetCartContents(Guid userId)
+        public async Task<List<Guid>> GetCartContentsAsync(Guid userId)
         {
-           return _cartRepo.GetCartContents(userId);
+            return await _cartRepo.GetCartContentsAsync(userId);
         }
 
-        public void RemoveFromCart(Guid userId, Guid bookId)
+        public async Task RemoveFromCartAsync(Guid userId, Guid bookId)
         {
-            _cartRepo.RemoveFromCart(userId, bookId);
+            await _cartRepo.RemoveFromCartAsync(userId, bookId);
         }
     }
 }

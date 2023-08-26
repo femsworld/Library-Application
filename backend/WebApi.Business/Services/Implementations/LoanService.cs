@@ -19,47 +19,44 @@ namespace WebApi.Business.Services.Implementations
             _mapper = mapper;
         }
 
-        public IEnumerable<Loan> GetAllLoans()
+        public async Task<IEnumerable<Loan>> GetAllLoansAsync()
         {
-            return _loanRepo.GetAllLoans();
+            return await _loanRepo.GetAllLoansAsync();
         }
 
-        public IEnumerable<Loan> GetLoansByUserId(Guid userId)
+        public async Task<IEnumerable<Loan>> GetLoansByUserIdAsync(Guid userId)
         {
-            return _loanRepo.GetLoansByUserId(userId);
+            return await _loanRepo.GetLoansByUserIdAsync(userId);
         }
 
-        public Loan PlaceLoan(Guid userId, LoanDto loanDto)
+        public async Task<Loan> PlaceLoanAsync(Guid userId, LoanDto loanDto)
         {
             var loan = new Loan { UserId = loanDto.UserId };
-            _loanRepo.PlaceLoan(loan);
+            await _loanRepo.PlaceLoanAsync(loan);
 
             var loanBooks = _mapper.Map<IEnumerable<LoanBook>>(loanDto.LoanBooks);
             foreach (var book in loanBooks)
             {
                 book.LoanId = loan.Id;
             }
-            var createdLoanBooks = _loanBookRepo.CreateLoanBook(loanBooks.ToArray());
+            var createdLoanBooks = await _loanBookRepo.CreateLoanBookAsync(loanBooks.ToArray());
             loan.LoanBooks = createdLoanBooks.ToList();
 
             return loan;
         }
 
-        public void ReturnLoan(Guid loanId)
+        public async Task ReturnLoanAsync(Guid loanId)
         {
-            var loan = _loanRepo.GetLoanById(loanId);
+            var loan = await _loanRepo.GetLoanByIdAsync(loanId);
             if (loan == null)
             {
                 return;
             }
 
-            // var returnedBooks = loan.LoanBooks.ToList();
             var returnedBooks = loan.LoanBooks ?? new List<LoanBook>();
-            _loanBookRepo.DeleteLoanBooks(returnedBooks);
+            await _loanBookRepo.DeleteLoanBooksAsync(returnedBooks);
 
-            _loanRepo.RemoveLoan(loan);
-
-            var returnedBookTitles = returnedBooks.Select(b => b.Book.Title).ToList();
+            await _loanRepo.RemoveLoanAsync(loan);
         }
     }
 }

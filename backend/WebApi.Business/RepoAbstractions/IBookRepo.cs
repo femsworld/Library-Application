@@ -6,13 +6,13 @@ namespace WebApi.Business.RepoAbstractions
 {
     public interface IBookRepo
     {
-        IEnumerable<Book> GetAllBooks();
-        Book AddBook(Book book);
-        Book GetBookById(Guid id);
-        Book UpdateBook(Book book, Book update);
-        Book DeleteBook(Guid id);
-        IEnumerable<BookDto> SearchBooksByTitle(string searchTerm);
-        IEnumerable<BookDto> CategorizeBooksByGenre(Genre genre);
-        IEnumerable<BookDto> GetSortedBooks(SortOrder sortOrder);
+        Task<IEnumerable<Book>> GetAllBooksAsync();
+        Task<Book> AddBookAsync(Book book);
+        Task<Book> GetBookByIdAsync(Guid id);
+        Task<Book> UpdateBookAsync(Book book, Book update);
+        Task<Book> DeleteBookAsync(Guid id);
+        Task<IEnumerable<BookDto>> SearchBooksByTitleAsync(string searchTerm);
+        Task<IEnumerable<BookDto>> CategorizeBooksByGenreAsync(Genre genre);
+        Task<IEnumerable<BookDto>> GetSortedBooksAsync(SortOrder sortOrder);
     }
 }

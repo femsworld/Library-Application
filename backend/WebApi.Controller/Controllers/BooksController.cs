@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
-using WebApi.Domain.Entities;
 using WebApi.Business.Services.Shared;
+using WebApi.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controller.Controllers
 {
@@ -21,18 +22,14 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        // public ActionResult<GetAllBookResponse>  GetAllBooks([FromQuery] int page = 1, [FromQuery] int pageSize = 2)
-        public IActionResult GetAllBooks([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
+        public async Task<IActionResult> GetAllBooks([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
         {
             if (page < 0 || pageSize < 0)
             {
                 return BadRequest("page and pageSize must be positive integers.");
             }
-            // if (page == 0)
-            // {
-            //     return Ok (new GetAllBookResponse(1, _bookService.GetAllBooks()));
-            // }
-            var books = _bookService.GetAllBooks();
+
+            var books = await _bookService.GetAllBooksAsync();
             var totalBooks = books.Count();
             var totalPages = (int)Math.Ceiling((double)totalBooks / pageSize);
 
@@ -46,42 +43,69 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public BookDto  GetBookById(Guid id)
+        public async Task<IActionResult> GetBookById(Guid id)
         {
-            return _bookService.GetBookById(id);
+            var book = await _bookService.GetBookByIdAsync(id);
+            if (book == null)
+            {
+                return NotFound("Book not found");
+            }
+            return Ok(book);
         }
 
         [HttpPost]
-        public BookDto AddBook([FromBody] BookDto bookDto)
+        public async Task<IActionResult> AddBook([FromBody] BookDto bookDto)
         {
-             return _bookService.AddBook(bookDto);
+            var addedBook = await _bookService.AddBookAsync(bookDto);
+            return CreatedAtAction(nameof(GetBookById), new { id = addedBook.Id }, addedBook);
         }
 
         [HttpPatch("{id:Guid}")]
-        public BookDto UpdateBook([FromRoute] Guid id, [FromBody] BookDto update)
+        public async Task<IActionResult> UpdateBook(Guid id, [FromBody] BookDto update)
         {
-            return _bookService.UpdateBook(id, update);
+            var updatedBook = await _bookService.UpdateBookAsync(id, update);
+            if (updatedBook == null)
+            {
+                return NotFound("Book not found");
+            }
+            return Ok(updatedBook);
         }
 
         [HttpGet("search")]
-        public IActionResult SearchBooksByTitle([FromQuery] string searchTerm)
+        public async Task<IActionResult> SearchBooksByTitle([FromQuery] string searchTerm)
         {
-            var books = _bookService.SearchBooksByTitle(searchTerm);
+            var books = await _bookService.SearchBooksByTitleAsync(searchTerm);
             return Ok(books);
         }
 
         [HttpGet("categorize")]
-        public IActionResult CategorizeBooksByGenre([FromQuery] Genre genre)
+        public async Task<IActionResult> CategorizeBooksByGenre([FromQuery] Genre genre)
         {
-            var books = _bookService.CategorizeBooksByGenre(genre);
+            var books = await _bookService.CategorizeBooksByGenreAsync(genre);
             return Ok(books);
         }
 
         [HttpGet("sort")]
-        public IActionResult GetSortedBooks([FromQuery] SortOrder sortOrder)
+        public async Task<IActionResult> GetSortedBooks([FromQuery] SortOrder sortOrder)
         {
-            var books = _bookService.GetSortedBooks(sortOrder);
+            var books = await _bookService.GetSortedBooksAsync(sortOrder);
             return Ok(books);
+        }
+
+        [Authorize(Policy = "AdminOnly")]
+        [HttpDelete("{id:Guid}")]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            var deletedBook = await _bookService.DeleteBookAsync(id);
+            if (deletedBook == null)
+            {
+                return NotFound("Book not found");
+            }
+            return Ok(deletedBook);
+
         }
 
     }
@@ -89,7 +113,7 @@ namespace WebApi.Controller.Controllers
     public class GetAllBookResponse
     {
         public int TotalPages { get; set; }
-         public IEnumerable<BookDto> Books { get; set; }
+        public IEnumerable<BookDto> Books { get; set; }
         public GetAllBookResponse(int totalPages, IEnumerable<BookDto> books)
         {
             TotalPages = totalPages;

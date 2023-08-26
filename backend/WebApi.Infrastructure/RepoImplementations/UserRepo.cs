@@ -14,74 +14,73 @@ namespace WebApi.Infrastructure.RepoImplementations
         {
             _users = context.Users;
             _context = context;
-
         }
 
-        public User ChangeUserPassword(User user, User updatePassword)
+        public async Task<User> ChangeUserPasswordAsync(User user, User updatePassword)
         {
             user.Password = updatePassword.Password ?? user.Password;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return user;
         }
 
-        public User CreateUser(User user)
+        public async Task<User> CreateUserAsync(User user)
         {
             user.Role = Role.Client;
+            // user.Role = Role.Admin;
             _users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return user;
         }
 
-        public User CreateUserByAdmin(User user)
+        public async Task<User> CreateUserByAdminAsync(User user)
         {
-           _users.Add(user);
-            _context.SaveChanges();
+            _users.Add(user);
+            await _context.SaveChangesAsync();
             return user;
         }
 
-        public User DeleteUser(Guid id)
+        public async Task<User> DeleteUserAsync(Guid id)
         {
-            var userToDelete = _users.Find(id);
+            var userToDelete = await _users.FindAsync(id);
             if (userToDelete != null)
             {
                 _users.Remove(userToDelete);
+                await _context.SaveChangesAsync();
             }
-            _context.SaveChanges();
             return userToDelete;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            return _users.ToList();
+            return await _users.ToListAsync();
         }
 
-        public User GetUserById(Guid id)
+        public async Task<User> GetUserByIdAsync(Guid id)
         {
-            return _users.Find(id);
+            return await _users.FindAsync(id);
         }
 
-        public User UpdateUser(User user, User update)
+        public async Task<User> UpdateUserAsync(User user, User update)
         {
             user.Name = update.Name ?? user.Name;
-            // user.Email = update.Email ?? user.Email;
             user.Avatar = update.Avatar ?? user.Avatar;
             user.Age = update.Age;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return user;
         }
 
-        public User UpdateUserByAdmin(User user, User update)
+        public async Task<User> UpdateUserByAdminAsync(User user, User update)
         {
             user.Name = update.Name ?? user.Name;
             user.Email = update.Email ?? user.Email;
             user.Role = update.Role;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return user;
         }
 
-        public User VerifyCredentials(string email, string password)
+        public async Task<User> VerifyCredentialsAsync(string email, string password)
         {
-            var foundUser = _users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            var foundUser = await _users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
             return foundUser;
         }
     }

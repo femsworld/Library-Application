@@ -1,4 +1,3 @@
-using System.Text;
 using AutoMapper;
 using WebApi.Business.Dto;
 using WebApi.Business.RepoAbstractions;
@@ -11,92 +10,84 @@ namespace WebApi.Business.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IUserRepo _userRepo;
-               public UserService(IMapper mapper, IUserRepo userRepo)
+
+        public UserService(IMapper mapper, IUserRepo userRepo)
         {
             _mapper = mapper;
             _userRepo = userRepo;
         }
 
-        public UserChangePasswordDto ChangeUserPassword(Guid id, UserChangePasswordDto userChangePasswordDto)
+        public async Task<UserChangePasswordDto> ChangeUserPasswordAsync(Guid id, UserChangePasswordDto userChangePasswordDto)
         {
-            var userToUpdate = _userRepo.GetUserById(id);
+            var userToUpdate = await _userRepo.GetUserByIdAsync(id);
             if (userToUpdate == null)
             {
                 return null;
             }
             _mapper.Map(userChangePasswordDto, userToUpdate);
-            userToUpdate = _userRepo.ChangeUserPassword(userToUpdate, userToUpdate);
+            userToUpdate = await _userRepo.ChangeUserPasswordAsync(userToUpdate, userToUpdate);
             return _mapper.Map<UserChangePasswordDto>(userToUpdate);
-            // throw new NotImplementedException();
         }
 
-        public UserDto CreateUser(UserDto userDto)
+        public async Task<UserDto> CreateUserAsync(UserDto userDto)
         {
-            try
-            {
             userDto.Role = Role.Client;
 
             var user = _mapper.Map<User>(userDto);
-            user.Password = userDto.Password; 
+            user.Password = userDto.Password;
 
-            var createdUser = _userRepo.CreateUser(user);
+            var createdUser = await _userRepo.CreateUserAsync(user);
             var createdUserDto = _mapper.Map<UserDto>(createdUser);
             return createdUserDto;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
         }
 
-
-        public UserAdminDto CreateUserByAdmin(UserAdminDto userAdminDto)
+        public async Task<UserAdminDto> CreateUserByAdminAsync(UserAdminDto userAdminDto)
         {
             var user = _mapper.Map<User>(userAdminDto);
-            var createdUser = _userRepo.CreateUserByAdmin(user);
+            var createdUser = await _userRepo.CreateUserByAdminAsync(user);
             return _mapper.Map<UserAdminDto>(createdUser);
         }
 
-        public UserDto DeleteUser(Guid id)
+        public async Task<UserDto> DeleteUserAsync(Guid id)
         {
-            var deleteUser = _userRepo.DeleteUser(id);
+            var deleteUser = await _userRepo.DeleteUserAsync(id);
             return _mapper.Map<UserDto>(deleteUser);
         }
 
-        public IEnumerable<UserDto> GetAllUsers()
+        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
         {
-            var users = _userRepo.GetAllUsers();
+            var users = await _userRepo.GetAllUsersAsync();
             return users.Select(users => _mapper.Map<UserDto>(users));
         }
 
-        public UserDto GetUserById(Guid id)
+        public async Task<UserDto> GetUserByIdAsync(Guid id)
         {
-            var foundUser = _userRepo.GetUserById(id);
+            var foundUser = await _userRepo.GetUserByIdAsync(id);
             return _mapper.Map<UserDto>(foundUser);
         }
 
-        public UserUpdateDto UpdateUser(Guid id, UserUpdateDto userUpdateDto)
+        public async Task<UserUpdateDto> UpdateUserAsync(Guid id, UserUpdateDto userUpdateDto)
         {
-            var userToUpdate = _userRepo.GetUserById(id);
+            var userToUpdate = await _userRepo.GetUserByIdAsync(id);
             if (userToUpdate == null)
             {
                 return null;
             }
 
             var updateUser = _mapper.Map<User>(userUpdateDto);
-            userToUpdate = _userRepo.UpdateUser(userToUpdate, updateUser);
+            userToUpdate = await _userRepo.UpdateUserAsync(userToUpdate, updateUser);
             return _mapper.Map<UserUpdateDto>(userToUpdate);
         }
 
-        public UserAdminDto UpdateUserByAdmin(Guid id, UserAdminDto userAdminDto)
+        public async Task<UserAdminDto> UpdateUserByAdminAsync(Guid id, UserAdminDto userAdminDto)
         {
-            var userToUpdate = _userRepo.GetUserById(id);
+            var userToUpdate = await _userRepo.GetUserByIdAsync(id);
             if (userToUpdate == null)
             {
                 return null;
             }
             _mapper.Map(userAdminDto, userToUpdate);
-            userToUpdate = _userRepo.UpdateUserByAdmin(userToUpdate, userToUpdate);
+            userToUpdate = await _userRepo.UpdateUserByAdminAsync(userToUpdate, userToUpdate);
             return _mapper.Map<UserAdminDto>(userToUpdate);
         }
     }

@@ -4,14 +4,16 @@ namespace WebApi.Business.RepoAbstractions
 {
     public interface IUserRepo
     {
-         IEnumerable<User> GetAllUsers();
-        User GetUserById(Guid id);
-        User CreateUser(User user);
-        User CreateUserByAdmin(User user);
-        User UpdateUser(User user, User update);
-        User UpdateUserByAdmin(User user, User update);
-        User VerifyCredentials(string email, string password);
-        User DeleteUser (Guid id);
-        User ChangeUserPassword(User user, User updatePassword);
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<User> GetUserByIdAsync(Guid id);
+        Task<User> CreateUserAsync(User user);
+        Task<User> CreateUserByAdminAsync(User user);
+        Task<User> UpdateUserAsync(User user, User update);
+        Task<User> UpdateUserByAdminAsync(User user, User update);
+        Task<User> VerifyCredentialsAsync(string email, string password);
+        Task<User> DeleteUserAsync(Guid id);
+        Task<User> ChangeUserPasswordAsync(User user, User updatePassword);
+        
+
     }
 }

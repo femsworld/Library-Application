@@ -17,18 +17,15 @@ namespace WebApi.Business.Services.Implementations
             _mapper = mapper;
         }
 
-        public void DeleteLoanBooks(IEnumerable<LoanBook> loanBooks)
+        public async Task DeleteLoanBooksAsync(IEnumerable<LoanBook> loanBooks)
         {
-            // throw new NotImplementedException();
-            _loanBookRepo.DeleteLoanBooks(loanBooks);
-            
+            await _loanBookRepo.DeleteLoanBooksAsync(loanBooks);
         }
 
-        IEnumerable<LoanBook> ILoanBookService.CreateLoanBook(params LoanBookDto[] loanBookDto)
+        public async Task<IEnumerable<LoanBook>> CreateLoanBookAsync(params LoanBookDto[] loanBookDto)
         {
             var loanBooks = _mapper.Map<IEnumerable<LoanBook>>(loanBookDto);
-            return _loanBookRepo.CreateLoanBook(loanBooks.ToArray());
+            return await _loanBookRepo.CreateLoanBookAsync(loanBooks.ToArray());
         }
-        
     }
 }

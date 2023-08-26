@@ -3,9 +3,9 @@ namespace WebApi.Business.RepoAbstractions
 {
     public interface ICartRepo
     {
-        int AddToCart(Guid userId, Guid bookId);
-        void RemoveFromCart(Guid userId, Guid bookId);
-        List<Guid> GetCartContents(Guid userId);
-        void ClearCart(Guid userId);
+        Task<int> AddToCartAsync(Guid userId, Guid bookId);
+        Task RemoveFromCartAsync(Guid userId, Guid bookId);
+        Task<List<Guid>> GetCartContentsAsync(Guid userId);
+        Task ClearCartAsync(Guid userId);
     }
 }
