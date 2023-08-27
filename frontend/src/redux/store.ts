@@ -17,6 +17,7 @@ const store = configureStore({
             genre: "",
             search: "",
             sort: "",
+            totalPages: 1,
             booksByGenre: [],
             singleBook: {
                 genre: ""

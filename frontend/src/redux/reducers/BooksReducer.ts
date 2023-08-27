@@ -12,6 +12,7 @@ interface BookReducer {
     genre: string;
     search: string
     sort: string
+    totalPages: number
   booksByGenre: Book[]
 }
 
@@ -29,12 +30,17 @@ export interface FetchQuery {
   }
 
   export interface SortBookQuery {
-    sort: string | undefined;
+    sort: string;
   }
 
   export interface FetchQueryCategory {
     genre: string
     }
+
+  export interface BooksWithPagination {
+    books: Book[];
+    totalPages: number
+  }
 
 const initialState : BookReducer = {
     loading: false,
@@ -43,6 +49,7 @@ const initialState : BookReducer = {
     genre: "",
     search: "",
     sort: "",
+    totalPages: 1,
     booksByGenre: [],
     singleBook: {
       id: "",
@@ -55,12 +62,12 @@ const initialState : BookReducer = {
 
 
 export const fetchAllBooks = createAsyncThunk(
-    "fetchAllBooks",
-    async () => {
+    "fetchAllBooks", 
+    async ({ offset, limit }: FetchQuery) => {
       try {
         console.log("fetchAllBooks!!!!!!!")
         const result = await axios.get<{books: Book[]}>(
-          `${baseApi}/books`
+          `${baseApi}/books?page=${offset}&pageSize=${limit}`
         );
         return result.data;
       } catch (e) {
@@ -74,7 +81,7 @@ export const fetchAllBooks = createAsyncThunk(
     "fetchBooksByGenre",
     async ({ genre}: FetchQueryCategory) => {
         try {
-            console.log("Reducer: ", genre)
+            console.log("ReducerCategory: ", genre)
             const result = await axios.get<Book[]>(`${baseApi}/Books/categorize?genre=${genre}`)
             console.log("fetchBooksByGenre URL: ", result)
             return result.data
@@ -105,11 +112,18 @@ export const fetchAllBooks = createAsyncThunk(
     "SortBooks",
     async ({ sort}: SortBookQuery) => {
         try {
-            console.log("Reducer: ", sort)
-              const result = await axios.get<Book[]>(`${baseApi}/Books/sort?sortOrder==${sort}`)
+            console.log("ReducerSort: ", sort)
+            // if(sort === "None")
+            // {
+            //   const result = await axios.get<{books: Book[]}>(
+            //     `${baseApi}/books`
+            //   );
+            //   console.log("SortBooks URL: ", result)
+            //   return result.data.books
+            // }
+              const result = await axios.get<Book[]>(`${baseApi}/Books/sort?sortOrder=${sort}`)
               console.log("SortBooks URL: ", result)
               return result.data
-            // }
         } catch (e) {
             const error = e as AxiosError
             return error.message
@@ -162,10 +176,12 @@ const booksSlice = createSlice({
               state.loading = false;
               state.error = action.payload;
             } else {
-              const booksPayload = action.payload as { books: Book[] };
+              const booksPayload = action.payload as BooksWithPagination;
               state.loading = false;
               state.error = "";
               state.books = booksPayload.books;
+              console.log("BookPayload: ", booksPayload)
+              state.totalPages = booksPayload.totalPages;
             }
           })
           .addCase(fetchSingleBook.fulfilled, (state, action) => {

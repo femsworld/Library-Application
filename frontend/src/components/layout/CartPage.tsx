@@ -60,7 +60,7 @@ const CartPage = () => {
   return (
     <div>
       <div>
-        <Header />
+        {/* <Header /> */}
       </div>
       <h2>Cart</h2>
       {cartItems?.length === 0 ? (

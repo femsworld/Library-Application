@@ -24,7 +24,7 @@ import useAppDispatch from "../../hooks/useAppDispatch";
 import useAppSelector from "../../hooks/useAppSelector";
 import { userLogout } from "../../redux/reducers/authenticationReducer";
 import { useDebounce } from "use-debounce";
-import { SearchBooksByTitle, fetchAllBooks } from "../../redux/reducers/booksReducer";
+import { FetchQuery, SearchBooksByTitle, fetchAllBooks } from "../../redux/reducers/booksReducer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -66,7 +66,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header = () => {
+// const BookCard: React.FC<BookCardProps> = ({book}) => {
+// const Header = (): {paginationQuery: FetchQuery} => {
+const Header : React.FC<FetchQuery> = ({offset, limit}) => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.cartReducer);
   const { loading, error, books } = useAppSelector(
@@ -273,9 +275,11 @@ const Header = () => {
     </Menu>
   );
 
+  
+
   useEffect(() => {
     if (debouncedSearchTerm === "") {
-      dispatch(fetchAllBooks());
+      dispatch(fetchAllBooks({offset, limit}));
     } 
     else { 
     dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
