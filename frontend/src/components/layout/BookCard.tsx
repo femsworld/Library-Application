@@ -7,10 +7,12 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link } from "react-router-dom";
 
 interface BookCardProps{
-    book: Book
+    book: Book;
+    setCartItemCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const BookCard: React.FC<BookCardProps> = ({book}) => {
+// const BookCard: React.FC<BookCardProps> = ({book}) => {
+const BookCard: React.FC<BookCardProps> = ({book, setCartItemCount }) => {
     const dispatch = useDispatch();
     const { items } = useAppSelector((state) => state.cartReducer);
     // const {  } = useAppSelector((state) => state.cartReducer);
@@ -18,6 +20,7 @@ const BookCard: React.FC<BookCardProps> = ({book}) => {
     const addOneItemToCart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
         dispatch(addItemToCart(book));
+        setCartItemCount(prevCount => prevCount + 1);
       };
 
   return (

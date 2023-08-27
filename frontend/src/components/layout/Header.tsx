@@ -66,20 +66,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-// const BookCard: React.FC<BookCardProps> = ({book}) => {
-// const Header = (): {paginationQuery: FetchQuery} => {
 const Header : React.FC<FetchQuery> = ({offset, limit}) => {
   const dispatch = useAppDispatch();
-  const { items } = useAppSelector((state) => state.cartReducer);
-  const { loading, error, books } = useAppSelector(
-    (state) => state.booksReducer
-  );
-  // const cartItems = localStorage.getItem('cartItems');
-  // const items = cartItems ? JSON.parse(cartItems) : []
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [showCartPage, setShowCartPage] = useState(false);
@@ -93,12 +84,6 @@ const Header : React.FC<FetchQuery> = ({offset, limit}) => {
   const handleSignUpClick = () => {
     setShowSignUp(!showSignUp);
   };
-
-  // const handleCartIconClick = () => {
-  //   if (!showCartPage) {
-  //     setShowCartPage(true);
-  //   }
-  // };
 
   const handleCartPageClose = () => {
     setShowCartPage(false);
@@ -221,61 +206,6 @@ const Header : React.FC<FetchQuery> = ({offset, limit}) => {
   }
 
   const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-          {/* {items.length > 0 && (
-          <Badge badgeContent={items.length} color="error" />
-          )} */}
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      {/* <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Login</p>
-      </MenuItem> */}
-    </Menu>
-  );
-
-  
 
   useEffect(() => {
     if (debouncedSearchTerm === "") {
@@ -372,7 +302,7 @@ const Header : React.FC<FetchQuery> = ({offset, limit}) => {
           </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+      {/* {renderMobileMenu} */}
       {renderMenu}
       {showSignUp && <SignUp />}
     </Box>

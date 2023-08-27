@@ -12,16 +12,17 @@ import SortBooksInAscOrDesc from './SortBooksInAscOrDesc';
 const Home = () => {
   const dispatch = useAppDispatch();
   const { books, loading, totalPages } = useAppSelector((state) => state.booksReducer);
-  const [page, setPage] = useState(1);
+  const [pageNo, setPageNo] = useState(1);
   const [genreState, setGenreState] = useState("All");
   const [sortAsc, setSortAsc] = useState("None")
   const [ paginationQuery, setPaginationQuery] = useState<FetchQuery>({
     offset: 1,
-    limit: 5,
+    limit: 6,
   })
+  const [cartItemCount, setCartItemCount] = useState(0);
 
 const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-  setPage(value);
+  setPageNo(value);
   const fetchQuery: FetchQuery = {
     offset: value,
     limit: 6,
@@ -29,25 +30,6 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
   // dispatch(fetchAllBooks(fetchQuery));
   setPaginationQuery(fetchQuery)
 };
-
-// const handleSortChange = () => {
-//   if (sortAsc === "Ascending") {
-//     dispatch(SortBooks({ sort: sortAsc }));
-//   }
-//   else if (sortAsc === "Descending") {
-//     dispatch(SortBooks({ sort: sortAsc }));
-//   }
-// }
-
-
-// useEffect(() => {
-//   if (genreState === 'All') {
-//     dispatch(fetchAllBooks());
-//   } else {
-//     dispatch(fetchBooksByGenre({ genre: genreState }));
-//   }
-// }, [genreState]);
-
 
 useEffect(() => {
   if (genreState === 'All') {
@@ -75,19 +57,11 @@ useEffect(() => {
   }
 }, [genreState, sortAsc, paginationQuery]);
 
-
-
 const getGenreProps = ((genre: string) =>
 {
   console.log("Get genre before set: ", genre)
   setGenreState(genre)
 })
-
-// const getSortProps = ((sort: string) =>
-// {
-//   console.log("Get sort before set: ", sort)
-//   setGenreState(sort)
-// })
 
 return (
   <div>
@@ -102,12 +76,13 @@ return (
         ) : (
           books.map((book) => (
             <div key={book.title}>
-              <BookCard book={book} />
+              {/* <BookCard book={book} /> */}
+              <BookCard book={book} setCartItemCount={setCartItemCount} />
             </div>
           ))
         )}
       </div>
-      <Pagination count={totalPages} page={page} onChange={handleChange} />
+      <Pagination count={totalPages} page={pageNo} onChange={handleChange} />
   </div>
   )
 }

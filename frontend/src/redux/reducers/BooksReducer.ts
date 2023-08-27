@@ -13,7 +13,7 @@ interface BookReducer {
     search: string
     sort: string
     totalPages: number
-  booksByGenre: Book[]
+    booksByGenre: Book[]
 }
 
 export interface FetchQuery {
