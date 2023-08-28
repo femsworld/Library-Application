@@ -23,15 +23,12 @@ const CartPage = () => {
   const handleClearCart = () => {
     const confirmed = window.confirm('Are you sure you want to empty your cart?');
     if (confirmed) {
-    //   dispatch(clearCart());
     localStorage.removeItem('cartItems');
     setCartItems([])
     }
   };
 
   useEffect(() => {
-    // const cartItem = inCart ? JSON.parse(inCart) : []
-    // console.log('cartItemsFromStore ==', cartItemsFromStore)
     setCartItems(cartItemsFromStore)
   }, [cartItemsFromStore])
 
@@ -45,16 +42,32 @@ const CartPage = () => {
     dispatch(removeItemFromCart({ id }));
   };
 
+  // const LoanBooks = async () => {
+  //   const loanBooks = cartItems.map((item) => ({
+  //     bookId: item.id,
+  //   }));
+  
+  //   await dispatch(placeLoan({ loanBooks }));
+  //   console.log("Dispatch books:", loanBooks)
+  
+  //   localStorage.removeItem('cartItems');
+  //   setCartItems([]);
+  // };
+
   const LoanBooks = async () => {
     const loanBooks = cartItems.map((item) => ({
       bookId: item.id,
     }));
   
-    await dispatch(placeLoan({ loanBooks }));
-    console.log("Dispatch books:", loanBooks)
+    const booksToLoan = cartItems.map((item) => item.title).join(', ');
   
-    localStorage.removeItem('cartItems');
-    setCartItems([]);
+    const confirmed = window.confirm(`Are you sure you want to loan these books? ${booksToLoan}`);
+    
+    if (confirmed) {
+      await dispatch(placeLoan({ loanBooks }));
+      localStorage.removeItem('cartItems');
+      setCartItems([]);
+    }
   };
   
   return (
@@ -71,8 +84,8 @@ const CartPage = () => {
             <li key={item.id}>
               <p>{item.title}</p>
               <p>Quantity: {item.quantity}</p>
-              <button onClick={() => handleIncreaseQuantity(item.id)}>+</button>
-              <button onClick={() => handleDecreaseQuantity(item.id)}>-</button>
+              {/* <button onClick={() => handleIncreaseQuantity(item.id)}>+</button>
+              <button onClick={() => handleDecreaseQuantity(item.id)}>-</button> */}
               <button onClick={() => handleDeleteQuantity(item.id)}>Remove item</button>
             </li>
           ))}
