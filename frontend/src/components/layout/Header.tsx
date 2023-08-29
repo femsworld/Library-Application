@@ -120,7 +120,6 @@ const Header : React.FC<FetchQuery> = ({offset, limit}) => {
       console.log("If UserProfile: ", userProfile)
     } else {
       setUserProfile(null);
-      console.log("Else UserProfile: ", userProfile)
     }
 
     const cartItems = localStorage.getItem("cartItems");
@@ -216,8 +215,6 @@ const Header : React.FC<FetchQuery> = ({offset, limit}) => {
     else { 
     dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
      }
-    console.log("DebouncedSearchTerm: ", debouncedSearchTerm)
-    console.log("searchTerm: ", searchTerm)
   }, [debouncedSearchTerm]);
   
   return (

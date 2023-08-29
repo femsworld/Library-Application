@@ -93,9 +93,7 @@ export const fetchAllBooks = createAsyncThunk(
     "fetchBooksByGenre",
     async ({ genre}: FetchQueryCategory) => {
         try {
-            console.log("ReducerCategory: ", genre)
             const result = await axios.get<Book[]>(`${baseApi}/Books/categorize?genre=${genre}`)
-            console.log("fetchBooksByGenre URL: ", result)
             return result.data
         } catch (e) {
             const error = e as AxiosError
@@ -108,9 +106,7 @@ export const fetchAllBooks = createAsyncThunk(
     "SearchBooksByTitle",
     async ({ search}: SearchBookQuery) => {
         try {
-            console.log("Reducer: ", search)
               const result = await axios.get<Book[]>(`${baseApi}/Books/search?searchTerm=${search}`)
-              console.log("fetchBooksByGenre URL: ", result)
               return result.data
         } catch (e) {
             const error = e as AxiosError
@@ -123,9 +119,7 @@ export const fetchAllBooks = createAsyncThunk(
     "SortBooks",
     async ({ sort}: SortBookQuery) => {
         try {
-            console.log("ReducerSort: ", sort)
               const result = await axios.get<Book[]>(`${baseApi}/Books/sort?sortOrder=${sort}`)
-              console.log("SortBooks URL: ", result)
               return result.data
         } catch (e) {
             const error = e as AxiosError
@@ -138,7 +132,6 @@ export const fetchAllBooks = createAsyncThunk(
     "fetchSingleBook",
     async ({ id }: FetchSingleBookQuery) => {
       try {
-        console.log("Book Id: ", id)
         const result = await axios.get<SingleBook>(
           `${baseApi}/books/${id}`
         );
@@ -198,7 +191,6 @@ const booksSlice = createSlice({
               state.loading = false;
               state.error = "";
               state.books = booksPayload.books;
-              console.log("BookPayload: ", booksPayload)
               state.totalPages = booksPayload.totalPages;
             }
           })

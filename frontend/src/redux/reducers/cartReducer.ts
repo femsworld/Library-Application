@@ -40,7 +40,6 @@ export const placeLoan = createAsyncThunk(
     const parseStoreToken = storeToken && JSON.parse(storeToken);
     
     const result = await axios.post<Loan>(`${baseApi}/Loans`,  { loanBooks  }, { headers: { Authorization: `Bearer ${parseStoreToken}` } })
-    console.log("Loan Info reducer:", loanBooks)
     return result.data
   } catch (e) {
     const error = e as AxiosError
@@ -83,8 +82,6 @@ const cartSlice = createSlice({
         const updatedCart = localStorage.getItem('cartItems')
         const updatedCartItems = updatedCart && JSON.parse(updatedCart)
         state.items = [...updatedCartItems]
-
-        console.log("newCartItems: ", state.items)
       }
     },
     decreaseItemInCart: (state, action) => {

@@ -32,7 +32,6 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
 
 useEffect(() => {
   if (genreState === 'All') {
-    console.log("SortOrder:", sortAsc)
     if (sortAsc === 'Ascending') {
       dispatch(SortBooks({ sort: 'asc' }));
     } else if (sortAsc === 'Descending') {
@@ -58,7 +57,6 @@ useEffect(() => {
 
 const getGenreProps = ((genre: string) =>
 {
-  console.log("Get genre before set: ", genre)
   setGenreState(genre)
 })
 

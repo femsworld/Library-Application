@@ -34,14 +34,11 @@ export const userLogin = createAsyncThunk(
         `${baseApi}/Auth`, {email, password}
         
       );
-      console.log("User result: ", result.data)
       localStorage.setItem("loginResponse", JSON.stringify(result.data));
       const userProfile = await axios.get<UserProfile>(
         `${baseApi}/users/profile`, { headers: { Authorization: `Bearer ${result.data}` } }
       );
-      console.log("userprofile.statustext", userProfile.statusText )
       if (userProfile.statusText === "OK"){
-        console.log("userProfile.data status text: ",userProfile.data )
         localStorage.setItem("userProfile", JSON.stringify(userProfile.data));
       }
       return {

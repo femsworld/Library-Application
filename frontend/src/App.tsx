@@ -11,7 +11,6 @@ import DashBoard from './components/layout/DashBoard';
 
 const App = () => {
   const storedUserProfile = localStorage.getItem("userProfile");
-  console.log("storedUserProfile: ", storedUserProfile)
       const user = storedUserProfile && JSON.parse(storedUserProfile)
   
   return (
@@ -25,7 +24,7 @@ const App = () => {
         <Route path="/" element={<PrivateRoute isAuthenticated={!!storedUserProfile}/>}>
           <Route path="/profile" element={<ProfilePage/>}/>
         </Route>
-        <Route path="/" element={<AdminRoute isAuthenticated={!!storedUserProfile} userRole={user.role}/>}>
+        <Route path="/" element={<AdminRoute isAuthenticated={!!storedUserProfile} userRole={user?.role}/>}>
           <Route path="/dashboard" element={<DashBoard/>}/>
         </Route>
       </Routes>
