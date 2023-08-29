@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebApi.Business.Dto;
 using WebApi.Business.RepoAbstractions;
 using WebApi.Domain.Entities;
 using WebApi.Infrastructure.Database;
@@ -36,7 +37,38 @@ namespace WebApi.Infrastructure.RepoImplementations
             return await _loans.Include(l => l.LoanBooks)
                                .Where(l => l.UserId == userId)
                                .ToListAsync();
+            // return await _loans.Include(l => l.LoanBooks)
+            //                     .ThenInclude(lb => lb.Book)
+            //                    .Where(l => l.UserId == userId)
+            //                    .ToListAsync();
         }
+        
+        // public async Task<IEnumerable<LoanBookReadDto>> GetLoanBooksByUserIdAsync(Guid userId)
+        // {
+        //     var loans = await _loans.Include(l => l.LoanBooks)
+        //                             .ThenInclude(lb => lb.Book)
+        //                             .Where(l => l.UserId == userId)
+        //                             .ToListAsync();
+
+        //     var loanBookDtos = new List<LoanBookReadDto>();
+
+        //     foreach (var loan in loans)
+        //     {
+        //         foreach (var loanBook in loan.LoanBooks)
+        //         {
+        //             var loanBookDto = new LoanBookReadDto
+        //             {
+        //                 BookId = loanBook.BookId,
+        //                 Title = loanBook.Book.Title,
+        //                 Amount = loanBook.Amount
+        //             };
+        //             loanBookDtos.Add(loanBookDto);
+        //         }
+        //     }
+
+        //     return loanBookDtos;
+        // }
+
 
         public async Task<Loan> PlaceLoanAsync(Loan loan)
         {
