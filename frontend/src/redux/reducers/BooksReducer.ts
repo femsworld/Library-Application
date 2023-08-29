@@ -3,11 +3,13 @@ import { Book } from "../../types/Book";
 import axios, { AxiosError } from "axios";
 import { baseApi } from "../common/baseApi";
 import { SingleBook } from "../../types/SingleBook";
+import { NewBook } from "../../types/NewBook";
 
 interface BookReducer {
     loading: boolean;
     error: string;
     books: Book[];
+    newBook: NewBook
     singleBook: SingleBook;
     genre: string;
     search: string
@@ -56,7 +58,11 @@ const initialState : BookReducer = {
       title: "",
       images: [""],
       genre: ""
-
+    },
+    newBook: {
+      title: "",
+      images: [""],
+      genre: ""
     },
   };
 
@@ -119,14 +125,6 @@ export const fetchAllBooks = createAsyncThunk(
     async ({ sort}: SortBookQuery) => {
         try {
             console.log("ReducerSort: ", sort)
-            // if(sort === "None")
-            // {
-            //   const result = await axios.get<{books: Book[]}>(
-            //     `${baseApi}/books`
-            //   );
-            //   console.log("SortBooks URL: ", result)
-            //   return result.data.books
-            // }
               const result = await axios.get<Book[]>(`${baseApi}/Books/sort?sortOrder=${sort}`)
               console.log("SortBooks URL: ", result)
               return result.data
@@ -152,6 +150,21 @@ export const fetchAllBooks = createAsyncThunk(
       }
     }
   );    
+
+  export const createOneBook = createAsyncThunk(
+    "createOneBook", 
+    async({title, genre, images }: NewBook) => {
+    try {
+      const ProfileToken = localStorage.getItem('loginResponse')
+      const resultToken = ProfileToken && JSON.parse(ProfileToken)
+      const result = await axios.post<NewBook>(`${baseApi}/Books`, { title: title, genre: genre, images: images }, { headers: { Authorization: `Bearer ${resultToken}` } })
+      return result.data
+    } catch (e) {
+      const error = e as AxiosError
+      return error
+    }
+    }
+  )
 
 const booksSlice = createSlice({
     name: "books",
@@ -253,8 +266,21 @@ const booksSlice = createSlice({
           state.books = action.payload;
         }
         state.loading = false;
+      })
+      .addCase(createOneBook.fulfilled, (state, action) => {
+        if (action.payload instanceof AxiosError) {
+          state.error = action.payload.message
+        } else {
+          state.newBook = action.payload
+        }
+      })
+      .addCase(createOneBook.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createOneBook.rejected, (state) => {
+        state.error = "Your book cannot be created at the moment, please try again later.";
       });
-      },
+    },
 })
 
 const booksReducer = booksSlice.reducer

@@ -19,6 +19,11 @@ const store = configureStore({
             sort: "",
             totalPages: 1,
             booksByGenre: [],
+            newBook: {
+                title: "",
+                genre: "",
+                images: [""]
+            },
             singleBook: {
                 genre: ""
             }
