@@ -6,10 +6,13 @@ import CartPage from './components/layout/CartPage';
 import BookDetails from './components/layout/BookDetails';
 import ProfilePage from './components/layout/ProfilePage';
 import PrivateRoute from './components/Services/PrivateRoute';
+import AdminRoute from './components/Services/AdminRoute';
+import DashBoard from './components/layout/DashBoard';
 
 const App = () => {
   const storedUserProfile = localStorage.getItem("userProfile");
   console.log("storedUserProfile: ", storedUserProfile)
+      const user = storedUserProfile && JSON.parse(storedUserProfile)
   
   return (
     <BrowserRouter>
@@ -21,6 +24,9 @@ const App = () => {
         <Route path="/bookDetails/:id" element={<BookDetails />} />
         <Route path="/" element={<PrivateRoute isAuthenticated={!!storedUserProfile}/>}>
           <Route path="/profile" element={<ProfilePage/>}/>
+        </Route>
+        <Route path="/" element={<AdminRoute isAuthenticated={!!storedUserProfile} userRole={user.role}/>}>
+          <Route path="/dashboard" element={<DashBoard/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

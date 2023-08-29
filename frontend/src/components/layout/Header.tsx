@@ -117,8 +117,10 @@ const Header : React.FC<FetchQuery> = ({offset, limit}) => {
     if (storedUserProfile) {
       const parsedUserProfile = JSON.parse(storedUserProfile);
       setUserProfile(parsedUserProfile);
+      console.log("If UserProfile: ", userProfile)
     } else {
       setUserProfile(null);
+      console.log("Else UserProfile: ", userProfile)
     }
 
     const cartItems = localStorage.getItem("cartItems");
@@ -169,7 +171,7 @@ const Header : React.FC<FetchQuery> = ({offset, limit}) => {
         </>
       ) : (
         <>
-          {userProfile.role === "admin" && (
+          {userProfile.role === "Admin" && (
             <MenuItem>
               <Link
                 to="/dashboard"

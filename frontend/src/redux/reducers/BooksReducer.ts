@@ -65,7 +65,13 @@ export const fetchAllBooks = createAsyncThunk(
     "fetchAllBooks", 
     async ({ offset, limit }: FetchQuery) => {
       try {
-        console.log("fetchAllBooks!!!!!!!")
+        if(offset < 0 && limit < 0)
+        {
+          const result = await axios.get<{books: Book[]}>(
+            `${baseApi}/books`
+          );
+          return result.data;
+        }
         const result = await axios.get<{books: Book[]}>(
           `${baseApi}/books?page=${offset}&pageSize=${limit}`
         );
