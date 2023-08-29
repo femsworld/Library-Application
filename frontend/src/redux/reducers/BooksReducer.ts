@@ -112,7 +112,6 @@ export const fetchAllBooks = createAsyncThunk(
               const result = await axios.get<Book[]>(`${baseApi}/Books/search?searchTerm=${search}`)
               console.log("fetchBooksByGenre URL: ", result)
               return result.data
-            // }
         } catch (e) {
             const error = e as AxiosError
             return error.message

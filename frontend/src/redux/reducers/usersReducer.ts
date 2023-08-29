@@ -110,9 +110,6 @@ const usersSlice = createSlice({
         createUser: (state, action: PayloadAction<User>) => {
             state.users.push(action.payload)
         },
-        // updataUserReducer: (state, action: PayloadAction<User[]>) =>{
-        //     return action.payload
-        // }
     },
     extraReducers: (build) => {
         build
@@ -129,19 +126,6 @@ const usersSlice = createSlice({
           .addCase(fetchAllUsers.rejected, (state, action) => {
             state.error = "Cannot fetch data";
           })
-        //   .addCase(EditMeUser.fulfilled, (state, action) => {
-        //     if (action.payload instanceof AxiosError) {
-        //       state.error = action.payload.message;
-        //     } else {
-        //       state.currentUser = action.payload;
-        //     }
-        //   })
-        //   .addCase(EditMeUser.pending, (state) => {
-        //     state.loading = true;
-        //   })
-        //   .addCase(EditMeUser.rejected, (state) => {
-        //     state.error = "User cannot be update at the moment, try again later.";
-        //   })
           .addCase(createOneUser.fulfilled, (state, action) => {
             if (action.payload instanceof AxiosError) {
               state.error = action.payload.message

@@ -10,7 +10,6 @@ import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import useAppDispatch from '../../../hooks/useAppDispatch';
 import { createOneBook } from '../../../redux/reducers/booksReducer';
 import { useState } from 'react';
-import { NewBook } from '../../../types/NewBook';
 
 export default function CreateBook() {
   const [open, setOpen] = React.useState(false);
@@ -70,7 +69,6 @@ export default function CreateBook() {
           <MenuItem value={"Fiction"}>Fiction</MenuItem>
           <MenuItem value={"ResearchPaper"}>ResearchPaper</MenuItem>
         </Select>
-        {/* <FormHelperText>Without label</FormHelperText> */}
       </FormControl>
         </DialogContent>
         <DialogActions>

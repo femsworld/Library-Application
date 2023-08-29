@@ -49,19 +49,6 @@ export const placeLoan = createAsyncThunk(
   }
 )
 
-// export const fetchLoanByUser = createAsyncThunk(
-//   "fetchLoanByUser",
-//   async () => {
-//       try {
-//           const result = await axios.get<Category[]>("https://api.escuelajs.co/api/v1/categories")
-//           return result.data
-//       } catch (e) {
-//           const error = e as AxiosError
-//           return error.message
-//       }
-//   }
-// )
-
 const cartSlice = createSlice({
   name: "cart",
   initialState,

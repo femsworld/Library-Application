@@ -42,18 +42,6 @@ const CartPage = () => {
     dispatch(removeItemFromCart({ id }));
   };
 
-  // const LoanBooks = async () => {
-  //   const loanBooks = cartItems.map((item) => ({
-  //     bookId: item.id,
-  //   }));
-  
-  //   await dispatch(placeLoan({ loanBooks }));
-  //   console.log("Dispatch books:", loanBooks)
-  
-  //   localStorage.removeItem('cartItems');
-  //   setCartItems([]);
-  // };
-
   const LoanBooks = async () => {
     const loanBooks = cartItems.map((item) => ({
       bookId: item.id,

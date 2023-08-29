@@ -27,7 +27,6 @@ const SelectGenre: React.FC<GetGenreProps> = ({getGenre}) => {
           inputProps={{ 'aria-label': 'Without label' }}
         >
           <MenuItem value="">
-            {/* <em>None</em> */}
           </MenuItem>
           <MenuItem value={"All"}>All</MenuItem>
           <MenuItem value={"TextBooks"}>TextBooks</MenuItem>
@@ -35,7 +34,6 @@ const SelectGenre: React.FC<GetGenreProps> = ({getGenre}) => {
           <MenuItem value={"Fiction"}>Fiction</MenuItem>
           <MenuItem value={"ResearchPaper"}>ResearchPaper</MenuItem>
         </Select>
-        {/* <FormHelperText>Without label</FormHelperText> */}
       </FormControl>
     </div>
   );

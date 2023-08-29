@@ -16,8 +16,7 @@ export default function DashBoardBookTable() {
         offset: -1,
         limit: -1,
       })
-    // const [pageNo, setPageNo] = useState(1);
-
+   
     useEffect (() => {
         dispatch(fetchAllBooks(paginationQuery))
     }, [paginationQuery])

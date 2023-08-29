@@ -27,7 +27,6 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     offset: value,
     limit: 6,
   };
-  // dispatch(fetchAllBooks(fetchQuery));
   setPaginationQuery(fetchQuery)
 };
 
@@ -76,7 +75,6 @@ return (
         ) : (
           books.map((book) => (
             <div key={book.title}>
-              {/* <BookCard book={book} /> */}
               <BookCard book={book} setCartItemCount={setCartItemCount} />
             </div>
           ))
