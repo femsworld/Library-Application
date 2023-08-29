@@ -18,7 +18,6 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/cart" element={<CartPage />} />
-        {/* <Route path="/profile" element={<ProfilePage />} /> */}
         <Route path="/bookDetails/:id" element={<BookDetails />} />
         <Route path="/" element={<PrivateRoute isAuthenticated={!!storedUserProfile}/>}>
           <Route path="/profile" element={<ProfilePage/>}/>

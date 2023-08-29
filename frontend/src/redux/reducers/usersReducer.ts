@@ -63,17 +63,32 @@ export const fetchAllUsers = createAsyncThunk(
         } catch (e) {
             const error = e as AxiosError
             if(error.request) {
-                // return error.request
-                console.log("error in request: ", error.request)
+                return error.request
             } else {
-                // return error.response?.data
-                console.log("error resonse: ", error.response?.data)
+                return error.response?.data
             }
         }
     }
 )
 
-
+export const fetchLoggedInUserProfile = createAsyncThunk(
+  "fetchLoggedInUserProfile",
+  async () => {
+      try {
+        const ProfileToken = localStorage.getItem('loginResponse')
+        const resultToken = ProfileToken && JSON.parse(ProfileToken)
+          const result = await axios.get<User[]>(`${baseApi}/users/profile`, { headers: { Authorization: `Bearer ${resultToken}` } })
+          return result.data
+      } catch (e) {
+          const error = e as AxiosError
+          if(error.request) {
+              return error.request
+          } else {
+              return error.response?.data
+          }
+      }
+  }
+)
 
 export const createOneUser = createAsyncThunk(
     "createOneUser", 
@@ -139,6 +154,20 @@ const usersSlice = createSlice({
           })
           .addCase(createOneUser.rejected, (state) => {
             state.error = "User cannot be update at the moment, try again later.";
+          })
+          .addCase(fetchLoggedInUserProfile.fulfilled, (state, action) => {
+            if (action.payload instanceof AxiosError) {
+              state.error = action.payload.message
+            } else {
+              state.currentUser = action.payload
+              state.loading = false;
+            }
+          })
+          .addCase(fetchLoggedInUserProfile.pending, (state) => {
+            state.loading = true;
+          })
+          .addCase(fetchLoggedInUserProfile.rejected, (state) => {
+            state.error = "Profile page is not available to the moment, please try again later.";
           })
       },
 })

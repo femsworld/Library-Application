@@ -17,8 +17,8 @@ const BookDetails = () => {
 
   return (
     <div>BookDetails
-        <h4> {singleBook?.title} </h4>
-      <h4> Category: {singleBook?.genre} </h4>
+        <h4>Book Title {singleBook?.title} </h4>
+        <h4> Category: {singleBook?.genre} </h4>
     </div>
   )
 }
