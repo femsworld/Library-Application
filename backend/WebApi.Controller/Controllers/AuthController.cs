@@ -16,7 +16,7 @@ namespace WebApi.Controller.Controllers
         }
 
         [HttpPost]
-        public async Task<string> VerifyCredentials([FromBody] AuthDto auth) // make it into Dto
+        public async Task<string> VerifyCredentials([FromBody] AuthDto auth)
         {
             return await _authService.VerifyCredentialsAsync(auth);
         }

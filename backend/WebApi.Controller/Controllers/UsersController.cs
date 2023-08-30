@@ -79,11 +79,6 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateUser([FromBody] UserDto userDto)
         {
-            // var createdUser = await _userService.CreateUserAsync(userDto);
-            // // return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
-            // return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
-            // //  return _userService.CreateUser(userDto);
-
              var createdUser = await _userService.CreateUserAsync(userDto);
             return Ok(createdUser); 
         }
@@ -95,9 +90,6 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateUserByAdmin([FromBody] UserAdminDto userAdminDto)
         {
-            // var createdUser = await _userService.CreateUserByAdminAsync(userAdminDto);
-            // return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
-
             var createdUser = await _userService.CreateUserByAdminAsync(userAdminDto);
             return Ok(createdUser); 
 
@@ -160,7 +152,6 @@ namespace WebApi.Controller.Controllers
             {
                 return NotFound("User not found");
             }
-            // return Ok(_mapper.Map<UserDto>(deletedUser));
             return Ok(deletedUser);
 
         }
