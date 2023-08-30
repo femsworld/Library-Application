@@ -1,0 +1,130 @@
+POST http://localhost:5292/api/v1/Users
+Content-Type: application/json
+
+{
+  "name": "Admin",
+  "email": "admin@mail.com",
+  "age": 42,
+  "avatar": "string",
+  "password": "admin123"
+}
+
+### Create user client
+POST http://localhost:5292/api/v1/Users
+Content-Type: application/json
+
+{
+  "name": "Sam",
+  "email": "sam@mail.com",
+  "age": 37,
+  "avatar": "string",
+  "password": "sam123"
+}
+
+### Get admin token
+POST http://localhost:5292/api/v1/Auth
+Content-Type: application/json
+
+{
+    "email": "femi@mail.com",
+    "password": "femi123"
+}
+
+### get client token
+POST http://localhost:5292/api/v1/Auth
+Content-Type: application/json
+
+{
+    "email": "tom@mail.com",
+    "password": "tom123"
+}
+
+### User token (UdateUser)
+PATCH  http://localhost:5292/api/v1/Users/ec92ca98-eda3-4e5d-9ac2-5a24ba33b781
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJibHVlQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlYzkyY2E5OC1lZGEzLTRlNWQtOWFjMi01YTI0YmEzM2I3ODEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDbGllbnQifQ.e75P15_uOUXt7XejSwNigL7JsJDt0e1G5bSe_Qn-dS0
+
+{
+  "name": "Blue",
+  "age": 22,
+  "avatar": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffree-vector%2Fbird-colorful-logo-gradient-vector_343694-1365.jpg&tbnid=qrn4zRugFoxeWM&vet=12ahUKEwi9-e3H6tKAAxVKEBAIHc37BNoQMygAegUIARDXAQ..i&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Flogo&docid=ldkRqsCRrSjoyM&w=626&h=626&q=images&hl=en&ved=2ahUKEwi9-e3H6tKAAxVKEBAIHc37BNoQMygAegUIARDXAQ"
+}
+
+### User token (UdateUserPassword)
+PATCH  http://localhost:5292/api/v1/Users/password/4a9e0e3f-74ac-4eae-a38e-4ba81a91fae8
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0YTllMGUzZi03NGFjLTRlYWUtYTM4ZS00YmE4MWE5MWZhZTgiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.VNk4W4o4jqwecs1chfY2kwP_r49pLeyAfv41oDCSiq0
+
+{
+  "password": "femi123"
+}
+
+### admin token (Get User by ID)
+GET http://localhost:5292/api/v1/Users/81803401-802d-42b8-b91d-77e38ff59ebd
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJkNjA0NGZjZi04M2U0LTQ0Y2EtYmEyNS0zMGI3NDUyYmJmZTAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.Ii0V11o8y_noAIFe5oPs0sfKi2dheVMJ7YTDDrPm7y0
+
+### client token
+GET http://localhost:5292/api/v1/Users/81803401-802d-42b8-b91d-77e38ff59ebd
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiN2U4OGM4MTMtNWVmZC00ZjZjLWEwY2MtYmQ2MmVmNWI3YzNmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.kXNk0OQGY6X7FcjEDGt2D5KLRIC0iJx2fNi_ODKMPgI
+
+### client token get profile
+GET http://localhost:5292/api/v1/users/profile
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0b21AbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjFkMTkzZGMwLTlmMjAtNGE3MC05YmVmLTY2YTEwODE3M2IzNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkNsaWVudCJ9.C5DtyuF4n9GjC-aRlfcXzJ4sCiL0xwc37Et_fyU8zNI
+
+
+### admin Get all Users
+GET http://localhost:5292/api/v1/users
+Content-Type: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJkNjA0NGZjZi04M2U0LTQ0Y2EtYmEyNS0zMGI3NDUyYmJmZTAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.Ii0V11o8y_noAIFe5oPs0sfKi2dheVMJ7YTDDrPm7y0
+
+### client Get all Users
+GET http://localhost:5292/api/v1/users
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0MUBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiN2U4OGM4MTMtNWVmZC00ZjZjLWEwY2MtYmQ2MmVmNWI3YzNmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50In0.kXNk0OQGY6X7FcjEDGt2D5KLRIC0iJx2fNi_ODKMPgI
+
+### admin token (CreateUserByAmin)
+POST http://localhost:5292/api/v1/users/admin
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
+{
+  "name": "Admin",
+  "email": "admin@mail.com",
+  "age": 45,
+  "password": "admin123",
+  "role": 0
+}
+
+### admin token (CreateUserByAmin)
+POST http://localhost:5292/api/v1/users/admin
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjJkODE1ZGYtZTIyYy00OWQ4LTlhZTgtMzc1MDkyMDkxOTJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.Z8Xjd4BJxOEPJ3tGPzSjGdU1PpmqxdMNHO_lCV84dvY
+
+{
+  "name": "Staff",
+  "email": "staff@mail.com",
+  "age": 29,
+  "password": "staff123",
+  "role": 2
+}
+
+### admin token (UdateUserByAmin = UserId = Femi)
+PATCH  http://localhost:5292/api/v1/Users/Admin/720e0534-5cdf-4ff2-9f39-789fe308c3d7
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0NEBtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMWQwZjQ4MWQtYWU3OC00MDNkLTkzZDAtZTUxMDY1MTRlZDMwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.1gu8-6Cj8dLtBKFrRJAiJUpE-mB8gO8Cj1OQ0bC4iZE
+
+{
+  "name": "Enni",
+  "email": "enni@mail.com",
+  "age": 32,
+  "password": "enni123",
+  "role": 2
+}
+
+### admin token (Delete User by ID)
+DELETE http://localhost:5292/api/v1/Users/3d541a79-48e3-48e4-9991-868c60c79461
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJkNjA0NGZjZi04M2U0LTQ0Y2EtYmEyNS0zMGI3NDUyYmJmZTAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.Ii0V11o8y_noAIFe5oPs0sfKi2dheVMJ7YTDDrPm7y0
+

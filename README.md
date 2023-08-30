@@ -38,6 +38,8 @@ This Web API project is designed to provide various services related to books, u
 
 ## API Endpoints
 
+For detailed API documentation, please refer to the [Swagger Documentation](http://femsworld-library.azurewebsites.net/swagger/index.html).
+
 ### Book Operations
 
 - `GET /api/v1/Books`: Get a list of all books.

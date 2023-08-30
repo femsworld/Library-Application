@@ -12,7 +12,7 @@ namespace WebApi.Controller.Controllers
     {
         private readonly ILoanService _loanService;
 
-        public LoansController(ILoanService loanService)
+        public LoansController(ILoanService loanService, IBookService bookService)
         {
             _loanService = loanService;
         }
