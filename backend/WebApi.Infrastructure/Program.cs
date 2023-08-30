@@ -28,8 +28,6 @@ var host = Host.CreateDefaultBuilder(args)
             services.AddScoped<ILoanBookRepo, LoanBookRepo>();
             services.AddScoped<ILoanService, LoanService>();
             services.AddScoped<ILoanBookService, LoanBookService>();
-            services.AddScoped<ICartService, CartService>();
-            services.AddScoped<ICartRepo, CartRepo>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IBookRepo>(provider =>
                 new BookRepo(provider.GetRequiredService<DatabaseContext>(), provider.GetRequiredService<IMapper>()));
@@ -40,7 +38,7 @@ var host = Host.CreateDefaultBuilder(args)
             {
                 var mapperConfig = new MapperConfiguration(config =>
                 {
-                    config.AddProfile<AutoMapperProfile>(); // Replace with the actual AutoMapper profile class
+                    config.AddProfile<AutoMapperProfile>();
                 });
 
                 return mapperConfig.CreateMapper();
@@ -55,7 +53,7 @@ var host = Host.CreateDefaultBuilder(args)
             {
                 options.AddInterceptors(new TimeStampInterceptor());
                 options.UseNpgsql(dataSource).UseSnakeCaseNamingConvention();
-            });
+            }, ServiceLifetime.Scoped);
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
