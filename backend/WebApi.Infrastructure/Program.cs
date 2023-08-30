@@ -18,7 +18,6 @@ var host = Host.CreateDefaultBuilder(args)
         webBuilder.ConfigureServices((hostContext, services) =>
         {
             var configuration = hostContext.Configuration;
-            // Add your services here...
             services.AddControllers();
             services.AddScoped<LoggingMiddleware>();
             services.AddScoped<ErrorHandlerMiddware>();
@@ -36,9 +35,7 @@ var host = Host.CreateDefaultBuilder(args)
                 new BookRepo(provider.GetRequiredService<DatabaseContext>(), provider.GetRequiredService<IMapper>()));
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
-            // services.AddScoped<IBookRepo, BookRepo>();
-            // services.AddScoped<IBookRepo>(provider =>
-            // new BookRepo(provider.GetRequiredService<DatabaseContext>(), configuration));
+           
             services.AddScoped<IMapper>(provider =>
             {
                 var mapperConfig = new MapperConfiguration(config =>
@@ -49,33 +46,17 @@ var host = Host.CreateDefaultBuilder(args)
                 return mapperConfig.CreateMapper();
             });
 
-            // Configure your database
-            // var connectionString = configuration.GetConnectionString("DefaultConnection");
-            // var npgsqlBuilder = new NpgsqlConnectionStringBuilder(connectionString);
-            // npgsqlBuilder.TypeMapper.UseNetTopologySuite(); // Add this line for NpgsqlEnumMapping
-            // npgsqlBuilder.TypeMapper.MapEnum<Role>("role"); // Add this line for NpgsqlEnumMapping
-            // var dataSource = npgsqlBuilder.ConnectionString;
-
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             var npgsqlBuilder = new NpgsqlConnectionStringBuilder(connectionString);
-            // npgsqlBuilder.MapEnum<Role>();
-            // npgsqlBuilder.MapEnum<Genre>();
-
-            // npgsqlBuilder.AddEnumMappings(new NpgsqlEnumMapping { ClrEnumType = typeof(Role), PgEnumName = "role" });
-            // npgsqlBuilder.AddEnumMappings(new NpgsqlEnumMapping { ClrEnumType = typeof(Genre), PgEnumName = "genre" });
-
-
+            
             var dataSource = npgsqlBuilder.ConnectionString;    
 
             services.AddDbContext<DatabaseContext>(options =>
             {
                 options.AddInterceptors(new TimeStampInterceptor());
                 options.UseNpgsql(dataSource).UseSnakeCaseNamingConvention();
-                // Configure enums if necessary
-                // options.UseEnum<Role>();
             });
 
-            // Configure other services...
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddAuthentication(JwtAuthenticationDefaults.AuthenticationScheme)
@@ -96,7 +77,8 @@ var host = Host.CreateDefaultBuilder(args)
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins("http://localhost:3000", 
+                            "https://spontaneous-bubblegum-f213e6.netlify.app/" )
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });
