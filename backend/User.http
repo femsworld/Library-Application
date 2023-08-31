@@ -14,11 +14,11 @@ POST http://localhost:5292/api/v1/Users
 Content-Type: application/json
 
 {
-  "name": "Sam",
-  "email": "sam@mail.com",
-  "age": 37,
+  "name": "Blue",
+  "email": "blue@mail.com",
+  "age": 19,
   "avatar": "string",
-  "password": "sam123"
+  "password": "blue123"
 }
 
 ### Get admin token

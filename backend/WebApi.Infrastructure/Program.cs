@@ -11,94 +11,102 @@ using WebApi.Business.Services.Implementations;
 using WebApi.Infrastructure.Database;
 using WebApi.Infrastructure.RepoImplementations;
 using AutoMapper;
+using WebApi.Domain.Entities;
+using Microsoft.OpenApi.Models;
 
-var host = Host.CreateDefaultBuilder(args)
-    .ConfigureWebHostDefaults(webBuilder =>
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
     {
-        webBuilder.ConfigureServices((hostContext, services) =>
-        {
-            var configuration = hostContext.Configuration;
-            services.AddControllers();
-            services.AddScoped<LoggingMiddleware>();
-            services.AddScoped<ErrorHandlerMiddware>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IBookService, BookService>();
-            services.AddScoped<IUserRepo, UserRepo>();
-            services.AddScoped<ILoanRepo, LoanRepo>();
-            services.AddScoped<ILoanBookRepo, LoanBookRepo>();
-            services.AddScoped<ILoanService, LoanService>();
-            services.AddScoped<ILoanBookService, LoanBookService>();
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IBookRepo>(provider =>
-                new BookRepo(provider.GetRequiredService<DatabaseContext>(), provider.GetRequiredService<IMapper>()));
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
 
-            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
-           
-            services.AddScoped<IMapper>(provider =>
-            {
-                var mapperConfig = new MapperConfiguration(config =>
-                {
-                    config.AddProfile<AutoMapperProfile>();
-                });
+// Add Automapper DI
+// builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
-                return mapperConfig.CreateMapper();
-            });
+// Moved from DatabaseContext.cs here due npgslp version 4 recomendations not to create new npgsqldatasourcebuilder within the scope
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            var npgsqlBuilder = new NpgsqlConnectionStringBuilder(connectionString);
-            
-            var dataSource = npgsqlBuilder.ConnectionString;    
+var npgsqlBuilder = new NpgsqlDataSourceBuilder(connectionString);
+npgsqlBuilder.MapEnum<Role>();
+npgsqlBuilder.MapEnum<Genre>();
 
-            services.AddDbContext<DatabaseContext>(options =>
-            {
-                options.AddInterceptors(new TimeStampInterceptor());
-                options.UseNpgsql(dataSource).UseSnakeCaseNamingConvention();
-            }, ServiceLifetime.Scoped);
+// await using var dataSource = npgsqlBuilder.Build();
+var dataSource = npgsqlBuilder.Build();
 
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
-            services.AddAuthentication(JwtAuthenticationDefaults.AuthenticationScheme)
+builder.Services.AddDbContext<DatabaseContext>(options =>
+{
+    options.AddInterceptors(new TimeStampInterceptor());
+    options.UseNpgsql(dataSource)
+           .UseSnakeCaseNamingConvention();
+});
+
+// Add service DI
+builder.Services
+.AddScoped<LoggingMiddleware>()
+.AddScoped<ErrorHandlerMiddware>()
+.AddScoped<IAuthService, AuthService>()
+.AddScoped<IUserRepo, UserRepo>()
+.AddScoped<IUserService, UserService>()
+.AddScoped<ILoanRepo, LoanRepo>()
+.AddScoped<ILoanService, LoanService>()
+.AddScoped<ILoanBookRepo, LoanBookRepo>()
+.AddScoped<ILoanBookService, LoanBookService>()
+.AddScoped<IBookRepo, BookRepo>()
+.AddScoped<IBookService, BookService>();
+
+// Add services to the container.
+builder.Services.AddControllers();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
+
+//Config route
+
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+});
+
+//authentication:
+builder.Services.AddAuthentication(JwtAuthenticationDefaults.AuthenticationScheme)
                     .AddJwt(options =>
                     {
                         options.Keys = new[] { "my-secrete-key" };
                         options.VerifySignature = true;
                     });
 
-            services.AddSingleton<IAlgorithmFactory>(new HMACSHAAlgorithmFactory());
+builder.Services.AddSingleton<IAlgorithmFactory>(new HMACSHAAlgorithmFactory());
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
-            });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+});
 
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                {
-                    builder.WithOrigins("http://localhost:3000", 
-                            "https://spontaneous-bubblegum-f213e6.netlify.app/" )
-                           .AllowAnyHeader()
-                           .AllowAnyMethod();
-                });
-            });
-        })
-        .Configure(app =>
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-            app.UseHttpsRedirection();
-            app.UseCors();
-            app.UseMiddleware<LoggingMiddleware>();
-            app.UseMiddleware<ErrorHandlerMiddware>();
-            app.UseAuthentication();
-            app.UseRouting();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        });
-    })
-    .Build();
+builder.Services.AddAuthorization();
 
-host.Run();
+var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseHttpsRedirection();
+
+app.UseCors();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+dataSource.Dispose();

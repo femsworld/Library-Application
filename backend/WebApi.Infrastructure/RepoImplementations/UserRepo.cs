@@ -26,7 +26,6 @@ namespace WebApi.Infrastructure.RepoImplementations
         public async Task<User> CreateUserAsync(User user)
         {
             user.Role = Role.Client;
-            // user.Role = Role.Admin;
             _users.Add(user);
             await _context.SaveChangesAsync();
             return user;
