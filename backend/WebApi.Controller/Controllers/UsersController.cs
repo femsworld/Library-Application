@@ -22,7 +22,7 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
+        public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 6, [FromQuery] string? name = null )
         {
             if (page < 0 || pageSize < 0)
             {
@@ -33,6 +33,12 @@ namespace WebApi.Controller.Controllers
                 return Ok(new GetAllUserResponse(1, await _userService.GetAllUsersAsync()));
             }
             var users = await _userService.GetAllUsersAsync();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                users = users.Where(user => user.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+            }
+
             var totalUsers = users.Count();
             var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
 
