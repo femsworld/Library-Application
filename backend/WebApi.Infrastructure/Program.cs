@@ -13,6 +13,7 @@ using WebApi.Infrastructure.RepoImplementations;
 using AutoMapper;
 using WebApi.Domain.Entities;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -66,7 +67,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
+// builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Bearer token authentication",
+        Name = "Authentication",
+        In = ParameterLocation.Header
+    });
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 //Config route
 
