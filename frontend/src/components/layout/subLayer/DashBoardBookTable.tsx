@@ -2,7 +2,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import useAppSelector from '../../../hooks/useAppSelector';
 import { useEffect, useState } from 'react';
 import useAppDispatch from '../../../hooks/useAppDispatch';
-import { FetchQuery, fetchAllBooks } from '../../../redux/reducers/booksReducer';
+import { fetchAllBooks, fetchAllBooksQuery } from '../../../redux/reducers/booksReducer';
 
 const columns: GridColDef[] = [
   { field: 'title', headerName: 'Title', width: 200 },
@@ -10,13 +10,13 @@ const columns: GridColDef[] = [
 ];
 
 export default function DashBoardBookTable() {
-    const { books, loading, totalPages } = useAppSelector((state) => state.booksReducer);
+    const { books, loading, totalPages,  } = useAppSelector((state) => state.booksReducer);
     const dispatch = useAppDispatch();
-    const [ paginationQuery, setPaginationQuery] = useState<FetchQuery>({
-        offset: -1,
-        limit: -1,
-      })
-   
+    const [ paginationQuery, setPaginationQuery] = useState<fetchAllBooksQuery>({
+      page: 0,
+      pageSize: 5,
+    })
+ 
     useEffect (() => {
         dispatch(fetchAllBooks(paginationQuery))
     }, [paginationQuery])

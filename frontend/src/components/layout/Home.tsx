@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import useAppSelector from '../../hooks/useAppSelector';
-import { FetchQuery, SortBooks, fetchAllBooks, fetchBooksByGenre } from '../../redux/reducers/booksReducer';
+import { FetchQuery, SortBooks, fetchAllBooks, fetchAllBooksQuery, fetchBooksByGenre } from '../../redux/reducers/booksReducer';
 import BookCard from './BookCard';
 import Header from './Header'
 import { Pagination } from '@mui/material';
@@ -15,17 +15,17 @@ const Home = () => {
   const [pageNo, setPageNo] = useState(1);
   const [genreState, setGenreState] = useState("All");
   const [sortAsc, setSortAsc] = useState("None")
-  const [ paginationQuery, setPaginationQuery] = useState<FetchQuery>({
-    offset: 1,
-    limit: 6,
+  const [ paginationQuery, setPaginationQuery] = useState<fetchAllBooksQuery>({
+    page: 1,
+    pageSize: 6,
   })
   const [cartItemCount, setCartItemCount] = useState(0);
 
 const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
   setPageNo(value);
-  const fetchQuery: FetchQuery = {
-    offset: value,
-    limit: 6,
+  const fetchQuery: fetchAllBooksQuery = {
+    page: value,
+    pageSize: 6,
   };
   setPaginationQuery(fetchQuery)
 };
@@ -62,7 +62,7 @@ const getGenreProps = ((genre: string) =>
 
 return (
   <div>
-        <Header offset={paginationQuery.offset} limit={paginationQuery.limit}/>
+        <Header page={paginationQuery.page} pageSize={paginationQuery.pageSize}/>
         <div style={{ marginTop: '4rem' }}>
         <SelectGenre getGenre={getGenreProps}/>
         </div>

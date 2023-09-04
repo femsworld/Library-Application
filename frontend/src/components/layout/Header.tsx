@@ -24,7 +24,7 @@ import useAppDispatch from "../../hooks/useAppDispatch";
 import useAppSelector from "../../hooks/useAppSelector";
 import { userLogout } from "../../redux/reducers/authenticationReducer";
 import { useDebounce } from "use-debounce";
-import { FetchQuery, SearchBooksByTitle, fetchAllBooks } from "../../redux/reducers/booksReducer";
+import { FetchQuery, SearchBooksByTitle, fetchAllBooks, fetchAllBooksQuery } from "../../redux/reducers/booksReducer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -66,7 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header : React.FC<FetchQuery> = ({offset, limit}) => {
+const Header : React.FC<fetchAllBooksQuery> = ({page, pageSize}) => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -209,7 +209,7 @@ const Header : React.FC<FetchQuery> = ({offset, limit}) => {
 
   useEffect(() => {
     if (debouncedSearchTerm === "") {
-      dispatch(fetchAllBooks({offset, limit}));
+      dispatch(fetchAllBooks({page, pageSize}));
     } 
     else { 
     dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
