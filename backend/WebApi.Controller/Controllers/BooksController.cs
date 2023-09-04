@@ -4,6 +4,7 @@ using WebApi.Business.Services.Abstractions;
 using WebApi.Business.Services.Shared;
 using WebApi.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
 
 namespace WebApi.Controller.Controllers
 {
@@ -22,67 +23,6 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        // public async Task<IActionResult> GetAllBooks([FromQuery] int page = 1, [FromQuery] int pageSize = 6)
-        // {
-        //     if (page < 0 || pageSize < 0)
-        //     {
-        //         return BadRequest("page and pageSize must be positive integers.");
-        //     }
-
-        //     var books = await _bookService.GetAllBooksAsync();
-        //     var totalBooks = books.Count();
-        //     var totalPages = (int)Math.Ceiling((double)totalBooks / pageSize);
-
-        //     var result = books.Skip((page - 1) * pageSize).Take(pageSize);
-
-        //     var response = new GetAllBookResponse(totalPages, result);
-        //     return Ok(response);
-        // }
-
-        // public async Task<IActionResult> GetAllBooks([FromQuery] int page = 1, [FromQuery] int pageSize = 6, [FromQuery] Genre? genre = null, [FromQuery] SortOrder? sortOrder = null, [FromQuery] string? search = null)
-        // {
-        //     if (page < 0 || pageSize < 0)
-        //     {
-        //         return BadRequest("page and pageSize must be positive integers.");
-        //     }
-
-        //     // Get all books
-        //     var books = await _bookService.GetAllBooksAsync();
-
-        //     // Apply genre filter if specified
-        //     if (genre.HasValue)
-        //     {
-        //         books = books.Where(book => book.Genre == genre.Value);
-        //     }
-
-        //     // Apply search filter if search term is specified
-        //     if (!string.IsNullOrWhiteSpace(search))
-        //     {
-        //         books = books.Where(book => book.Title.Contains(search, StringComparison.OrdinalIgnoreCase));
-        //     }
-
-        //     // Apply sorting if specified
-        //     if (sortOrder.HasValue)
-        //     {
-        //         if (sortOrder == SortOrder.Ascending)
-        //         {
-        //             books = books.OrderBy(book => book.Title);
-        //         }
-        //         else
-        //         {
-        //             books = books.OrderByDescending(book => book.Title);
-        //         }
-        //     }
-
-        //     var totalBooks = books.Count();
-        //     var totalPages = (int)Math.Ceiling((double)totalBooks / pageSize);
-
-        //     var result = books.Skip((page - 1) * pageSize).Take(pageSize);
-
-        //     var response = new GetAllBookResponse(totalPages, result);
-        //     return Ok(response);
-        // }
-
        public async Task<IActionResult> GetAllBooks([FromQuery] int page = 1, [FromQuery] int pageSize = 6, [FromQuery] Genre? genre = null, [FromQuery] SortOrder? sortOrder = null, [FromQuery] string search = null)
         {
             if (page < 0 || pageSize < 0)
@@ -92,7 +32,6 @@ namespace WebApi.Controller.Controllers
 
             GetAllBookResponse? response;
 
-            // Check if page is set to 0, return all books without pagination
             if (page == 0)
             {
                 var allBooks = await _bookService.GetAllBooksAsync();
@@ -100,22 +39,18 @@ namespace WebApi.Controller.Controllers
             }
             else
             {
-                // Get all books
                 var books = await _bookService.GetAllBooksAsync();
 
-                // Apply genre filter if specified
                 if (genre.HasValue)
                 {
                     books = books.Where(book => book.Genre == genre.Value);
                 }
 
-                // Apply search filter if search term is specified
                 if (!string.IsNullOrWhiteSpace(search))
                 {
                     books = books.Where(book => book.Title.Contains(search, StringComparison.OrdinalIgnoreCase));
                 }
 
-                // Apply sorting if specified
                 if (sortOrder.HasValue)
                 {
                     if (sortOrder == SortOrder.Ascending)
@@ -136,7 +71,6 @@ namespace WebApi.Controller.Controllers
 
             return Ok(response);
         }
-
 
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
@@ -221,4 +155,5 @@ namespace WebApi.Controller.Controllers
             Books = books;
         }
     }
+
 }
