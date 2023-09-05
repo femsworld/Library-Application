@@ -80,6 +80,7 @@ const Header : React.FC<fetchAllBooksQuery> = ({page, pageSize}) => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
+  const [paginationQuery, setPaginationQuery] = useState<fetchAllBooksQuery>({search: ''});
   
   const handleSignUpClick = () => {
     setShowSignUp(!showSignUp);
@@ -207,13 +208,29 @@ const Header : React.FC<fetchAllBooksQuery> = ({page, pageSize}) => {
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 
+  // useEffect(() => {
+  //   // if (debouncedSearchTerm === "") {
+  //   //   dispatch(fetchAllBooks({page, pageSize}));
+  //   // } 
+  //   // else { 
+  //   // dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
+  //   //  }
+  //   dispatch(fetchAllBooks(paginationQuery));
+  // // }, [debouncedSearchTerm]);
+  // }, [debouncedSearchTerm, paginationQuery, dispatch]);
+
   useEffect(() => {
     if (debouncedSearchTerm === "") {
-      dispatch(fetchAllBooks({page, pageSize}));
-    } 
-    else { 
-    dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
-     }
+      dispatch(fetchAllBooks(paginationQuery)); // Fetch all books when the search term is empty
+    } else {
+      const fetchQuery: fetchAllBooksQuery = {
+        page: 1, // Set the page number to 1
+        pageSize: 6,
+        search: debouncedSearchTerm, // Include the search term
+      };
+      setPaginationQuery(fetchQuery);
+      dispatch(fetchAllBooks(fetchQuery)); // Fetch books with the search term
+    }
   }, [debouncedSearchTerm]);
   
   return (

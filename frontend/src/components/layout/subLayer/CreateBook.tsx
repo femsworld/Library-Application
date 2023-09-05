@@ -17,7 +17,7 @@ export default function CreateBook() {
 
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("")
-  const [images, setImages] = useState([""])
+  const [images, setImages] = useState([])
 
   const selectLabels = (event: SelectChangeEvent) => {
     setGenre(event.target.value);
