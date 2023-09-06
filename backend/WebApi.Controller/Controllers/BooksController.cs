@@ -4,7 +4,6 @@ using WebApi.Business.Services.Abstractions;
 using WebApi.Business.Services.Shared;
 using WebApi.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using System.Text;
 
 namespace WebApi.Controller.Controllers
 {
@@ -72,6 +71,7 @@ namespace WebApi.Controller.Controllers
             return Ok(response);
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -106,33 +106,12 @@ namespace WebApi.Controller.Controllers
             return Ok(updatedBook);
         }
 
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchBooksByTitle([FromQuery] string searchTerm)
-        {
-            var books = await _bookService.SearchBooksByTitleAsync(searchTerm);
-            return Ok(books);
-        }
-
-        [HttpGet("categorize")]
-        public async Task<IActionResult> CategorizeBooksByGenre([FromQuery] Genre genre)
-        {
-            var books = await _bookService.CategorizeBooksByGenreAsync(genre);
-            return Ok(books);
-        }
-
-        [HttpGet("sort")]
-        public async Task<IActionResult> GetSortedBooks([FromQuery] SortOrder sortOrder)
-        {
-            var books = await _bookService.GetSortedBooksAsync(sortOrder);
-            return Ok(books);
-        }
-
         [Authorize(Policy = "AdminOnly")]
         [HttpDelete("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteBook(Guid id)
         {
             var deletedBook = await _bookService.DeleteBookAsync(id);
             if (deletedBook == null)
