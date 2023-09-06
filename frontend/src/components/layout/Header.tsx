@@ -66,7 +66,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header : React.FC<fetchAllBooksQuery> = ({page, pageSize}) => {
+export interface SearchBooksProps {
+  handleSearch: (newSearchString: string) => void;
+}
+
+const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -79,7 +83,6 @@ const Header : React.FC<fetchAllBooksQuery> = ({page, pageSize}) => {
   const [userProfile, setUserProfile] = useState<User | null>(null);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
   const [paginationQuery, setPaginationQuery] = useState<fetchAllBooksQuery>({search: ''});
   
   const handleSignUpClick = () => {
@@ -113,6 +116,11 @@ const Header : React.FC<fetchAllBooksQuery> = ({page, pageSize}) => {
     dispatch(userLogout());
     setIsLoggedIn(false);
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value)
+    handleSearch(e.target.value)
+  }
 
   useEffect(() => {
     if (storedUserProfile) {
@@ -208,31 +216,6 @@ const Header : React.FC<fetchAllBooksQuery> = ({page, pageSize}) => {
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 
-  // useEffect(() => {
-  //   // if (debouncedSearchTerm === "") {
-  //   //   dispatch(fetchAllBooks({page, pageSize}));
-  //   // } 
-  //   // else { 
-  //   // dispatch(SearchBooksByTitle({ search: debouncedSearchTerm }));
-  //   //  }
-  //   dispatch(fetchAllBooks(paginationQuery));
-  // // }, [debouncedSearchTerm]);
-  // }, [debouncedSearchTerm, paginationQuery, dispatch]);
-
-  useEffect(() => {
-    if (debouncedSearchTerm === "") {
-      dispatch(fetchAllBooks(paginationQuery)); // Fetch all books when the search term is empty
-    } else {
-      const fetchQuery: fetchAllBooksQuery = {
-        page: 1, // Set the page number to 1
-        pageSize: 6,
-        search: debouncedSearchTerm, // Include the search term
-      };
-      setPaginationQuery(fetchQuery);
-      dispatch(fetchAllBooks(fetchQuery)); // Fetch books with the search term
-    }
-  }, [debouncedSearchTerm]);
-  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -264,7 +247,7 @@ const Header : React.FC<fetchAllBooksQuery> = ({page, pageSize}) => {
               placeholder="Search by title…"
               inputProps={{ "aria-label": "search" }}
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleChange}
             />
           </Search>
 

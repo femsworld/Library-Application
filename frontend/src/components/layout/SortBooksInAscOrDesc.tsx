@@ -8,36 +8,19 @@ export interface SortBooksInAscOrDescProps {
   handleSortChange: (newSortAsc: string) => void;
 }
 
-
-  // const SortBooksInAscOrDesc = () => {
     const SortBooksInAscOrDesc: React.FC<SortBooksInAscOrDescProps> = ({ handleSortChange }) => {
-    const [sortOrder, setSortOrder] = useState('Ascending');
+    const [sortOrder, setSortOrder] = useState('None');
     const dispatch = useAppDispatch();
     const [ paginationQuery, setPaginationQuery] = useState<fetchAllBooksQuery>({
       page: 1, pageSize: 6, sort: "",
     })
 
-      // const handleSortChange = (event: SelectChangeEvent<string>) => {
-      //   const newSortOrder = event.target.value as string;
-      //   setSortOrder(newSortOrder);
-      //   dispatch(SortBooks({ sort: newSortOrder }));
-      // };
-
       const handleSortOrderChange = (event: SelectChangeEvent<string>) => {
         const newSortOrder = event.target.value as string;
         setSortOrder(newSortOrder);
         handleSortChange(newSortOrder);
-      
-        // const fetchQuery: fetchAllBooksQuery = {
-        //   page: 1, // Set the page number to 1
-        //   pageSize: 6,
-        //   sort: newSortOrder, // Include the selected sort order
-        // };
-        // setPaginationQuery(fetchQuery);
-        // dispatch(fetchAllBooks(fetchQuery));
       };
       
-  
     return (
       <FormControl>
         <InputLabel>Sort Order</InputLabel>

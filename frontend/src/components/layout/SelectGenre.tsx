@@ -13,23 +13,12 @@ interface GetGenreProps {
   }
 
 const SelectGenre: React.FC<GetGenreProps> = ({getGenre}) => {
-  const [genre, setGenre] = React.useState('');
-  const [ paginationQuery, setPaginationQuery] = useState<fetchAllBooksQuery>({
-    page: 1, pageSize: 6, genre: "",
-  })
-  
+  const [genre, setGenre] = React.useState('All');
   const dispatch = useAppDispatch();
 
   const selectLabels = (event: SelectChangeEvent) => {
     const selectedGenre = event.target.value;
     setGenre(selectedGenre);
-    // setGenre(event.target.value);
-    // getGenre(event.target.value)
-    setPaginationQuery((prevQuery) => ({
-      ...prevQuery,
-      genre: selectedGenre,
-    }));
-    dispatch(fetchAllBooks(paginationQuery));
     getGenre(selectedGenre);
   };
 
@@ -45,7 +34,7 @@ const SelectGenre: React.FC<GetGenreProps> = ({getGenre}) => {
         >
           <MenuItem value="">
           </MenuItem>
-          {/* <MenuItem value={"All"}>All</MenuItem> */}
+          <MenuItem value={"All"}>All</MenuItem>
           <MenuItem value={"TextBooks"}>TextBooks</MenuItem>
           <MenuItem value={"Novel"}>Novel</MenuItem>
           <MenuItem value={"Fiction"}>Fiction</MenuItem>

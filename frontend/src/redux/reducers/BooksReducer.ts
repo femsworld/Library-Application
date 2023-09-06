@@ -74,42 +74,21 @@ const initialState : BookReducer = {
     },
   };
 
-  //'http://localhost:5292/api/v1/books?page=1&pageSize=6&genre=Novel&sortOrder=Ascending&search=Ake'
-// export const fetchAllBooks = createAsyncThunk(
-//     "fetchAllBooks", 
-//     async ({ page, pageSize }: FetchQuery) => {
-//       try {
-//         if(page < 0 && pageSize < 0)
-//         {
-//           const result = await axios.get<{books: Book[]}>(
-//             `${baseApi}/books`
-//           );
-//           return result.data;
-//         }
-//         const result = await axios.get<{books: Book[]}>(
-//           `${baseApi}/books?page=${page}&pageSize=${pageSize}`
-//         );
-//         return result.data;
-//       } catch (e) {
-//         const error = e as AxiosError;
-//         return error.message;
-//       }
-//     }
-//   );
-
 export const fetchAllBooks = createAsyncThunk(
   "fetchAllBooks", 
   async ({ page, pageSize, genre, search, sort }: fetchAllBooksQuery) => {
     try {
+      console.log("Search terms: ", search)
       let endpoint = `${baseApi}/books?page=${page}&pageSize=${pageSize}`
-      if(genre){
+      if(genre && genre !=='All'){
+        console.log("Genre: ", genre)
         endpoint += `&genre=${genre}`
       } 
-      if(search){
+      if(search && search !== ""){
         endpoint += `&search=${search}`
       }
-      if(sort){
-        endpoint += `&sort=${sort}`
+      if(sort && sort !== 'None'){
+        endpoint += `&sortOrder=${sort}`
       }
       
       const result = await axios.get<{books: Book[]}>(endpoint);

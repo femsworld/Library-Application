@@ -15,10 +15,6 @@ const CartPage = () => {
   const dispatch = useAppDispatch();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const cartItemsFromStore = useAppSelector((state) => state.cartReducer.items);
-  // const inCart = localStorage.getItem("cartItems");
-  // const cartItems = inCart && JSON.parse(inCart)
-  
-
 
   const handleClearCart = () => {
     const confirmed = window.confirm('Are you sure you want to empty your cart?');
@@ -72,8 +68,6 @@ const CartPage = () => {
             <li key={item.id}>
               <p>{item.title}</p>
               <p>Quantity: {item.quantity}</p>
-              {/* <button onClick={() => handleIncreaseQuantity(item.id)}>+</button>
-              <button onClick={() => handleDecreaseQuantity(item.id)}>-</button> */}
               <button onClick={() => handleDeleteQuantity(item.id)}>Remove item</button>
             </li>
           ))}

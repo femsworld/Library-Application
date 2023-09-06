@@ -4,7 +4,6 @@ import { User } from "../../types/User";
 import { baseApi } from "../common/baseApi";
 import { NewUser } from "../../types/NewUser";
 
-
 interface UserReducer {
   users: User[];
   currentUser?: User;
