@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
+using WebApi.Business.Services.Shared;
 
 namespace WebApi.Controller.Controllers
 {
@@ -22,32 +23,51 @@ namespace WebApi.Controller.Controllers
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 6, [FromQuery] string? name = null )
+        public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1,  [FromQuery] int pageSize = 6, [FromQuery] SortOrder? sortOrder = null, [FromQuery] string search = null)
         {
             if (page < 0 || pageSize < 0)
             {
                 return BadRequest("page and pageSize must be positive integers.");
             }
+            
+            GetAllUserResponse? response;
+
             if (page == 0)
             {
-                return Ok(new GetAllUserResponse(1, await _userService.GetAllUsersAsync()));
+                var allUsers = await _userService.GetAllUsersAsync();
+                response = new GetAllUserResponse(1, allUsers.ToList());
             }
-            var users = await _userService.GetAllUsersAsync();
 
-            if (!string.IsNullOrEmpty(name))
+            else
             {
-                users = users.Where(user => user.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+                var users = await _userService.GetAllUsersAsync();
+
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    users = users.Where(user => user.Name.Contains(search, StringComparison.OrdinalIgnoreCase));
+                }
+
+                if (sortOrder.HasValue)
+                {
+                    if (sortOrder == SortOrder.Ascending)
+                    {
+                        users = users.OrderBy(user => user.Name);
+                    }
+                    else
+                    {
+                        users = users.OrderByDescending(user => user.Name);
+                    }
+                }
+
+                var totalUsers = users.Count();
+                var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+                var result = users.Skip((page - 1) * pageSize).Take(pageSize);
+                response = new GetAllUserResponse(totalPages, result);
             }
 
-            var totalUsers = users.Count();
-            var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
-
-            var result = users.Skip((page - 1) * pageSize).Take(pageSize);
-
-            var response = new GetAllUserResponse(totalPages, result);
             return Ok(response);
         }
-
+        
         [Authorize(Policy = "AdminOnly")]
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
