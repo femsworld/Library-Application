@@ -1,3 +1,5 @@
+using WebApi.Business.Dto;
+using WebApi.Business.Services.Shared;
 using WebApi.Domain.Entities;
 
 namespace WebApi.Business.RepoAbstractions
@@ -13,7 +15,8 @@ namespace WebApi.Business.RepoAbstractions
         Task<User> VerifyCredentialsAsync(string email, string password);
         Task<User> DeleteUserAsync(Guid id);
         Task<User> ChangeUserPasswordAsync(User user, User updatePassword);
-        
+        Task<IEnumerable<UserDto>> SearchUsersByNamesAsync(string searchTerm);
+        Task<IEnumerable<UserDto>> GetSortedUsersAsync(SortOrder sortOrder);
 
     }
 }

@@ -1,5 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using WebApi.Business.Dto;
 using WebApi.Business.RepoAbstractions;
+using WebApi.Business.Services.Shared;
 using WebApi.Domain.Entities;
 using WebApi.Infrastructure.Database;
 
@@ -9,11 +12,13 @@ namespace WebApi.Infrastructure.RepoImplementations
     {
         private readonly DbSet<User> _users;
         private readonly DatabaseContext _context;
+        private readonly IMapper _mapper;
 
-        public UserRepo(DatabaseContext context)
+        public UserRepo(DatabaseContext context, IMapper mapper)
         {
             _users = context.Users;
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<User> ChangeUserPasswordAsync(User user, User updatePassword)
@@ -54,9 +59,36 @@ namespace WebApi.Infrastructure.RepoImplementations
             return await _users.ToListAsync();
         }
 
+        public async Task<IEnumerable<UserDto>> GetSortedUsersAsync(SortOrder sortOrder)
+        {
+            // throw new NotImplementedException();
+            var query = _context.Users.AsQueryable();
+
+            if (sortOrder == SortOrder.Ascending)
+            {
+                query = query.OrderBy(user => user.Name);
+            }
+            else
+            {
+                query = query.OrderByDescending(user => user.Name);
+            }
+            var users = await query.ToListAsync();
+            return users.Select(user => _mapper.Map<UserDto>(user)).ToList();
+            
+        }
+
         public async Task<User> GetUserByIdAsync(Guid id)
         {
             return await _users.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<UserDto>> SearchUsersByNamesAsync(string searchTerm)
+        {
+            var users = await _context.Users
+                .Where(user => user.Name.Contains(searchTerm))
+                .ToListAsync();
+
+            return users.Select(user => _mapper.Map<UserDto>(user)).ToList();
         }
 
         public async Task<User> UpdateUserAsync(User user, User update)

@@ -1,4 +1,5 @@
 using WebApi.Business.Dto;
+using WebApi.Business.Services.Shared;
 
 namespace WebApi.Business.Services.Abstractions
 {
@@ -12,5 +13,7 @@ namespace WebApi.Business.Services.Abstractions
         Task<UserDto> DeleteUserAsync(Guid id);
         Task<IEnumerable<UserDto>> GetAllUsersAsync();
         Task<UserChangePasswordDto> ChangeUserPasswordAsync(Guid id, UserChangePasswordDto userChangePasswordDto);
+        Task<IEnumerable<UserDto>> SearchUsersByNamesAsync(string searchTerm);
+        Task<IEnumerable<UserDto>> GetSortedUsersAsync(SortOrder sortOrder);
     }
 }
