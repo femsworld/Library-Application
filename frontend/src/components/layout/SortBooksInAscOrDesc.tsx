@@ -22,9 +22,15 @@ export interface SortBooksInAscOrDescProps {
       };
       
     return (
-      <FormControl>
-        <InputLabel>Sort Order</InputLabel>
-        <Select value={sortOrder} onChange={handleSortOrderChange}>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        {/* <InputLabel>Sort Order</InputLabel> */}
+        <InputLabel id="demo-simple-select-label">Sort Order</InputLabel>
+        <Select 
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={sortOrder}
+          label="Sort Order" 
+          onChange={handleSortOrderChange}>
           <MenuItem value="None">None</MenuItem>
           <MenuItem value="Ascending">Ascending</MenuItem>
           <MenuItem value="Descending">Descending</MenuItem>

@@ -239,6 +239,7 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
               HOME
             </Link>
           </Typography>
+          
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

@@ -23,13 +23,15 @@ const SelectGenre: React.FC<GetGenreProps> = ({getGenre}) => {
   };
 
   return (
-    <div>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <InputLabel>Select Genre</InputLabel>
+      <InputLabel id="demo-simple-select-label">Select Genre</InputLabel>
         <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
           value={genre}
+          label="Select Genre"
           onChange={selectLabels}
-          displayEmpty
+          // displayEmpty
           inputProps={{ 'aria-label': 'Without label' }}
         >
           <MenuItem value="">
@@ -41,7 +43,6 @@ const SelectGenre: React.FC<GetGenreProps> = ({getGenre}) => {
           <MenuItem value={"ResearchPaper"}>ResearchPaper</MenuItem>
         </Select>
       </FormControl>
-    </div>
   );
 }
 

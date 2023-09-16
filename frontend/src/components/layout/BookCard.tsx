@@ -1,46 +1,84 @@
-import { useDispatch } from "react-redux"
-import { Book } from "../../types/Book"
-import useAppSelector from "../../hooks/useAppSelector";
-import { addItemToCart } from "../../redux/reducers/cartReducer";
-import { IconButton } from "@mui/material";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Link } from "react-router-dom";
+  import { useDispatch } from "react-redux"
+  import { Book } from "../../types/Book"
+  import useAppSelector from "../../hooks/useAppSelector";
+  import { addItemToCart } from "../../redux/reducers/cartReducer";
+  import { Button, IconButton } from "@mui/material";
+  import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+  import { Link } from "react-router-dom";
 
-interface BookCardProps{
-    book: Book;
-    setCartItemCount: React.Dispatch<React.SetStateAction<number>>;
-}
+  import Card from '@mui/material/Card';
+  import CardActions from '@mui/material/CardActions';
+  import CardContent from '@mui/material/CardContent';
+  import CardMedia from '@mui/material/CardMedia';
+  import Typography from '@mui/material/Typography';
 
-const BookCard: React.FC<BookCardProps> = ({book, setCartItemCount }) => {
-    const dispatch = useDispatch();
-    const { items } = useAppSelector((state) => state.cartReducer);
-    const addOneItemToCart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        dispatch(addItemToCart(book));
-        setCartItemCount(prevCount => prevCount + 1);
-      };
+  interface BookCardProps{
+      book: Book;
+      setCartItemCount: React.Dispatch<React.SetStateAction<number>>;
+  }
 
-  return (
-    <div className="book-card">
-      <h3>{book.title}</h3>
-      <img
-        src={
+  const BookCard: React.FC<BookCardProps> = ({book, setCartItemCount }) => {
+      const dispatch = useDispatch();
+      const { items } = useAppSelector((state) => state.cartReducer);
+      const addOneItemToCart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          event.preventDefault();
+          dispatch(addItemToCart(book));
+          setCartItemCount(prevCount => prevCount + 1);
+        };
+
+    // return (
+    //   <Card sx={{ width: 200, height: 300 }}>
+    //     <CardMedia
+    //       sx={{ height: 140 }}
+    //       image={
+    //           book.images && book.images.length > 0
+    //             ? book.images[0]
+    //             : "https://islandpress.org/sites/default/files/default_book_cover_2015.jpg"
+    //         }
+    //       title={book.title}
+    //     />
+    //     <CardContent>
+    //       <Typography gutterBottom variant="h5" component="div">
+    //           {book.title}
+    //       </Typography>
+    //     </CardContent>
+    //     <CardActions>
+    //       <IconButton onClick={(e) => addOneItemToCart(e)} size="large" aria-label="shopping cart" color="inherit">
+    //           <AddShoppingCartIcon />
+    //       </IconButton>
+    //       <Link to={`/bookDetails/${book.id}`}>
+    //           <button>Detail</button>
+    //       </Link>
+    //     </CardActions>
+    //   </Card>
+    // )
+    return (
+      <Card sx={{ width: 180, height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <CardMedia
+          sx={{ height: 140 }}
+          image={
             book.images && book.images.length > 0
               ? book.images[0]
               : "https://islandpress.org/sites/default/files/default_book_cover_2015.jpg"
           }
-        className="card-img-top"
-        alt="Book Cover"
-        style={{ width: "20%", height: "auto", borderRadius: "8px" }}
-      />
-      <IconButton onClick={(e) => addOneItemToCart(e)} size="large" aria-label="shopping cart" color="inherit">
-        <AddShoppingCartIcon />
-      </IconButton> 
-      <Link to={`/bookDetails/${book.id}`}>
-        <button>Detail</button>
-      </Link>
-    </div>
-  )
-}
+          title={book.title}
+        />
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Typography gutterBottom variant="h5" component="div">
+            {book.title}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <IconButton onClick={(e) => addOneItemToCart(e)} size="large" aria-label="shopping cart" color="primary">
+            <AddShoppingCartIcon />
+          </IconButton>
+          <Link to={`/bookDetails/${book.id}`}>
+          <Button variant="outlined">Details</Button>
+          </Link>
+        </CardActions>
+      </Card>
+    );
+    
+  }
 
-export default BookCard
+  export default BookCard

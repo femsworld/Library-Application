@@ -4,22 +4,25 @@ import useAppSelector from '../../hooks/useAppSelector';
 import { FetchQuery, SortBooks, fetchAllBooks, fetchAllBooksQuery, fetchBooksByGenre } from '../../redux/reducers/booksReducer';
 import BookCard from './BookCard';
 import Header from './Header'
-import { Pagination } from '@mui/material';
+import { Container, Pagination, Stack } from '@mui/material';
 import SelectGenre from './SelectGenre';
 import { Book } from '../../types/Book';
 import SortBooksInAscOrDesc from './SortBooksInAscOrDesc';
 import { useDebounce } from 'use-debounce';
+import Grid from '@mui/material/Grid';
+// import Paper from '@mui/material/Paper';
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const { books, loading, totalPages } = useAppSelector((state) => state.booksReducer);
   const [pageNo, setPageNo] = useState(1);
-  const [pageSize] = useState(3);
+  const [pageSize] = useState(8);
   const [genreState, setGenreState] = useState("All");
   const [sortingOrder, setSortingOrder] = useState("None")
   const [cartItemCount, setCartItemCount] = useState(0);
   const [searchString, setSearchString] = useState('');
   const [debouncedSearchTerm] = useDebounce(searchString, 300)
+  const [spacing] = useState(2);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
   setPageNo(value);
@@ -58,25 +61,33 @@ const handleSearch = (searchString: string) => {
 };
 
 return (
-  <div>
-        <Header handleSearch={handleSearch} />
-        <div style={{ marginTop: '4rem' }}>
-        <SelectGenre getGenre={getGenreProps}/>
-        </div>
-        <SortBooksInAscOrDesc handleSortChange={handleSortChange} />
-        <div className="book-grid">
+  <>
+    <Header handleSearch={handleSearch} />
+    
+    <Container maxWidth="md">
+    <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap" style={{ marginTop: '5rem' }}>
+    <SelectGenre getGenre={getGenreProps} />
+    <SortBooksInAscOrDesc handleSortChange={handleSortChange} />
+  </Stack>
+  
       {loading ? (
-          <p>Loading...</p>
-        ) : (
-          books.map((book) => (
-            <div key={book.title}>
-              <BookCard book={book} setCartItemCount={setCartItemCount} />
-            </div>
-          ))
-        )}
-      </div>
-      <Pagination count={totalPages} page={pageNo} onChange={handleChange} />
-  </div>
+        <p>Loading...</p>
+      ) : (
+        <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+          <Grid item xs={12}>
+            <Grid container justifyContent="center" spacing={spacing}>
+              {books.map((book) => (
+                <Grid key={book.title} item>
+                  <BookCard book={book} setCartItemCount={setCartItemCount} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
+      <Pagination count={totalPages} page={pageNo} onChange={handleChange} style={{marginTop: '1rem'}} color="primary"  />
+    </Container>
+  </>
   )
 }
 
