@@ -71,7 +71,7 @@ namespace WebApi.Controller.Controllers
             return Ok(response);
         }
 
-        [Authorize(Policy = "AdminOnly")]
+        // [Authorize(Policy = "AdminOnly")]
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError)]
@@ -121,7 +121,6 @@ namespace WebApi.Controller.Controllers
             return Ok(deletedBook);
 
         }
-
     }
 
     public class GetAllBookResponse
