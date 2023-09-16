@@ -74,6 +74,9 @@ const initialState : BookReducer = {
     },
   };
 
+  const ProfileToken = localStorage.getItem('loginResponse')
+  const resultToken = ProfileToken && JSON.parse(ProfileToken)
+
 export const fetchAllBooks = createAsyncThunk(
   "fetchAllBooks", 
   async ({ page, pageSize, genre, search, sort }: fetchAllBooksQuery) => {
@@ -146,6 +149,7 @@ export const fetchAllBooks = createAsyncThunk(
         const result = await axios.get<SingleBook>(
           `${baseApi}/books/${id}`
         );
+        console.log("SingleBook: ", result)
         return result.data;
       } catch (e) {
         const error = e as AxiosError;

@@ -15,7 +15,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { User } from "../../types/User";
 import SignUp from "../Services/SignUp";
@@ -71,6 +71,7 @@ export interface SearchBooksProps {
 }
 
 const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -239,7 +240,8 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
               HOME
             </Link>
           </Typography>
-          
+
+          {location.pathname === '/' && (
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -251,6 +253,7 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
               onChange={handleChange}
             />
           </Search>
+          )}
 
           <Box sx={{ flexGrow: 1 }} />
           {userProfile && (
