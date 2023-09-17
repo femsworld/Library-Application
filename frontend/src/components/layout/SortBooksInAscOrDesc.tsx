@@ -23,7 +23,6 @@ export interface SortBooksInAscOrDescProps {
       
     return (
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-        {/* <InputLabel>Sort Order</InputLabel> */}
         <InputLabel id="demo-simple-select-label">Sort Order</InputLabel>
         <Select 
           labelId="demo-simple-select-label"
