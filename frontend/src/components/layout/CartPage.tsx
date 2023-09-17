@@ -15,6 +15,7 @@ const CartPage = () => {
   const dispatch = useAppDispatch();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const cartItemsFromStore = useAppSelector((state) => state.cartReducer.items);
+  const [searchString, setSearchString] = useState("");
 
   const handleClearCart = () => {
     const confirmed = window.confirm('Are you sure you want to empty your cart?');
@@ -53,11 +54,15 @@ const CartPage = () => {
       setCartItems([]);
     }
   };
+
+  const handleSearch = (searchString: string) => {
+    setSearchString(searchString);
+  };
   
   return (
     <div>
       <div>
-        {/* <Header /> */}
+        <Header handleSearch={handleSearch}/>
       </div>
       <h2>Cart</h2>
       {cartItems?.length === 0 ? (

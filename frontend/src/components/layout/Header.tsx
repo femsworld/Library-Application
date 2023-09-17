@@ -12,8 +12,6 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -24,7 +22,12 @@ import useAppDispatch from "../../hooks/useAppDispatch";
 import useAppSelector from "../../hooks/useAppSelector";
 import { userLogout } from "../../redux/reducers/authenticationReducer";
 import { useDebounce } from "use-debounce";
-import { FetchQuery, SearchBooksByTitle, fetchAllBooks, fetchAllBooksQuery } from "../../redux/reducers/booksReducer";
+import {
+  FetchQuery,
+  SearchBooksByTitle,
+  fetchAllBooks,
+  fetchAllBooksQuery,
+} from "../../redux/reducers/booksReducer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -56,7 +59,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -70,7 +72,7 @@ export interface SearchBooksProps {
   handleSearch: (newSearchString: string) => void;
 }
 
-const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
+const Header: React.FC<SearchBooksProps> = ({ handleSearch }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -84,8 +86,8 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
   const [userProfile, setUserProfile] = useState<User | null>(null);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-  const [paginationQuery, setPaginationQuery] = useState<fetchAllBooksQuery>({search: ''});
-  
+  const [paginationQuery, setPaginationQuery] = useState<fetchAllBooksQuery>({ search: '' });
+
   const handleSignUpClick = () => {
     setShowSignUp(!showSignUp);
   };
@@ -119,8 +121,8 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value)
-    handleSearch(e.target.value)
+    setSearchTerm(e.target.value);
+    handleSearch(e.target.value);
   }
 
   useEffect(() => {
@@ -211,11 +213,69 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
     </Menu>
   );
 
-  {
-    showSignUp && <SignUp />;
-  }
-
   const mobileMenuId = "primary-search-account-menu-mobile";
+
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      {/* Include login, dashboard, logout, and profile options in the mobile menu */}
+      {!userProfile ? (
+        <>
+          <MenuItem>
+            <Link
+              to="/signup"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Sign Up
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Login
+            </Link>
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          {userProfile.role === "Admin" && (
+            <MenuItem>
+              <Link
+                to="/dashboard"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Dashboard
+              </Link>
+            </MenuItem>
+          )}
+          <MenuItem>
+            <Link
+              to="/profile"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Profile
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+        </>
+      )}
+    </Menu>
+  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -261,26 +321,27 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
               <h2>Welcome, {userProfile?.name}!</h2>
             </div>
           )}
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link
-              to="/cart"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <IconButton
-                size="large"
-                aria-label="shopping cart"
-                color="inherit"
-              >
-                {cartItemCount > 0 && (
-                  <Badge badgeContent={cartItemCount} color="error" />
-                )}
-                <ShoppingCartIcon />
-              </IconButton>
-            </Link>
-
+          
+          <Link
+            to="/cart"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <IconButton
               size="large"
-              edge="end"
+              aria-label="shopping cart"
+              color="inherit"
+            >
+              {cartItemCount > 0 && (
+                <Badge badgeContent={cartItemCount} color="error" />
+              )}
+              <ShoppingCartIcon />
+            </IconButton>
+          </Link>
+
+          {/* Conditionally render the menu icons */}
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
+            <IconButton
+              size="large"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
@@ -290,7 +351,7 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "block", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="show more"
@@ -304,7 +365,7 @@ const Header : React.FC<SearchBooksProps> = ({handleSearch}) => {
           </Box>
         </Toolbar>
       </AppBar>
-      {/* {renderMobileMenu} */}
+      {renderMobileMenu}
       {renderMenu}
       {showSignUp && <SignUp />}
     </Box>
