@@ -5,7 +5,7 @@ export interface Book{
     images?: string[] | null;
 }
 
-enum Genre {
+export enum Genre {
     TextBooks,
     Novel,
     Fiction,

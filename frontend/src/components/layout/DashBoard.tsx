@@ -3,6 +3,7 @@ import CreateBook from "./subLayer/CreateBook";
 import { Container } from "@mui/material";
 import Header from "./Header";
 import { useState } from "react";
+import EditBook from "./subLayer/EditBook";
 
 const DashBoard = () => {
   const [searchString, setSearchString] = useState('');
