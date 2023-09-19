@@ -26,7 +26,12 @@ const store = configureStore({
             },
             singleBook: {
                 genre: ""
-            }
+            },
+            updateBook: {
+                title: "",
+                images: [""],
+                genre: ""
+              },
         }
     }
 })
