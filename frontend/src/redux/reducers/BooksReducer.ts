@@ -212,9 +212,9 @@ export const deleteBook = createAsyncThunk(
   // async ({ id }: Book) => {
   async (bookId: string) => {
     try {
-      // const ProfileToken = localStorage.getItem('loginResponse')
-      // const resultToken = ProfileToken && JSON.parse(ProfileToken)
-      await axios.delete<Book>(`${baseApi}/Books/${bookId}`);
+      const ProfileToken = localStorage.getItem('loginResponse')
+      const resultToken = ProfileToken && JSON.parse(ProfileToken)
+      await axios.delete<Book>(`${baseApi}/Books/${bookId}`,{ headers: { Authorization: `Bearer ${resultToken}` } } );
       // return result.data
       return bookId;
     } catch (e) {

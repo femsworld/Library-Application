@@ -14,17 +14,19 @@ import {
 } from "@mui/material";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 import { updateOneBook } from "../../../redux/reducers/booksReducer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Genre } from "../../../types/Book";
+import { useSelector } from "react-redux"; // Import useSelector to get data from Redux store
+import useAppSelector from "../../../hooks/useAppSelector";
 
 export default function EditBook({ id }: { id: string }) {
   const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
+  const { books } = useAppSelector((state) => state.booksReducer);
 
-  //   const [genre, setGenre] = useState("");
   const [genre, setGenre] = useState<Genre>(Genre.TextBooks);
   const [title, setTitle] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<string[]>([]);
 
   const selectLabels = (event: SelectChangeEvent) => {
     setGenre(event.target.value as unknown as Genre);
@@ -45,10 +47,31 @@ export default function EditBook({ id }: { id: string }) {
     }
   };
 
+  const existingBook = useAppSelector((state) => {
+    const book = state.booksReducer.books.find((book) => book.id === id);
+
+    if (book) {
+      return {
+        title: book.title,
+        genre: book.genre as Genre,
+      };
+    } else {
+      return {
+        title: "",
+        genre: Genre.TextBooks,
+      };
+    }
+  });
+
+  useEffect(() => {
+    setTitle(existingBook.title);
+    setGenre(existingBook.genre);
+  }, []);
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Create Book
+        Edit
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Edit book</DialogTitle>
@@ -64,19 +87,21 @@ export default function EditBook({ id }: { id: string }) {
             type="text"
             fullWidth
             variant="standard"
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select
               value={genre.toString()}
-              onChange={selectLabels}
+              // onChange={selectLabels}
+              onChange={(e) => setGenre(e.target.value as unknown as Genre)}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              <MenuItem value={"TextBooks"}>TextBooks</MenuItem>
-              <MenuItem value={"Novel"}>Novel</MenuItem>
-              <MenuItem value={"Fiction"}>Fiction</MenuItem>
-              <MenuItem value={"ResearchPaper"}>ResearchPaper</MenuItem>
+              <MenuItem value={Genre.TextBooks}>TextBooks</MenuItem>
+              <MenuItem value={Genre.Novel}>Novel</MenuItem>
+              <MenuItem value={Genre.Fiction}>Fiction</MenuItem>
+              <MenuItem value={Genre.ResearchPaper}>ResearchPaper</MenuItem>
             </Select>
           </FormControl>
         </DialogContent>
@@ -88,3 +113,6 @@ export default function EditBook({ id }: { id: string }) {
     </div>
   );
 }
+
+
+

@@ -9,6 +9,7 @@ import {
 } from "../../../redux/reducers/booksReducer";
 import { Button, Container } from "@mui/material";
 import BookCard from "../BookCard";
+import EditBook from "./EditBook";
 
 export default function DashBoardBookTable() {
   const { books, loading, totalPages } = useAppSelector(
@@ -30,7 +31,7 @@ export default function DashBoardBookTable() {
   };
 
   const handleEditBook = (bookId: string) => {
-    // Add your edit logic here, e.g., navigate to an edit page
+    
     console.log(`Editing book with ID: ${bookId}`);
   };
 
@@ -47,14 +48,15 @@ export default function DashBoardBookTable() {
       width: 300,
       renderCell: (params: GridCellParams) => (
         <div>
-          <Button
+          {/* <Button
             variant="outlined"
             color="primary" // Use primary color for the edit button
             onClick={() => handleEditBook(params.row.id as string)}
             style={buttonStyle}
           >
             Edit
-          </Button>
+          </Button> */}
+          <EditBook id={params.row.id}/>
           <span style={{ marginRight: "15px" }}></span>
           <Button
             variant="outlined"
