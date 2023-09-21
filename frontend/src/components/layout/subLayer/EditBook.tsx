@@ -16,7 +16,6 @@ import useAppDispatch from "../../../hooks/useAppDispatch";
 import { updateOneBook } from "../../../redux/reducers/booksReducer";
 import { useEffect, useState } from "react";
 import { Genre } from "../../../types/Book";
-import { useSelector } from "react-redux"; // Import useSelector to get data from Redux store
 import useAppSelector from "../../../hooks/useAppSelector";
 
 export default function EditBook({ id }: { id: string }) {
@@ -93,7 +92,6 @@ export default function EditBook({ id }: { id: string }) {
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select
               value={genre}
-              // onChange={selectLabels}
               onChange={(e) => setGenre(e.target.value)}
               inputProps={{ "aria-label": "Without label" }}
             >

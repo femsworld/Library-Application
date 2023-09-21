@@ -16,7 +16,9 @@ const DashBoard = () => {
     <div>
       <Header handleSearch={handleSearch} />
       <Container maxWidth="md" style={{ marginTop: '5rem' }}>
+        <div style={{ marginBottom: '0.5rem' }}>
         <CreateBook />
+        </div>
         <DashBoardBookTable />
       </Container>
     </div>

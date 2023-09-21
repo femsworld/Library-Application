@@ -8,7 +8,6 @@ import {
   fetchAllBooksQuery,
 } from "../../../redux/reducers/booksReducer";
 import { Button, Container } from "@mui/material";
-import BookCard from "../BookCard";
 import EditBook from "./EditBook";
 
 export default function DashBoardBookTable() {
@@ -47,16 +46,8 @@ export default function DashBoardBookTable() {
       headerName: "Actions",
       width: 300,
       renderCell: (params: GridCellParams) => (
-        <div>
-          {/* <Button
-            variant="outlined"
-            color="primary" // Use primary color for the edit button
-            onClick={() => handleEditBook(params.row.id as string)}
-            style={buttonStyle}
-          >
-            Edit
-          </Button> */}
-          <EditBook id={params.row.id}/>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <EditBook id={params.row.id} />
           <span style={{ marginRight: "15px" }}></span>
           <Button
             variant="outlined"
@@ -70,7 +61,7 @@ export default function DashBoardBookTable() {
       ),
     },
   ];
-
+  
   useEffect(() => {
     dispatch(fetchAllBooks(paginationQuery));
   }, [paginationQuery]);
