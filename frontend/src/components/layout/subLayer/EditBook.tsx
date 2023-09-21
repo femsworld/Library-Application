@@ -20,11 +20,12 @@ import { useSelector } from "react-redux"; // Import useSelector to get data fro
 import useAppSelector from "../../../hooks/useAppSelector";
 
 export default function EditBook({ id }: { id: string }) {
+
   const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
   const { books } = useAppSelector((state) => state.booksReducer);
 
-  const [genre, setGenre] = useState<Genre>(Genre.TextBooks);
+  const [genre, setGenre] = useState<Genre|string>('');
   const [title, setTitle] = useState("");
   const [images, setImages] = useState<string[]>([]);
 
@@ -40,13 +41,6 @@ export default function EditBook({ id }: { id: string }) {
     setOpen(false);
   };
 
-  const editOneBook = () => {
-    if (id && title && genre && images) {
-      dispatch(updateOneBook({ id, title, genre, images }));
-      handleClose();
-    }
-  };
-
   const existingBook = useAppSelector((state) => {
     const book = state.booksReducer.books.find((book) => book.id === id);
 
@@ -58,10 +52,16 @@ export default function EditBook({ id }: { id: string }) {
     } else {
       return {
         title: "",
-        genre: Genre.TextBooks,
+        genre: '',
       };
     }
   });
+
+  const editOneBook = () => {
+    console.log('genre =', genre)
+    dispatch(updateOneBook({ id, title, genre, images }));
+    handleClose();
+  };
 
   useEffect(() => {
     setTitle(existingBook.title);
@@ -92,10 +92,9 @@ export default function EditBook({ id }: { id: string }) {
           />
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select
-              value={genre.toString()}
+              value={genre}
               // onChange={selectLabels}
-              onChange={(e) => setGenre(e.target.value as unknown as Genre)}
-              displayEmpty
+              onChange={(e) => setGenre(e.target.value)}
               inputProps={{ "aria-label": "Without label" }}
             >
               <MenuItem value={Genre.TextBooks}>TextBooks</MenuItem>
