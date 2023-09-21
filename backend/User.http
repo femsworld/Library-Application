@@ -16,7 +16,7 @@ Content-Type: application/json
 {
   "name": "Blue",
   "email": "blue@mail.com",
-  "age": 19,
+  "age": 17,
   "avatar": "string",
   "password": "blue123"
 }

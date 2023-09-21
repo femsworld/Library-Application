@@ -1,12 +1,15 @@
 ### Post Book
 POST http://localhost:5292/api/v1/Books
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIzYjA0OWI4NS1hZDRlLTQ5OGUtODM4My0wM2M5MTcwMDIxOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.rVLSCb-iM1wVGAvzS3ngxv4goVVNt-OvU8UGewTqZIA
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJiMDQyNTU3Ny0yMzk3LTQwYWUtYmIzMi04MzJhYzM5OTBhZDAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.wUeDyhFj5maYPCtqp1db6LdLAm1QRl5P15-Fx1HuQb4
 
 {
-  "title": "Quantum Mechanics",
-  "genre": "TextBooks",
-  "inventory": 3
+  "title": "Stroke Studies",
+  "genre": "ResearchPaper",
+  "inventory": 2,
+  "images": [
+    ""
+  ]
 }
 
 ### Get Books
@@ -22,7 +25,7 @@ GET  http://localhost:5292/api/v1/Books/42a5fe40-b20a-49d6-b0b4-b719db8ce9d9
 Content-Type: application/json
 
 ### Search book
-GET http://localhost:5292/api/v1/Books/search
+GET http://localhost:5292/api/v1/books?page=1&pageSize=6&search=ake
 Content-Type: application/json
  
 ### Delete Books
