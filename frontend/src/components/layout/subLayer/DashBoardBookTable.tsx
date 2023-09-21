@@ -1,13 +1,13 @@
+import React, { useState, useEffect } from "react";
 import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
 import useAppSelector from "../../../hooks/useAppSelector";
-import { useEffect, useState } from "react";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 import {
   deleteBook,
   fetchAllBooks,
   fetchAllBooksQuery,
 } from "../../../redux/reducers/booksReducer";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import EditBook from "./EditBook";
 
 export default function DashBoardBookTable() {
@@ -21,6 +21,9 @@ export default function DashBoardBookTable() {
   });
   const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
 
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [bookToDelete, setBookToDelete] = useState<{ id: string; title: string } | null>(null);
+
   const handleDeleteBook = async (bookId: string) => {
     if (bookId) {
       await dispatch(deleteBook(bookId));
@@ -30,8 +33,17 @@ export default function DashBoardBookTable() {
   };
 
   const handleEditBook = (bookId: string) => {
-    
     console.log(`Editing book with ID: ${bookId}`);
+  };
+
+  const openDeleteDialog = (book: { id: string; title: string }) => {
+    setBookToDelete(book);
+    setDeleteDialogOpen(true);
+  };
+
+  const closeDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+    setBookToDelete(null);
   };
 
   const buttonStyle = {
@@ -52,7 +64,7 @@ export default function DashBoardBookTable() {
           <Button
             variant="outlined"
             color="primary"
-            onClick={() => handleDeleteBook(params.row.id as string)}
+            onClick={() => openDeleteDialog({ id: params.row.id as string, title: params.row.title as string })}
             style={buttonStyle}
           >
             Delete
@@ -61,7 +73,7 @@ export default function DashBoardBookTable() {
       ),
     },
   ];
-  
+
   useEffect(() => {
     dispatch(fetchAllBooks(paginationQuery));
   }, [paginationQuery]);
@@ -81,6 +93,30 @@ export default function DashBoardBookTable() {
           checkboxSelection
         />
       </Container>
+      <Dialog open={isDeleteDialogOpen} onClose={closeDeleteDialog}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          {bookToDelete && (
+            <p>Are you sure you want to delete this book: {bookToDelete.title}?</p>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDeleteDialog} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              if (bookToDelete) {
+                handleDeleteBook(bookToDelete.id);
+              }
+              closeDeleteDialog();
+            }}
+            color="primary"
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

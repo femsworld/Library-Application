@@ -1,15 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import useAppDispatch from '../../hooks/useAppDispatch';
-import useAppSelector from '../../hooks/useAppSelector';
+import React, { useEffect, useState } from "react";
+import useAppDispatch from "../../hooks/useAppDispatch";
+import useAppSelector from "../../hooks/useAppSelector";
 import {
   addItemToCart,
   clearCart,
   removeItemFromCart,
   decreaseItemInCart,
   placeLoan,
-} from '../../redux/reducers/cartReducer';
-import Header from './Header';
-import { CartItem } from '../../types/CartItem';
+} from "../../redux/reducers/cartReducer";
+import Header from "./Header";
+import { CartItem } from "../../types/CartItem";
+import {
+  Button,
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 
 const CartPage = () => {
   const dispatch = useAppDispatch();
@@ -18,16 +30,18 @@ const CartPage = () => {
   const [searchString, setSearchString] = useState("");
 
   const handleClearCart = () => {
-    const confirmed = window.confirm('Are you sure you want to empty your cart?');
+    const confirmed = window.confirm(
+      "Are you sure you want to empty your cart?"
+    );
     if (confirmed) {
-    localStorage.removeItem('cartItems');
-    setCartItems([])
+      localStorage.removeItem("cartItems");
+      setCartItems([]);
     }
   };
 
   useEffect(() => {
-    setCartItems(cartItemsFromStore)
-  }, [cartItemsFromStore])
+    setCartItems(cartItemsFromStore);
+  }, [cartItemsFromStore]);
 
   const handleIncreaseQuantity = (id: string) => {
     dispatch(addItemToCart({ id }));
@@ -43,14 +57,16 @@ const CartPage = () => {
     const loanBooks = cartItems.map((item) => ({
       bookId: item.id,
     }));
-  
-    const booksToLoan = cartItems.map((item) => item.title).join(', ');
-  
-    const confirmed = window.confirm(`Are you sure you want to loan these books? ${booksToLoan}`);
-    
+
+    const booksToLoan = cartItems.map((item) => item.title).join(", ");
+
+    const confirmed = window.confirm(
+      `Are you sure you want to loan these books? ${booksToLoan}`
+    );
+
     if (confirmed) {
       await dispatch(placeLoan({ loanBooks }));
-      localStorage.removeItem('cartItems');
+      localStorage.removeItem("cartItems");
       setCartItems([]);
     }
   };
@@ -58,30 +74,64 @@ const CartPage = () => {
   const handleSearch = (searchString: string) => {
     setSearchString(searchString);
   };
-  
+
   return (
     <div>
       <div>
-        <Header handleSearch={handleSearch}/>
+        <Header handleSearch={handleSearch} />
       </div>
-      <h2>Cart</h2>
-      {cartItems?.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <ul>
-          {cartItems.map((item: CartItem) => (
-            <li key={item.id}>
-              <p>{item.title}</p>
-              <p>Quantity: {item.quantity}</p>
-              <button onClick={() => handleDeleteQuantity(item.id)}>Remove item</button>
-            </li>
-          ))}
-        </ul>
-      )}
-      <button onClick={handleClearCart}>Clear Cart</button>
-      <h2>
-        <button onClick={LoanBooks}>Place Loan</button>
-      </h2>
+      <Container maxWidth="md" style={{ marginTop: "5rem" }}>
+        {/* <h2>Cart Items</h2> */}
+        <Typography variant="h5">Cart Items</Typography>
+        {cartItems?.length === 0 ? (
+          <Typography variant="body1">Your cart is empty.</Typography>
+        ) : (
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Item</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {cartItems.map((item: CartItem) => (
+                  <TableRow key={item.id}>
+                    <TableCell>
+                      <Typography variant="subtitle1">{item.title}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      {/* <Typography variant="body2">Quantity: {item.quantity}</Typography> */}
+                      <Typography variant="subtitle1">
+                        Quantity: {item.quantity}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => handleDeleteQuantity(item.id)}
+                      >
+                        Remove Item
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+        <div style={{ marginTop: "1rem" }}>
+          <Button variant="outlined" color="primary" onClick={handleClearCart}>
+            Clear Cart
+          </Button>
+          <span style={{ marginRight: "15px" }}></span>
+          <Button variant="contained" color="primary" onClick={LoanBooks}>
+            Place Loan
+          </Button>
+        </div>
+      </Container>
     </div>
   );
 };
