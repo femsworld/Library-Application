@@ -26,8 +26,8 @@ POST http://localhost:5292/api/v1/Auth
 Content-Type: application/json
 
 {
-    "email": "femi@mail.com",
-    "password": "femi123"
+    "email": "jim@mail.com",
+    "password": "jim123"
 }
 
 ### get client token
@@ -141,4 +141,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 GET http://localhost:5292/api/v1/users?page=1&pageSize=6&sortOrder=Descending
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIzYjA0OWI4NS1hZDRlLTQ5OGUtODM4My0wM2M5MTcwMDIxOTkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.rVLSCb-iM1wVGAvzS3ngxv4goVVNt-OvU8UGewTqZIA
+
+### Get UserProfile Users
+GET http://localhost:5292/api/v1/users/profile
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqaW1AbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImNiOTcwOTk1LWMwOGYtNDViZC04NTQ4LTRiOWNhMjQyMTBhNSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkNsaWVudCJ9.IlV__0oUpcvPfF2fHgUciY1xbgfRN9smDu2pXE89LSE
 

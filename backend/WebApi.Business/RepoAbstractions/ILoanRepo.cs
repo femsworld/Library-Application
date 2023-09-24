@@ -9,5 +9,6 @@ namespace WebApi.Business.RepoAbstractions
         Task<IEnumerable<Loan>> GetAllLoansAsync();
         Task<Loan> GetLoanByIdAsync(Guid loanId);
         Task<IEnumerable<Loan>> GetLoansByUserIdAsync(Guid userId);
+        // Task<Loan> GetLoansByUserIdAsync(Guid userId);
     }
 }

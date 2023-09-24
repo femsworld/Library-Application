@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.Business.Dto;
 using WebApi.Business.Services.Abstractions;
 using WebApi.Business.Services.Shared;
+using WebApi.Domain.Entities;
 
 namespace WebApi.Controller.Controllers
 {
@@ -85,7 +86,8 @@ namespace WebApi.Controller.Controllers
 
         [Authorize]
         [HttpGet("profile")]
-        public async Task<ActionResult<UserDto>> GetProfile()
+        // public async Task<ActionResult<UserDto>> GetProfile()
+        public async Task<ActionResult<User>> GetProfile()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out var userId))

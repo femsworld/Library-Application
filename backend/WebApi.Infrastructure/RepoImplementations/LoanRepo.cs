@@ -42,6 +42,12 @@ namespace WebApi.Infrastructure.RepoImplementations
             //                    .Where(l => l.UserId == userId)
             //                    .ToListAsync();
         }
+
+        // public async Task<Loan?> GetLoansByUserIdAsync(Guid userId)
+        // {
+        //     return await _loans.Include(l => l.LoanBooks)
+        //                     .FirstOrDefaultAsync(l => l.UserId == userId);
+        // }
         
         // public async Task<IEnumerable<LoanBookReadDto>> GetLoanBooksByUserIdAsync(Guid userId)
         // {

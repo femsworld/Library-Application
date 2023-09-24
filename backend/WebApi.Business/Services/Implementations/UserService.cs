@@ -67,10 +67,12 @@ namespace WebApi.Business.Services.Implementations
             return users.Select(users => _mapper.Map<UserDto>(users));
         }
 
-        public async Task<UserDto> GetUserByIdAsync(Guid id)
+        // public async Task<UserDto> GetUserByIdAsync(Guid id)
+        public async Task<User> GetUserByIdAsync(Guid id)
         {
             var foundUser = await _userRepo.GetUserByIdAsync(id);
-            return _mapper.Map<UserDto>(foundUser);
+            // return _mapper.Map<UserDto>(foundUser);
+            return _mapper.Map<User>(foundUser);
         }
 
         public async Task<IEnumerable<UserDto>> SearchUsersByNamesAsync(string searchTerm)
