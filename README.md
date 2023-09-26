@@ -82,7 +82,7 @@ To return a loan, send a `PUT` request to `/api/v1/Loans/return/{loanId}` where 
 
 ## Frontend UI
 
-For the frontend UI, please visit [Library app](https://65070748a20b4e3f048ee58c--femsworld-library.netlify.app/).
+For the frontend UI, please visit [Library app](https://main--femsworld-library.netlify.app/).
 
 
 ## Contributing
