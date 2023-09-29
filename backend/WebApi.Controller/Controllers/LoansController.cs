@@ -45,7 +45,9 @@ namespace WebApi.Controller.Controllers
             try
             {
                 await _loanService.ReturnLoanAsync(loanId);
-                return Ok("Loan returned successfully");
+                // return Ok(loanId);
+                var response = new { LoanId = loanId };
+                return Ok(response);
             }
             catch (Exception)
             {
