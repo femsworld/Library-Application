@@ -10,12 +10,14 @@ namespace WebApi.Business.Services.Implementations
     {
         private readonly ILoanRepo _loanRepo;
         private readonly ILoanBookRepo _loanBookRepo;
+        private readonly IBookRepo _bookRepo;
         private readonly IMapper _mapper;
 
-        public LoanService(ILoanRepo loanRepo, ILoanBookRepo loanBookRepo, IMapper mapper)
+        public LoanService(ILoanRepo loanRepo, ILoanBookRepo loanBookRepo, IBookRepo bookRepo, IMapper mapper)
         {
             _loanRepo = loanRepo;
             _loanBookRepo = loanBookRepo;
+            _bookRepo = bookRepo;
             _mapper = mapper;
         }
 
@@ -31,17 +33,30 @@ namespace WebApi.Business.Services.Implementations
 
         public async Task<Loan> PlaceLoanAsync(Guid userId, LoanDto loanDto)
         {
-            var loan = new Loan { UserId = loanDto.UserId };
-            await _loanRepo.PlaceLoanAsync(loan);
+            var loan = new Loan { UserId = userId };
+            var loanBooks = new List<LoanBook>();
 
-            var loanBooks = _mapper.Map<IEnumerable<LoanBook>>(loanDto.LoanBooks);
-            foreach (var book in loanBooks)
+            foreach (var loanBookDto in loanDto.LoanBooks)
             {
-                book.LoanId = loan.Id;
-            }
-            var createdLoanBooks = await _loanBookRepo.CreateLoanBookAsync(loanBooks.ToArray());
-            loan.LoanBooks = createdLoanBooks.ToList();
+                var book = await _bookRepo.GetBookByIdAsync(loanBookDto.BookId);
+                
+                if (book != null)
+                {
+                    var loanBook = new LoanBook
+                    {
+                        BookId = loanBookDto.BookId,
+                        Amount = loanBookDto.Amount, 
+                        Book = book,
+                        BookTitle = book.Title
+                    };
 
+                    loanBooks.Add(loanBook);
+                }
+            }
+
+            loan.LoanBooks = loanBooks;
+
+            await _loanRepo.PlaceLoanAsync(loan);
             return loan;
         }
 

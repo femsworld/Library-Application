@@ -1,14 +1,14 @@
 ### Post Book
 POST http://localhost:5292/api/v1/Books
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJiMDQyNTU3Ny0yMzk3LTQwYWUtYmIzMi04MzJhYzM5OTBhZDAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.wUeDyhFj5maYPCtqp1db6LdLAm1QRl5P15-Fx1HuQb4
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI2YTY1YjJjNS1iYzM3LTRiNzktOTk0OS02NTAxYjI1MmZjOGIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.ajjg5BFjqtc0u1652p9N_wsualm8h19JVWgG8T9jzwg
 
 {
-  "title": "Stroke Studies",
-  "genre": "ResearchPaper",
-  "inventory": 2,
+  "title": "No Longer at Ease",
+  "genre": "Novel",
+  "inventory": 34,
   "images": [
-    ""
+    "https://www.penguinlibros.com/uy/1787254-home_default/me-alegraria-de-otra-muerte.jpg"
   ]
 }
 

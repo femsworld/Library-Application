@@ -14,11 +14,11 @@ POST http://localhost:5292/api/v1/Users
 Content-Type: application/json
 
 {
-  "name": "Blue",
-  "email": "blue@mail.com",
-  "age": 17,
+  "name": "Jim",
+  "email": "jim@mail.com",
+  "age": 37,
   "avatar": "string",
-  "password": "blue123"
+  "password": "jim123"
 }
 
 ### Get admin token
@@ -35,8 +35,8 @@ POST http://localhost:5292/api/v1/Auth
 Content-Type: application/json
 
 {
-    "email": "tom@mail.com",
-    "password": "tom123"
+    "email": "femi@mail.com",
+    "password": "femi123"
 }
 
 ### User token (UdateUser)

@@ -41,6 +41,15 @@ namespace WebApi.Infrastructure.Database
 
             modelBuilder.Entity<User>().
             HasIndex(u => u.Email).IsUnique();
+
+            modelBuilder.Entity<LoanBook>()
+            .HasKey(lb => new { lb.BookId, lb.LoanId });
+
+            modelBuilder.Entity<LoanBook>()
+            .HasOne(lb => lb.Loan)
+            .WithMany(l => l.LoanBooks)
+            .HasForeignKey(lb => lb.LoanId)
+            .IsRequired();
         }
     }
 }   

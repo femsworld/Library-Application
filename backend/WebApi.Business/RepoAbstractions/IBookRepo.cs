@@ -14,5 +14,6 @@ namespace WebApi.Business.RepoAbstractions
         Task<IEnumerable<BookDto>> SearchBooksByTitleAsync(string searchTerm);
         Task<IEnumerable<BookDto>> CategorizeBooksByGenreAsync(Genre genre);
         Task<IEnumerable<BookDto>> GetSortedBooksAsync(SortOrder sortOrder);
+        Task<IEnumerable<Book>> GetBooksByIdsAsync(IEnumerable<Guid> bookIds);
     }
 }

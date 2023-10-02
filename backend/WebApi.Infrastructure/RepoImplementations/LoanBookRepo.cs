@@ -18,11 +18,21 @@ namespace WebApi.Infrastructure.RepoImplementations
 
         public async Task<IEnumerable<LoanBook>> CreateLoanBookAsync(params LoanBook[] loanBooks)
         {
+            foreach (var loanBook in loanBooks)
+            {
+                loanBook.BookTitle = await GetBookTitleByIdAsync(loanBook.BookId);
+            }
+
             _loanBooks.AddRange(loanBooks);
             await _context.SaveChangesAsync();
             return loanBooks;
         }
 
+        private async Task<string?> GetBookTitleByIdAsync(Guid bookId)
+        {
+            var book = await _context.Books.FindAsync(bookId);
+            return book?.Title;
+        }
         public async Task DeleteLoanBooksAsync(IEnumerable<LoanBook> loanBooks)
         {
             _loanBooks.RemoveRange(loanBooks);

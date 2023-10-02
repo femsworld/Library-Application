@@ -93,5 +93,10 @@ namespace WebApi.Infrastructure.RepoImplementations
             var books = await query.ToListAsync();
             return books.Select(book => _mapper.Map<BookDto>(book)).ToList();
         }
+
+        public async Task<IEnumerable<Book>> GetBooksByIdsAsync(IEnumerable<Guid> bookIds)
+        {
+            return await _context.Books.Where(book => bookIds.Contains(book.Id)).ToListAsync();
+        }
     }
 }
