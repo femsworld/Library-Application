@@ -49,10 +49,11 @@ namespace WebApi.Business.Services.Implementations
             return _mapper.Map<UserAdminDto>(createdUser);
         }
 
-        public async Task<UserDto> DeleteUserAsync(Guid id)
+        // public async Task<UserDto> DeleteUserAsync(Guid id)
+        public async Task<UserDeleteDto> DeleteUserAsync(Guid id)
         {
             var deleteUser = await _userRepo.DeleteUserAsync(id);
-            return _mapper.Map<UserDto>(deleteUser);
+            return _mapper.Map<UserDeleteDto>(deleteUser);
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersAsync()

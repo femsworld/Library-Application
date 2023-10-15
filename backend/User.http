@@ -26,8 +26,8 @@ POST http://localhost:5292/api/v1/Auth
 Content-Type: application/json
 
 {
-    "email": "jim@mail.com",
-    "password": "jim123"
+    "email": "femi@mail.com",
+    "password": "femi123"
 }
 
 ### get client token
@@ -35,8 +35,8 @@ POST http://localhost:5292/api/v1/Auth
 Content-Type: application/json
 
 {
-    "email": "femi@mail.com",
-    "password": "femi123"
+    "email": "admin@mail.com",
+    "password": "admin123"
 }
 
 ### User token (UdateUser)
@@ -76,9 +76,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 
 
 ### admin Get all Users
-GET http://localhost:5292/api/v1/users
+GET http://localhost:5292/api/v1/users?page=0
 Content-Type: application/json
-Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJkNjA0NGZjZi04M2U0LTQ0Y2EtYmEyNS0zMGI3NDUyYmJmZTAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.Ii0V11o8y_noAIFe5oPs0sfKi2dheVMJ7YTDDrPm7y0
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI2YTY1YjJjNS1iYzM3LTRiNzktOTk0OS02NTAxYjI1MmZjOGIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.ajjg5BFjqtc0u1652p9N_wsualm8h19JVWgG8T9jzwg
 
 ### client Get all Users
 GET http://localhost:5292/api/v1/users
@@ -124,9 +124,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hc
 }
 
 ### admin token (Delete User by ID)
-DELETE http://localhost:5292/api/v1/Users/3d541a79-48e3-48e4-9991-868c60c79461
+DELETE http://localhost:5292/api/v1/Users/8626261f-e1e2-4a19-9152-3770e43241c0
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJkNjA0NGZjZi04M2U0LTQ0Y2EtYmEyNS0zMGI3NDUyYmJmZTAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.Ii0V11o8y_noAIFe5oPs0sfKi2dheVMJ7YTDDrPm7y0
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmZW1pQG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI2YTY1YjJjNS1iYzM3LTRiNzktOTk0OS02NTAxYjI1MmZjOGIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiJ9.ajjg5BFjqtc0u1652p9N_wsualm8h19JVWgG8T9jzwg
 
 ### Search Users
 # GET http://localhost:5292/api/v1/users?page=1&pageSize=6&name=femi

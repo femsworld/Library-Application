@@ -20,6 +20,7 @@ namespace WebApi.Business.Middlewares
             catch (Exception e)
             {
                 context.Response.StatusCode = 500;
+                Console.WriteLine(e);
                await context.Response.WriteAsync(e.ToString());
             }
         }
